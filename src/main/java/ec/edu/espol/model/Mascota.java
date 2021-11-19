@@ -17,10 +17,10 @@ public class Mascota {
     private String tipo;
     private LocalDate fechaNacimiento;
     private int idDueño;
-    private Dueno dueño;
+    private Dueño dueño;
     private ArrayList<Inscripcion> inscripciones;
     
-    public Mascota(String nombre, String raza, String tipo, int id, int idDueño, LocalDate fechaNacimiento, Dueno dueño, ArrayList<Inscripcion> inscripciones) {
+    public Mascota(String nombre, String raza, String tipo, int id, int idDueño, LocalDate fechaNacimiento, Dueño dueño, ArrayList<Inscripcion> inscripciones) {
         this.nombre = nombre;
         this.raza = raza;
         this.tipo = tipo;
@@ -81,11 +81,11 @@ public class Mascota {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public Dueno getDueño() {
+    public Dueño getDueño() {
         return dueño;
     }
 
-    public void setDueño(Dueno dueño) {
+    public void setDueño(Dueño dueño) {
         this.dueño = dueño;
     }
 
@@ -144,7 +144,7 @@ public class Mascota {
         String nombre,raza,tipo;
         int id,idDueño;
         LocalDate fecha;
-        Dueno dueño = null;
+        Dueño dueño = null;
         ArrayList<Inscripcion> inscripciones= new ArrayList<>();
         
        

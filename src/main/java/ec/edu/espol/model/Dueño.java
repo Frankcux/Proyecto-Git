@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class Dueno extends Persona{
+public class Dueño extends Persona{
     private String direccion;
     private ArrayList<Mascota> mascotas;
-    public Dueno(int id, String nombre,String apellidos,String telefono,String email,String direccion){
+    public Dueño(int id, String nombre,String apellidos,String telefono,String email,String direccion){
         super(id,nombre,apellidos,telefono,email);
         this.direccion=direccion;
         this.mascotas=new ArrayList<>();
@@ -78,7 +78,7 @@ public class Dueno extends Persona{
     }
     
     //
-    public static Dueno nextDueño(Scanner sc){
+    public static Dueño nextDueño(Scanner sc){
         
         int id;
         String nombre,apellidos,telefono,email,direccion;
@@ -96,7 +96,7 @@ public class Dueno extends Persona{
         System.out.println("Ingrese la direccion del Dueño: ");
         direccion = sc.next();
        
-        return new Dueno(id,nombre,apellidos,telefono,email,direccion);
+        return new Dueño(id,nombre,apellidos,telefono,email,direccion);
         
     }
     
