@@ -1,9 +1,13 @@
 
 package ec.edu.espol.model;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Scanner;
 
 
 public class Mascota {
@@ -13,10 +17,10 @@ public class Mascota {
     private String tipo;
     private LocalDate fechaNacimiento;
     private int idDueño;
-    private Dueño dueño;
+    private Dueno dueño;
     private ArrayList<Inscripcion> inscripciones;
     
-    public Mascota(String nombre, String raza, String tipo, int id, int idDueño, LocalDate fechaNacimiento, Dueño dueño, ArrayList<Inscripcion> inscripciones) {
+    public Mascota(String nombre, String raza, String tipo, int id, int idDueño, LocalDate fechaNacimiento, Dueno dueño, ArrayList<Inscripcion> inscripciones) {
         this.nombre = nombre;
         this.raza = raza;
         this.tipo = tipo;
@@ -77,11 +81,11 @@ public class Mascota {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public Dueño getDueño() {
+    public Dueno getDueño() {
         return dueño;
     }
 
-    public void setDueño(Dueño dueño) {
+    public void setDueño(Dueno dueño) {
         this.dueño = dueño;
     }
 
@@ -140,11 +144,10 @@ public class Mascota {
         String nombre,raza,tipo;
         int id,idDueño;
         LocalDate fecha;
-        Dueño dueño = null;
+        Dueno dueño = null;
         ArrayList<Inscripcion> inscripciones= new ArrayList<>();
         
        
-        sc.useLocale(Locale.US);
         System.out.println("Ingrese el id de la mascota: ");
         id = sc.nextInt();
         System.out.println("Ingrese el nombre de la mascota: ");
