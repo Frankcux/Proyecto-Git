@@ -1,26 +1,28 @@
 
-package ec.edu.espol.model;
 
+import ec.edu.espol.model.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Locale;
+import java.util.Objects;
 import java.util.Scanner;
 
-
+/**
+ *
+ * @author 59399
+ */
 public class Mascota {
-    private int id;
-    private String nombre;
-    private String raza;
-    private String tipo;
+    private String nombre,raza,tipo;
+    private int id,idDueño;
     private LocalDate fechaNacimiento;
-    private int idDueño;
     private Dueño dueño;
     private ArrayList<Inscripcion> inscripciones;
-    
-    public Mascota(String nombre, String raza, String tipo, int id, int idDueño, LocalDate fechaNacimiento, Dueño dueño, ArrayList<Inscripcion> inscripciones) {
+   
+
+    public Mascota( int id,String nombre, String raza, String tipo, int idDueño, LocalDate fechaNacimiento, Dueño dueño, ArrayList<Inscripcion> inscripciones) {
         this.nombre = nombre;
         this.raza = raza;
         this.tipo = tipo;
@@ -96,10 +98,40 @@ public class Mascota {
     public void setInscripciones(ArrayList<Inscripcion> inscripciones) {
         this.inscripciones = inscripciones;
     }
+    /*
     //toString
     @Override
     public String toString() {
-        return "Mascota{" + "nombre=" + nombre + ", raza=" + raza + ", tipo=" + tipo + ", id=" + id + ", idDue\u00f1o=" + idDueño + ", fechaNacimiento=" + fechaNacimiento + ", due\u00f1o=" + dueño + ", inscripciones=" + inscripciones + '}';
+        return "Mascota{"+ " id=" + id + "nombre=" + nombre + ", raza="
+                + raza + ", tipo=" + tipo  + ", idDue\u00f1o=" + idDueño + 
+                ", fechaNacimiento=" + fechaNacimiento + ", due\u00f1o=" 
+                + dueño + ", inscripciones=" + inscripciones + '}';
+    }*/
+    
+    @Override
+    public String toString() {
+        StringBuilder sb= new StringBuilder();
+        sb.append("Mascota{ id= ");
+        sb.append(this.id);
+        sb.append(", nombre= ");
+        sb.append(this.nombre);
+        sb.append(", raza= ");
+        sb.append(this.raza);
+        sb.append(", tipo= ");
+        sb.append(this.tipo);
+        sb.append(", idDueño= ");
+        sb.append(this.idDueño);
+        sb.append(", fechaNacimiento= ");
+        sb.append(this.fechaNacimiento);
+        sb.append(", Inscripciones= ");
+        for (Inscripcion i: inscripciones){
+            sb.append(i.toString());
+            if(this.inscripciones.size()!=this.inscripciones.size()-1)
+                sb.append(";");
+                
+            }
+        sb.append("]");
+        return sb.toString();
     }
     //equals
     @Override
@@ -148,6 +180,7 @@ public class Mascota {
         ArrayList<Inscripcion> inscripciones= new ArrayList<>();
         
        
+        sc.useLocale(Locale.US);
         System.out.println("Ingrese el id de la mascota: ");
         id = sc.nextInt();
         System.out.println("Ingrese el nombre de la mascota: ");
@@ -175,8 +208,50 @@ public class Mascota {
         }
         
         
-        return new Mascota(nombre,raza, tipo, id, dueño.getId(), fecha,dueño,inscripciones);
+        return new Mascota( id,nombre,raza, tipo, dueño.getId(), fecha,dueño,inscripciones);
         
     }
+
+        //saveFile
+    //recibe lista de pacientes
+    public static void  saveFile( ArrayList<Mascota> mascotas , String nombre){
+        //en modo append
+        try(PrintWriter pw= new PrintWriter(new FileOutputStream(new File(nombre)))){
+            for (   Mascota v:  mascotas ){
+                pw.println(v.getId() + "|"+ v.getNombre()+ "|" + v.getRaza() + "|"+ v.getIdDueño()+ "|"
+                    + v.getTipo()+ "|"+ v.getFechaNacimiento());
+            }
+            
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public Mascota(int id,String nombre, String raza, int idDueño, String tipo,  LocalDate fechaNacimiento) {
+        this.nombre = nombre;
+        this.raza = raza;
+        this.tipo = tipo;
+        this.id = id;
+        this.idDueño = idDueño;
+        this.fechaNacimiento = fechaNacimiento;
+    }
+    
+    //el comportamiento estático readFile
+    public static ArrayList<Mascota> readFile(String nombre){
+        ArrayList<Mascota> mascotas= new ArrayList<>();
+        try (Scanner sc =new Scanner(new File (nombre))){
+            while(sc.hasNextLine()){
+                String linea= sc.nextLine();
+                String[] datos = linea.split(";"); 
+                Mascota v= new Mascota(Integer.parseInt(datos[0]),datos[1],datos[2],Integer.parseInt(datos[3]),datos[5],LocalDate.parse(datos[4]));
+                mascotas.add(v);
+            } 
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return mascotas;
+    }
+     
+
     
 }
