@@ -6,6 +6,7 @@
 package ec.edu.espol.model;
 
 import java.util.Objects;
+import java.util.Scanner;
 
 /**
  *
@@ -96,6 +97,24 @@ public class Persona {
         }
         return true;
     }
-    
+         public static  Persona nextPersona(Scanner sc){
+        
+        int id;
+        String nombre,apellidos,telefono,email;
+        sc.useDelimiter("\n");
+        System.out.println("Ingrese el id: ");
+        id = sc.nextInt();
+        System.out.println("Ingrese el nombre : ");
+        nombre = sc.next();
+        System.out.println("Ingrese el apellido : ");
+        apellidos = sc.next();
+        System.out.println("Ingrese el telefono: ");
+        telefono = sc.next();
+        System.out.println("Ingrese el email: ");
+        email = sc.next();
+       
+        return new Persona(id,nombre,apellidos,telefono,email);
+        
+    }
     
 }
