@@ -2,7 +2,6 @@ package ec.edu.espol.model;
 
 
 
-import ec.edu.espol.model.Dueño;
 import ec.edu.espol.model.*;
 import ec.edu.espol.model.Persona;
 import java.io.File;
@@ -96,7 +95,7 @@ public class MiembroJurado extends Persona {
         }
         return true;
     }
-    public static Dueño nextMiembroJurado(Scanner sc){
+    public static MiembroJurado nextMiembroJurado(Scanner sc){
         
         String perfil;
         sc.useDelimiter("\n");
@@ -105,15 +104,19 @@ public class MiembroJurado extends Persona {
         System.out.println("Ingrese el perfil de Miembro del Jurado: ");
         perfil= sc.next();
        
-        return new Dueño(p.getId(),p.getNombres(),p.getApellidos(),p.getTelefono(),p.getEmail(),perfil);
+        return new MiembroJurado(p.getId(),perfil,p.getNombres(),p.getApellidos(),p.getTelefono(),p.getEmail());
         
     }
+    /*
+    ( int id,String perfil, String nombres, 
+            String apellidos, String telefono, String email) 
+*/
     
     public void saveFile(String file){
         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(file),true)))
         {
-            pw.println(this.getId() + "|"+ this.getNombres()+ "|" + this.getApellidos() + "|"+ this.getTelefono()+ "|"
-                    + this.getEmail()+ "|"+ this.getPerfil());
+            pw.println(this.getId()+ "|"+ this.getPerfil() + "|"+ this.getNombres()+ "|" + this.getApellidos() + "|"+ this.getTelefono()+ "|"
+                    + this.getEmail());
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }
@@ -125,8 +128,8 @@ public class MiembroJurado extends Persona {
         //en modo append
         try(PrintWriter pw= new PrintWriter(new FileOutputStream(new File(nombre)))){
             for (   MiembroJurado v:  miembroJurado ){
-                pw.println(v.getId() + "|"+ v.getNombres()+ "|" + v.getApellidos() + "|"+ v.getTelefono()+ "|"
-                    + v.getEmail()+ "|"+ v.getPerfil());
+                pw.println(v.getId()+"|"+ v.getPerfil() + "|"+ v.getNombres()+ "|" + v.getApellidos() + "|"+ v.getTelefono()+ "|"
+                    + v.getEmail() );
             }
             
         }catch(Exception e){
