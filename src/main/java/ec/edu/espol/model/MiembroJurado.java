@@ -1,5 +1,8 @@
+package ec.edu.espol.model;
 
 
+
+import ec.edu.espol.model.Dueño;
 import ec.edu.espol.model.*;
 import ec.edu.espol.model.Persona;
 import java.io.File;

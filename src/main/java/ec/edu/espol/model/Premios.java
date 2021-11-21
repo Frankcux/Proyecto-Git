@@ -74,6 +74,7 @@ public class Premios {
         }return false;
     }
     
+    
     public void  saveFile(String nomfile){
         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomfile),true)))
         {
@@ -83,6 +84,8 @@ public class Premios {
             
         }
     }
+    
+    
     public static void saveFile(ArrayList<Premios> premios, String nomfile){
         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomfile))))
         {
@@ -90,7 +93,6 @@ public class Premios {
                pw.println(p.id + "|"+ p.lugar+ "|" + p.descripcion + "|"+ p.idConcurso); 
         } catch(Exception e) {
             System.out.println(e.getMessage());
-            
         }
     }
     

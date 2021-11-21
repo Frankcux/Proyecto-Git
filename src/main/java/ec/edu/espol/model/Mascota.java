@@ -1,5 +1,8 @@
+package ec.edu.espol.model;
 
 
+
+import ec.edu.espol.model.Dueño;
 import ec.edu.espol.model.*;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -204,7 +207,7 @@ public class Mascota {
             fecha_inscripcion= sc.next();
             System.out.println("Ingrese el valor de inscripcion");
             valor= sc.nextDouble();
-            inscripciones.add(new Inscripcion(idinst,fecha_inscripcion, valor));
+//            inscripciones.add(new Inscripcion(idinst,fecha_inscripcion, valor, ));*********************************************
         }
         
         
