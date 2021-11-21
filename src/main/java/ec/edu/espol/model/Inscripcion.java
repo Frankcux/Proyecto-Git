@@ -26,6 +26,24 @@ public class Inscripcion {
     public double getValor() {
         return this.valor;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setFecha_inscripcion(String fecha_inscripcion) {
+        this.fecha_inscripcion = fecha_inscripcion;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
+
+    @Override
+    public String toString() {
+        return "Inscripcion{" + "id=" + id + ", fecha_inscripcion=" + fecha_inscripcion + ", valor=" + valor + '}';
+    }
+    
     
     
 

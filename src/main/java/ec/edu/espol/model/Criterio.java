@@ -4,11 +4,11 @@ package ec.edu.espol.model;
 
 public class Criterio {
     private int id;
-    private String descripcion;
     private String nombre;
-    private double punt_max;
+    private String descripcion;
+    private int punt_max;
 
-    public Criterio(int id, String descripcion, String nombre, double punt_max) {
+    public Criterio(int id, String descripcion, String nombre, int punt_max) {
         this.id = id;
         this.descripcion = descripcion;
         this.nombre = nombre;
@@ -43,7 +43,7 @@ public class Criterio {
         this.nombre = nombre;
     }
 
-    public void setPunt_max(double punt_max) {
+    public void setPunt_max(int punt_max) {
         this.punt_max = punt_max;
     }
 
@@ -64,6 +64,13 @@ public class Criterio {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Criterio{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", punt_max=" + punt_max + '}';
+    }
+
+
     
     
     
