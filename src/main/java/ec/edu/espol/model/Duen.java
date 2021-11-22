@@ -1,3 +1,14 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ec.edu.espol.model;
+
+/**
+ *
+ * @author 59399
+ */
 import ec.edu.espol.model.*;
 import ec.edu.espol.model.Persona;
 import java.io.File;
@@ -6,14 +17,10 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- *
- * @author 59399
- */
-public class Dueno extends Persona{
+public class Duen extends Persona{
     private String direccion;
     private ArrayList<Mascota> mascotas;
-    public Dueno(int id, String nombre,String apellidos,String telefono,String email,String direccion){
+    public Duen(int id, String nombre,String apellidos,String telefono,String email,String direccion){
         super(id,nombre,apellidos,telefono,email);
         this.direccion=direccion;
         this.mascotas=new ArrayList<>();
@@ -38,7 +45,7 @@ public class Dueno extends Persona{
 /*
     @Override
     public String toString() {
-        return "Dueno{" +"id="+ this.getId()+", nombres="+this.getNombres()+", apellidos="+this.getApellidos()+
+        return "Duen{" +"id="+ this.getId()+", nombres="+this.getNombres()+", apellidos="+this.getApellidos()+
                 ", telefono"+this.getTelefono()+ ", direccion=" + this.getDireccion() + ", email="+this.getEmail()+" mascotas=" + this.mascotas + '}';
     }*/
     
@@ -69,7 +76,7 @@ public class Dueno extends Persona{
     }
     
     //
-    public static Dueno nextDueño(Scanner sc){
+    public static Duen nextDueño(Scanner sc){
         
         String direccion;
         sc.useDelimiter("\n");
@@ -78,7 +85,7 @@ public class Dueno extends Persona{
         System.out.println("Ingrese la dirreccion del Dueño: ");
         direccion = sc.next();
        
-        return new Dueno(p.getId(),p.getNombres(),p.getApellidos(),p.getTelefono(),p.getEmail(),direccion);
+        return new Duen(p.getId(),p.getNombres(),p.getApellidos(),p.getTelefono(),p.getEmail(),direccion);
         
     }
     public void saveFile(String file){
@@ -93,10 +100,10 @@ public class Dueno extends Persona{
     
     //saveFile
     //recibe lista de pacientes
-    public static void  saveFile( ArrayList<Dueno> dueño , String nombre){
+    public static void  saveFile( ArrayList<Duen> dueño , String nombre){
         //en modo append
         try(PrintWriter pw= new PrintWriter(new FileOutputStream(new File(nombre)))){
-            for (Dueno v:  dueño ){
+            for (Duen v:  dueño ){
                 pw.println(v.getId() + "|"+ v.getNombres()+ "|" + v.getApellidos() + "|"+ v.getTelefono()+ "|"
                     + v.getEmail()+ "|"+ v.getDireccion());
             }
@@ -106,13 +113,13 @@ public class Dueno extends Persona{
         }
     }
     //el comportamiento estático readFile
-    public static ArrayList<Dueno> readFile(String nombre){
-        ArrayList<Dueno> dueño= new ArrayList<>();
+    public static ArrayList<Duen> readFile(String nombre){
+        ArrayList<Duen> dueño= new ArrayList<>();
         try (Scanner sc =new Scanner(new File (nombre))){
             while(sc.hasNextLine()){
                 String linea= sc.nextLine();
                 String[] datos = linea.split(";"); 
-                Dueno v= new Dueno(Integer.parseInt(datos[0]),datos[1],datos[2],datos[3],datos[4],datos[5]);
+                Duen v= new Duen(Integer.parseInt(datos[0]),datos[1],datos[2],datos[3],datos[4],datos[5]);
                 dueño.add(v);
             } 
         }catch (Exception e){
