@@ -2,8 +2,8 @@ package ec.edu.espol.model;
 
 
 
-import ec.edu.espol.model.Dueño;
-//import ec.edu.espol.model.*;
+
+import ec.edu.espol.model.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
@@ -21,11 +21,11 @@ public class Mascota {
     private String nombre,raza,tipo;
     private int id,idDueño;
     private LocalDate fechaNacimiento;
-    private Dueño dueño;
+    private Dueno dueño;
     private ArrayList<Inscripcion> inscripciones;
    
 
-    public Mascota( int id,String nombre, String raza, String tipo, int idDueño, LocalDate fechaNacimiento, Dueño dueño, ArrayList<Inscripcion> inscripciones) {
+    public Mascota( int id,String nombre, String raza, String tipo, int idDueño, LocalDate fechaNacimiento, Dueno dueño, ArrayList<Inscripcion> inscripciones) {
         this.nombre = nombre;
         this.raza = raza;
         this.tipo = tipo;
@@ -86,11 +86,11 @@ public class Mascota {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public Dueño getDueño() {
+    public Dueno getDueño() {
         return dueño;
     }
 
-    public void setDueño(Dueño dueño) {
+    public void setDueño(Dueno dueño) {
         this.dueño = dueño;
     }
 
@@ -179,7 +179,7 @@ public class Mascota {
         String nombre,raza,tipo;
         int id,idDueño;
         LocalDate fecha;
-        Dueño dueño = null;
+        Dueno dueño = null;
         ArrayList<Inscripcion> inscripciones= new ArrayList<>();
         
        

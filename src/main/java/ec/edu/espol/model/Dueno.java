@@ -10,10 +10,10 @@ import java.util.Scanner;
  *
  * @author 59399
  */
-public class Dueño extends Persona{
+public class Dueno extends Persona{
     private String direccion;
     private ArrayList<Mascota> mascotas;
-    public Dueño(int id, String nombre,String apellidos,String telefono,String email,String direccion){
+    public Dueno(int id, String nombre,String apellidos,String telefono,String email,String direccion){
         super(id,nombre,apellidos,telefono,email);
         this.direccion=direccion;
         this.mascotas=new ArrayList<>();
@@ -38,7 +38,7 @@ public class Dueño extends Persona{
 /*
     @Override
     public String toString() {
-        return "Dueño{" +"id="+ this.getId()+", nombres="+this.getNombres()+", apellidos="+this.getApellidos()+
+        return "Dueno{" +"id="+ this.getId()+", nombres="+this.getNombres()+", apellidos="+this.getApellidos()+
                 ", telefono"+this.getTelefono()+ ", direccion=" + this.getDireccion() + ", email="+this.getEmail()+" mascotas=" + this.mascotas + '}';
     }*/
     
@@ -69,7 +69,7 @@ public class Dueño extends Persona{
     }
     
     //
-    public static Dueño nextDueño(Scanner sc){
+    public static Dueno nextDueño(Scanner sc){
         
         String direccion;
         sc.useDelimiter("\n");
@@ -78,7 +78,7 @@ public class Dueño extends Persona{
         System.out.println("Ingrese la dirreccion del Dueño: ");
         direccion = sc.next();
        
-        return new Dueño(p.getId(),p.getNombres(),p.getApellidos(),p.getTelefono(),p.getEmail(),direccion);
+        return new Dueno(p.getId(),p.getNombres(),p.getApellidos(),p.getTelefono(),p.getEmail(),direccion);
         
     }
     public void saveFile(String file){
@@ -93,10 +93,10 @@ public class Dueño extends Persona{
     
     //saveFile
     //recibe lista de pacientes
-    public static void  saveFile( ArrayList<Dueño> dueño , String nombre){
+    public static void  saveFile( ArrayList<Dueno> dueño , String nombre){
         //en modo append
         try(PrintWriter pw= new PrintWriter(new FileOutputStream(new File(nombre)))){
-            for (Dueño v:  dueño ){
+            for (Dueno v:  dueño ){
                 pw.println(v.getId() + "|"+ v.getNombres()+ "|" + v.getApellidos() + "|"+ v.getTelefono()+ "|"
                     + v.getEmail()+ "|"+ v.getDireccion());
             }
@@ -106,13 +106,13 @@ public class Dueño extends Persona{
         }
     }
     //el comportamiento estático readFile
-    public static ArrayList<Dueño> readFile(String nombre){
-        ArrayList<Dueño> dueño= new ArrayList<>();
+    public static ArrayList<Dueno> readFile(String nombre){
+        ArrayList<Dueno> dueño= new ArrayList<>();
         try (Scanner sc =new Scanner(new File (nombre))){
             while(sc.hasNextLine()){
                 String linea= sc.nextLine();
                 String[] datos = linea.split(";"); 
-                Dueño v= new Dueño(Integer.parseInt(datos[0]),datos[1],datos[2],datos[3],datos[4],datos[5]);
+                Dueno v= new Dueno(Integer.parseInt(datos[0]),datos[1],datos[2],datos[3],datos[4],datos[5]);
                 dueño.add(v);
             } 
         }catch (Exception e){
