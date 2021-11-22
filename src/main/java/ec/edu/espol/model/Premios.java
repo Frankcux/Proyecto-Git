@@ -15,11 +15,17 @@ public class Premios {
     private int idConcurso;
     private Concurso concurso;
     
+    
     public Premios(int id, int lugar, String des, int idConc){
         this.id = id;
         this.lugar= lugar;
         this.descripcion = des;
         this.idConcurso = idConc;
+    }
+        public Premios(int id, int lugar, String des){
+        this.id = id;
+        this.lugar= lugar;
+        this.descripcion = des;
     }
  
     // Getters
@@ -117,7 +123,7 @@ public class Premios {
         return premios;
     
     }
-    public static Premios nextVector(Scanner sc){
+    public static Premios nextPremios(Scanner sc){
         
         int id, lugar,idConcurso ;
         String descrip;
@@ -129,12 +135,10 @@ public class Premios {
         lugar = sc.nextInt();
         System.out.println("Ingrese la descripción del premio: ");
         descrip = sc.next();
-        System.out.println("Ingrese el id del Concurso al que pertenece ese premio");
-        idConcurso = sc.nextInt();
         
-        Premios premio = new Premios(id,lugar,descrip,idConcurso);
+        Premios premio = new Premios(id,lugar,descrip);
         return premio;
-        
+                                          
     }
     
     

@@ -158,7 +158,7 @@ public class Concurso {
         return concursos;
     
     }
-    public static Concurso nextVector(Scanner sc){
+    public static Concurso nextConcurso(Scanner sc){
         
         int id;
         String tematica, nombre;
@@ -185,6 +185,7 @@ public class Concurso {
         return concurso;
         
     }
+    
     
     
     
