@@ -73,7 +73,7 @@ public class Menu {
                     }
                 } 
             }
-            saveFile(lista_premios2, "premios.txt");  
+            Premios.saveFile(lista_premios, "premios.txt");  
             
             
         }else if ( opcion == 5){
