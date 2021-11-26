@@ -5,6 +5,7 @@ import ec.edu.espol.model.Concurso;
 import static ec.edu.espol.model.Concurso.nextConcurso;
 import static ec.edu.espol.model.Concurso.readFromFile;
 import static ec.edu.espol.model.Concurso.saveFile;
+import ec.edu.espol.model.Criterio;
 import ec.edu.espol.model.Duen;
 import static ec.edu.espol.model.Premios.saveFile;
 
@@ -14,6 +15,10 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class Menu {
+
+    private static Criterio Criterio(int id, String nombre, String descripcion, int punt_max, int id0) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     private Scanner sc= new Scanner(System.in);
     public ArrayList<Duen> dueños= null;
     public static void menuOpciones(){
@@ -25,10 +30,10 @@ public class Menu {
             System.out.println(" 2.	Mascota");
             System.out.println(" 3.	Concurso");
             System.out.println(" 4.	Premio");
-            System.out.println(" 5.	Criterio");
-            System.out.println(" 6.	Inscripción");
+            System.out.println(" 5.	Criterio");  //Criterio
+            System.out.println(" 6.	Inscripción");  //Adair
             System.out.println(" 7.	MiembroJurado");
-            System.out.println(" 8.	Evaluacion"); 
+            System.out.println(" 8.	Evaluacion");  //Adair
             System.out.println(" 9.	Salir");
             
         
@@ -52,8 +57,9 @@ public class Menu {
             }else if ( Integer.parseInt(opcion) == 3){ //Implementacion de la opción 3
            
                 Concurso concurso = nextConcurso(sc);
-               concurso.saveFile("concursos.txt");
-            
+                concurso.saveFile("concursos.txt");
+ 
+                
             }else if ( Integer.parseInt(opcion) ==4){ //Implementación de la opción 4
             
                System.out.println("Ingrese la cantidad de premios: ");
@@ -85,9 +91,34 @@ public class Menu {
             
             
             }else if ( Integer.parseInt(opcion) == 5){
-            
-            
-         
+                System.out.println("Ingrese la cantidad de criterios: ");
+                int cantidad, contador = 0;
+                cantidad = sc.nextInt();
+                ArrayList<Criterio> lista_criterios = new ArrayList<>();
+                ArrayList<Criterio> lista_criterios2 = new ArrayList<>();
+                
+                while(contador < cantidad){
+                    Criterio criterio = Criterio.nextCriterio(sc);
+                    lista_criterios.add(criterio);
+                    contador = contador + 1;
+                }
+                
+                System.out.println("Ingrese el nombre del concurso al que pertenecen los criterios: ");
+                String nombre_concurso = sc.next();
+                int id;
+                ArrayList<Concurso> concursos = Concurso.readFromFile("concurso.txt");
+                for (Concurso con : concursos){
+                    if (nombre_concurso.equals(con.getNombre())){
+                        id = con.getId();
+                        for (Criterio crit : lista_criterios){
+                            Criterio datos_criterio = Criterio(crit.getId(), crit.getNombre(), crit.getDescripcion(), crit.getPunt_max(), id);
+                            lista_criterios2.add(datos_criterio);
+                        }  
+                    }  
+                }
+                Criterio.saveFile(lista_criterios2, "criterios.txt");
+                
+                
             }else if ( Integer.parseInt(opcion) ==6){
             
             

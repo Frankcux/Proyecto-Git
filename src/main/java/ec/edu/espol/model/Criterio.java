@@ -20,7 +20,7 @@ public class Criterio {
     
 
     
-    public Criterio(int id, String nombre,String descripcion, int punt_max, int idConcurso) {
+    public Criterio(int id, String nombre, String descripcion, int punt_max, int idConcurso) {
         this.id = id;
         this.descripcion = descripcion;
         this.nombre = nombre;
@@ -28,7 +28,14 @@ public class Criterio {
         this.idConcurso = idConcurso;
     }
 
+    public Criterio(int id, String nombre, String descripcion, int punt_max) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.punt_max = punt_max;
+    }
     
+
     public int getId() {
         return this.id;
     }
@@ -41,7 +48,7 @@ public class Criterio {
         return this.nombre;
     }
 
-    public double getPunt_max() {
+    public int getPunt_max() {
         return this.punt_max;
     }
 
@@ -141,11 +148,8 @@ public class Criterio {
         System.out.println("Ingrese la descripción del criterio: ");
         descripcion = sc.next();
         System.out.println("Ingrese el puntaje maximo a obtener en ese criterio: ");
-        punt_max = sc.nextInt();
-        System.out.println("Ingrese el id del concurso al que pertence: ");
-        idConcurso = sc.nextInt();
-        
-        Criterio crit = new Criterio(id, nombre, descripcion, punt_max, idConcurso);
+        punt_max = sc.nextInt(); 
+        Criterio crit = new Criterio(id, nombre, descripcion, punt_max);
         return crit;
     }
     
