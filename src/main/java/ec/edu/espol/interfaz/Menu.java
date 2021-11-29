@@ -14,7 +14,22 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 
+
+
+
 public class Menu {
+    
+    public static int next_idconcurso(Scanner sc){
+    System.out.println("Ingrese el nombre del concurso al que pertenecen los premios: ");
+    String concurso = sc.next();
+    ArrayList<Concurso> concursos = readFromFile("concursos.txt");
+    for (Concurso i: concursos){
+        if (concurso.equals(i.getNombre())){
+            return i.getId();
+            }  
+        }
+    return 0;
+    }                
 
     private static Criterio Criterio(int id, String nombre, String descripcion, int punt_max, int id0) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -102,24 +117,16 @@ public class Menu {
                     lista_criterios.add(criterio);
                     contador = contador + 1;
                 }
-                
-                System.out.println("Ingrese el nombre del concurso al que pertenecen los criterios: ");
-                String nombre_concurso = sc.next();
                 int id;
-                ArrayList<Concurso> concursos = Concurso.readFromFile("concurso.txt");
-                for (Concurso con : concursos){
-                    if (nombre_concurso.equals(con.getNombre())){
-                        id = con.getId();
-                        for (Criterio crit : lista_criterios){
-                            Criterio datos_criterio = Criterio(crit.getId(), crit.getNombre(), crit.getDescripcion(), crit.getPunt_max(), id);
-                            lista_criterios2.add(datos_criterio);
+                id = next_idconcurso(sc);               
+                for (Criterio crit : lista_criterios){
+                    Criterio datos_criterio = Criterio(crit.getId(), crit.getNombre(), crit.getDescripcion(), crit.getPunt_max(), id);
+                        lista_criterios2.add(datos_criterio);                  
                         }  
-                    }  
-                }
                 Criterio.saveFile(lista_criterios2, "criterios.txt");
+
                 
-                
-            }else if ( Integer.parseInt(opcion) ==6){
+            }else if ( Integer.parseInt(opcion) == 6){
             
             
             
