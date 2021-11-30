@@ -7,6 +7,7 @@ import static ec.edu.espol.model.Concurso.readFromFile;
 import static ec.edu.espol.model.Concurso.saveFile;
 import ec.edu.espol.model.Criterio;
 import ec.edu.espol.model.Duen;
+import ec.edu.espol.model.Inscripcion;
 import ec.edu.espol.model.Mascota;
 import static ec.edu.espol.model.Premios.saveFile;
 
@@ -21,7 +22,7 @@ import java.util.Scanner;
 public class Menu {
     
     public static int next_idconcurso(Scanner sc){
-    System.out.println("Ingrese el nombre del concurso al que pertenecen los premios: ");
+    System.out.println("Ingrese el nombre del concurso: ");
     String concurso = sc.next();
     ArrayList<Concurso> concursos = readFromFile("concursos.txt");
     for (Concurso i: concursos){
@@ -30,7 +31,20 @@ public class Menu {
             }  
         }
     return 0;
-    }                
+    }
+    
+    public static int next_idmascota(Scanner sc){
+    System.out.println("Ingrese el nombre de su mascota: ");
+    String nombre_mascota = sc.next();
+    ArrayList<Mascota> mascotas = Mascota.readFile("concursos.txt");
+    for (Mascota m: mascotas){
+        if (nombre_mascota.equals(m.getNombre())){
+            return m.getId();
+            }  
+        }
+    return 0;
+    }
+    
 
     private static Criterio Criterio(int id, String nombre, String descripcion, int punt_max, int id0) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -46,8 +60,8 @@ public class Menu {
             System.out.println(" 2.	Mascota");
             System.out.println(" 3.	Concurso");
             System.out.println(" 4.	Premio");
-            System.out.println(" 5.	Criterio");  //Criterio
-            System.out.println(" 6.	Inscripción");  //Adair
+            System.out.println(" 5.	Criterio");  //Criterio YALA
+            System.out.println(" 6.	Inscripción");  //Adair YALA
             System.out.println(" 7.	MiembroJurado");
             System.out.println(" 8.	Evaluacion");  //Adair
             System.out.println(" 9.	Salir");
@@ -128,13 +142,14 @@ public class Menu {
 
                 
             }else if ( Integer.parseInt(opcion) == 6){
-                System.out.println("Ingrese el nombre de su mascota: ");
-                String nombre_mascota = sc.next();
-                ArrayList<Mascota> mascotas = Mascota.readFile("mascotas");
-                System.out.println("Ingrese el nombre del concurso");
-                String nombre_concurso = sc.next();
-            
-            
+                int id_mascota, id_concurso;
+                id_mascota = next_idmascota(sc);
+                id_concurso = next_idconcurso(sc);
+                Inscripcion ins = Inscripcion.nextInscripcion(sc);
+                Inscripcion inscripcion_completa = new Inscripcion(ins.getId(),ins.getFecha_inscripcion(), ins.getValor(), ins.getIdMascota(), ins.getIdConcurso());
+                inscripcion_completa.saveFile("inscripciones.txt");
+                System.out.println("Su incripcion ha sido guardada");
+                
             
             }else if ( Integer.parseInt(opcion) == 7){
             

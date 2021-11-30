@@ -108,8 +108,8 @@ public class Inscripcion {
     }
     
     
-    public static void saveFile(ArrayList<Inscripcion> listainscripciones, String evaluacionefield){
-        try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(evaluacionefield)))){
+    public static void saveFile(ArrayList<Inscripcion> listainscripciones, String inscripcionesfield){
+        try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(inscripcionesfield)))){
             for (Inscripcion ins : listainscripciones)
                 pw.println(ins.id + "|"+ ins.fecha_inscripcion+ "|" + ins.valor + "|"+ ins.idMascota + "|"+ ins.idConcurso);
         }
@@ -119,9 +119,9 @@ public class Inscripcion {
     }
     
     
-    public static ArrayList<Inscripcion> readFromFile(String evaluacionefield){
+    public static ArrayList<Inscripcion> readFromFile(String inscripcionesfield){
         ArrayList<Inscripcion> inscripciones = new ArrayList<>();
-        try (Scanner sc = new Scanner(new File(evaluacionefield)))
+        try (Scanner sc = new Scanner(new File(inscripcionesfield)))
         {
             while(sc.hasNextLine())
             {
