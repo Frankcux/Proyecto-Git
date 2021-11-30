@@ -5,6 +5,7 @@ package ec.edu.espol.model;
 
 import ec.edu.espol.model.*;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.time.LocalDate;
@@ -18,7 +19,7 @@ import java.util.Scanner;
  * @author 59399
  */
 public class Mascota {
-    private String nombre,raza,tipo;
+    private String nombre,raza,tipo,emailDueño;
     private int id,idDueño;
     private LocalDate fechaNacimiento;
     private Duen dueño;
@@ -35,7 +36,16 @@ public class Mascota {
         this.dueño = dueño;
         this.inscripciones = inscripciones;
     }
-    
+      
+    public Mascota( int id,String nombre, String raza, String tipo, LocalDate fechaNacimiento, /*String emailDueño*/Duen dueño, ArrayList<Inscripcion> inscripciones) {
+        this.nombre = nombre;
+        this.raza = raza;
+        this.tipo = tipo;
+        this.id = id;
+        this.fechaNacimiento = fechaNacimiento;
+        this.dueño = dueño;
+        this.inscripciones = inscripciones;
+    }
     
     //Gets and Sets
     public String getNombre() {
@@ -162,7 +172,11 @@ public class Mascota {
     public void saveFile(String file){
         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(file),true)))
         {
-            pw.println(this.id + "|"+ this.nombre+ "|" + this.raza + "|"+ this.fechaNacimiento+ "|"+ this.tipo+ "|"+ this.idDueño+ "|"+ this.dueño);
+            pw.println(this.getId() + "|"+ this.getNombre()+ "|" + this.getRaza() + "|"+ this.getTipo()+ "|"+ this.getFechaNacimiento()+ "|"+ this.getIdDueño()
+                    );
+            for (Inscripcion i: this.getInscripciones()){
+                pw.print("|"+i.getId());
+            }
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }
@@ -170,19 +184,14 @@ public class Mascota {
     Scanner sc= new Scanner(System.in);
        //nextMascota 
     public static Mascota nextMascota(Scanner sc){
-        
-        /*int id;
+               /*int id;
         String tematica, nombre;
         double costo;
         LocalDate fecha, fechaIns, fechaCierreIns;
         sc.useDelimiter("\n");*/
-        String nombre,raza,tipo;
+        String nombre,raza,tipo, emailDueño;
         int id,idDueño;
         LocalDate fecha;
-        Duen dueño = null;
-        ArrayList<Inscripcion> inscripciones= new ArrayList<>();
-        
-       
         sc.useLocale(Locale.US);
         System.out.println("Ingrese el id de la mascota: ");
         id = sc.nextInt();
@@ -194,24 +203,37 @@ public class Mascota {
         fecha = LocalDate.parse(sc.next());
         System.out.println("Ingrese el tipo de mascota: ");
         tipo= sc.next();
-        dueño = dueño.nextDueño(sc);
-        System.out.println("Cuantas inscripciones tiene la mascota: ");
+        
+       
+        //
+        System.out.println("Ingrese el email del dueño: ");
+        String emaildueño= sc.next();
+        //Dueno pruebaDueño=null;
+        Duen dueño = null;
+        ArrayList<Duen> dueñosTodos= Duen.readFile("dueño.txt");
+        for (Duen m: dueñosTodos){
+            if(m.getEmail()== emaildueño){
+                dueño= m;
+            }
+        } 
+        ArrayList<Inscripcion> inscripciones= new ArrayList<>();
+        //pruebaDueño = pruebaDueño.buscarDueñoEmail(emaildueño);
+        
+        //
+        /*System.out.println("Cuantas inscripciones tiene la mascota: ");
         int numeroInst=sc.nextInt();
         int idinst;
+        Inscripcion inscrip1= null;
         String fecha_inscripcion;
         double valor;
-        for (int i=0; i>= numeroInst;i++){
-            System.out.println("Ingrese el id de la inscripciones: ");
-            idinst=sc.nextInt();
-            System.out.println("Ingrese la fecha de inscripcion");
-            fecha_inscripcion= sc.next();
-            System.out.println("Ingrese el valor de inscripcion");
-            valor= sc.nextDouble();
-//            inscripciones.add(new Inscripcion(idinst,fecha_inscripcion, valor, ));*********************************************
-        }
-        
-        
-        return new Mascota( id,nombre,raza, tipo, dueño.getId(), fecha,dueño,inscripciones);
+        /*for (int i=0; i<= numeroInst;i++){
+            /*System.out.println("Ingrese el id de la inscripciones: ");
+            idinst = sc.nextInt();
+            inscripciones.add(new Inscripcion(idinst));
+            inscrip1= inscrip1.nextInscripcion(sc);
+            inscripciones.add(inscrip1);
+        }*/
+        return new Mascota( id,nombre,raza, tipo, fecha,dueño,inscripciones);
         
     }
 
@@ -221,8 +243,12 @@ public class Mascota {
         //en modo append
         try(PrintWriter pw= new PrintWriter(new FileOutputStream(new File(nombre)))){
             for (   Mascota v:  mascotas ){
-                pw.println(v.getId() + "|"+ v.getNombre()+ "|" + v.getRaza() + "|"+ v.getIdDueño()+ "|"
-                    + v.getTipo()+ "|"+ v.getFechaNacimiento());
+                //( int id,String nombre, String raza, String tipo, LocalDate fechaNacimiento, /*String emailDueño*/Dueno dueño, ArrayList<Inscripcion> inscripciones
+                pw.println(v.getId() + "|"+ v.getNombre()+ "|" + v.getRaza() + "|"+ v.getTipo()+ "|"+ v.getFechaNacimiento()+ "|"+ v.getDueño().getEmail()
+                    );
+                for (Inscripcion i: v.getInscripciones()){
+                    pw.print("|"+i.getId());
+                }
             }
             
         }catch(Exception e){
@@ -240,21 +266,42 @@ public class Mascota {
     }
     
     //el comportamiento estático readFile
-    public static ArrayList<Mascota> readFile(String nombre){
+    public static ArrayList<Mascota>  readFile(String nombre) {
         ArrayList<Mascota> mascotas= new ArrayList<>();
         try (Scanner sc =new Scanner(new File (nombre))){
             while(sc.hasNextLine()){
+                ArrayList<Inscripcion> inscrip = null;
                 String linea= sc.nextLine();
-                String[] datos = linea.split("|");  // Revisar el separador
-                Mascota v= new Mascota(Integer.parseInt(datos[0]),datos[1],datos[2],Integer.parseInt(datos[3]),datos[5],LocalDate.parse(datos[4]));
-                mascotas.add(v);
-            } 
+                String[] datos = linea.split("|"); 
+                Duen duen1;
+                Inscripcion inst= null;
+                ArrayList<Inscripcion> inscripcion22= inst.readFromFile("inscripcion.txt");
+                if (datos.length>7){
+                    String[] da2 = linea.split("|"); 
+                    for (Inscripcion m: inscripcion22){
+                        for (int i =7; i<=datos.length;i++){
+                            if(m.getId()== Integer.parseInt(datos[i-1])){
+                                inscrip.add(m);
+                            }
+                        }
+                    }
+                    
+                    ArrayList<Duen> dueñosTodos= Duen.readFile("dueño.txt");
+                    Duen dueño2= null;
+                    for (Duen m: dueñosTodos){
+                        if(m.getEmail()== datos[5]){
+                            dueño2= m;
+                        }
+                    }
+                    Mascota v= new Mascota(Integer.parseInt(datos[0]),datos[1],datos[2],datos[3],LocalDate.parse(datos[4]),dueño2,inscrip);
+                }
+            }
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
         return mascotas;
+        
     }
-     
 
     
 }
