@@ -245,7 +245,7 @@ public class Mascota {
         try (Scanner sc =new Scanner(new File (nombre))){
             while(sc.hasNextLine()){
                 String linea= sc.nextLine();
-                String[] datos = linea.split(";"); 
+                String[] datos = linea.split("|");  // Revisar el separador
                 Mascota v= new Mascota(Integer.parseInt(datos[0]),datos[1],datos[2],Integer.parseInt(datos[3]),datos[5],LocalDate.parse(datos[4]));
                 mascotas.add(v);
             } 

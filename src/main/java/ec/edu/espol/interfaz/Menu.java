@@ -7,6 +7,7 @@ import static ec.edu.espol.model.Concurso.readFromFile;
 import static ec.edu.espol.model.Concurso.saveFile;
 import ec.edu.espol.model.Criterio;
 import ec.edu.espol.model.Duen;
+import ec.edu.espol.model.Mascota;
 import static ec.edu.espol.model.Premios.saveFile;
 
 import ec.edu.espol.model.Premios;
@@ -127,6 +128,11 @@ public class Menu {
 
                 
             }else if ( Integer.parseInt(opcion) == 6){
+                System.out.println("Ingrese el nombre de su mascota: ");
+                String nombre_mascota = sc.next();
+                ArrayList<Mascota> mascotas = Mascota.readFile("mascotas");
+                System.out.println("Ingrese el nombre del concurso");
+                String nombre_concurso = sc.next();
             
             
             

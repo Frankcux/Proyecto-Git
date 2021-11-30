@@ -26,6 +26,13 @@ public class Inscripcion {
         this.idConcurso = idConcurso;
     }
 
+    public Inscripcion(int id, String fecha_inscripcion, double valor) {
+        this.id = id;
+        this.fecha_inscripcion = fecha_inscripcion;
+        this.valor = valor;
+    }
+
+    
     public int getId() {
         return this.id;
     }
@@ -145,12 +152,12 @@ public class Inscripcion {
         fecha_inscripcion = sc.next();
         System.out.println("Ingrese el costo de la inscripcion: ");
         valor = sc.nextInt();
-        System.out.println("Ingrese el id de su mascota: ");
-        idMascota = sc.nextInt();
-        System.out.println("Ingrese el id del concurso a participar: ");
-        idConcurso = sc.nextInt();
+//        System.out.println("Ingrese el id de su mascota: ");
+//        idMascota = sc.nextInt();
+//        System.out.println("Ingrese el id del concurso a participar: ");
+//        idConcurso = sc.nextInt();
         
-        Inscripcion ins = new Inscripcion(id, fecha_inscripcion, valor, idMascota, idConcurso);
+        Inscripcion ins = new Inscripcion(id, fecha_inscripcion, valor);
         return ins;
     }
     
