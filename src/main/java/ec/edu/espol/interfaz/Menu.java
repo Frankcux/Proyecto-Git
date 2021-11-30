@@ -7,6 +7,7 @@ import static ec.edu.espol.model.Concurso.readFromFile;
 import static ec.edu.espol.model.Concurso.saveFile;
 import ec.edu.espol.model.Criterio;
 import ec.edu.espol.model.Duen;
+import ec.edu.espol.model.Evaluacion;
 import ec.edu.espol.model.Inscripcion;
 import ec.edu.espol.model.Mascota;
 import ec.edu.espol.model.MiembroJurado;
@@ -21,6 +22,8 @@ import java.util.Scanner;
 
 
 public class Menu {
+    
+    //FUNCIONES CREADAS PARA EVITAR COLOCARLAS EN CADA CASO, next_idconcurso PUEDE IMPLEMENTARSE TAMBIEN EN LA OPCION DE PREMIOS PARA REDUCIR CODIGO 
     
     public static int next_idconcurso(Scanner sc){
     System.out.println("Ingrese el nombre del concurso: ");
@@ -147,7 +150,6 @@ public class Menu {
 
                 
             }else if ( Integer.parseInt(opcion) == 6){
-
                 int id_mascota, id_concurso;
                 id_mascota = next_idmascota(sc);
                 id_concurso = next_idconcurso(sc);
@@ -158,11 +160,13 @@ public class Menu {
                 
             
             }else if ( Integer.parseInt(opcion) == 7){
-                 MiembroJurado miembroJ=null;
+                MiembroJurado miembroJ=null;
                 miembroJ= miembroJ.nextMiembroJurado(sc);
                 miembroJ.saveFile("miembroJurado.txt");
 
            }else if ( Integer.parseInt(opcion) == 8){
+               Evaluacion nueva_evaluacion = Evaluacion.nextEvaluacion(sc);
+               nueva_evaluacion.saveFile("evaluaciones.txt");
             
             
             

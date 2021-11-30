@@ -19,7 +19,7 @@ public class Evaluacion {
     private Criterio criterio;
     
 
-    public Evaluacion(int id, double nota, int idInscripcion,int idMiembroJurado, int idCriterio  ) {
+    public Evaluacion(int id, int idMiembroJurado, int idInscripcion, int idCriterio, double nota) {
         this.id = id;
         this.nota = nota;
         this.idInscripcion = idInscripcion;
@@ -136,13 +136,14 @@ public class Evaluacion {
     
     public static Evaluacion nextEvaluacion(Scanner sc){
         
-        int id, nota, idInscripcion, idMiembroJurado, idCriterio;
+        int id, idInscripcion, idMiembroJurado, idCriterio;
+        double nota;
         sc.useDelimiter("\n");
         sc.useLocale(Locale.US);
         System.out.println("Ingrese el id de la evaluacion: ");
         id = sc.nextInt();
         System.out.println("Ingrese la nota: ");
-        nota = sc.nextInt();
+        nota = sc.nextDouble();
         System.out.println("Ingrese el id de la inscripcion a la que pertenece: ");
         idInscripcion = sc.nextInt();
         System.out.println("Ingrese el id del miembro del jurado: ");
@@ -150,7 +151,7 @@ public class Evaluacion {
         System.out.println("Ingrese el id del criterio evaluado: ");
         idCriterio = sc.nextInt();
         
-        Evaluacion eva = new Evaluacion(id, nota, idInscripcion, idMiembroJurado, idCriterio);
+        Evaluacion eva = new Evaluacion(id, idMiembroJurado, idInscripcion, idCriterio, nota);
         return eva;
     }
 }
