@@ -9,6 +9,7 @@ import ec.edu.espol.model.Criterio;
 import ec.edu.espol.model.Duen;
 import ec.edu.espol.model.Inscripcion;
 import ec.edu.espol.model.Mascota;
+import ec.edu.espol.model.MiembroJurado;
 import static ec.edu.espol.model.Premios.saveFile;
 
 import ec.edu.espol.model.Premios;
@@ -81,6 +82,10 @@ public class Menu {
                
             }else if ( Integer.parseInt(opcion) == 2){
            
+                Mascota mascota1=null;
+                mascota1= mascota1.nextMascota(sc);
+                mascota1.saveFile("mascota.txt");
+            
                 
             
                 
@@ -142,6 +147,7 @@ public class Menu {
 
                 
             }else if ( Integer.parseInt(opcion) == 6){
+
                 int id_mascota, id_concurso;
                 id_mascota = next_idmascota(sc);
                 id_concurso = next_idconcurso(sc);
@@ -152,9 +158,10 @@ public class Menu {
                 
             
             }else if ( Integer.parseInt(opcion) == 7){
-            
-            
-            
+                 MiembroJurado miembroJ=null;
+                miembroJ= miembroJ.nextMiembroJurado(sc);
+                miembroJ.saveFile("miembroJurado.txt");
+
            }else if ( Integer.parseInt(opcion) == 8){
             
             
