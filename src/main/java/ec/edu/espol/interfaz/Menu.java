@@ -60,13 +60,13 @@ public class Menu {
         do{
             System.out.println("Menú de opciones: ");
         
-            System.out.println(" 1.	Dueño");
-            System.out.println(" 2.	Mascota");
+            System.out.println(" 1.	Dueño");  //Jenifer
+            System.out.println(" 2.	Mascota"); //Jenifer
             System.out.println(" 3.	Concurso");
             System.out.println(" 4.	Premio");
-            System.out.println(" 5.	Criterio");  //Criterio YALA
+            System.out.println(" 5.	Criterio");  //Adair YALA
             System.out.println(" 6.	Inscripción");  //Adair YALA
-            System.out.println(" 7.	MiembroJurado");
+            System.out.println(" 7.	MiembroJurado"); //Jenifer
             System.out.println(" 8.	Evaluacion");  //Adair
             System.out.println(" 9.	Salir");
             

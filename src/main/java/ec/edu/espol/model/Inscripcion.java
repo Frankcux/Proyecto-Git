@@ -141,13 +141,13 @@ public class Inscripcion {
     
     
     public static Inscripcion nextInscripcion(Scanner sc){
-        
-        int id, valor, idMascota, idConcurso;
+        // CHICOS DE ESTA FORMA PODEMOS AGREGAR LOS ID A CADA CLASE, ES NECESARIO LEER EL ARCHIVO DONDE SE GUARDEN PARA QUE EL CONTEO NO REINICIE CADA VEZ QUE EJECUTAMOS EL PROGRAMA
+        ArrayList<Inscripcion> lista_inscripciones = Inscripcion.readFromFile("inscripciones.txt"); 
+        int id, valor;
         String fecha_inscripcion;
+        id = lista_inscripciones.size();
         sc.useDelimiter("\n");
         sc.useLocale(Locale.US);
-        System.out.println("Ingrese el id de la inscripcion: ");
-        id = sc.nextInt();
         System.out.println("Ingrese la fecha de inscripcion: ");
         fecha_inscripcion = sc.next();
         System.out.println("Ingrese el costo de la inscripcion: ");
