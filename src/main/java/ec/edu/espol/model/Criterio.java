@@ -137,7 +137,7 @@ public class Criterio {
     
     
     public static ArrayList<Criterio> nextCriterio(Scanner sc){
-        int id,punt_max,id_concurso, cantidad, id_curso, contador = 0; ;
+        int id,punt_max, id_concurso, cantidad, contador = 0; ;
         String nombre, descripcion;
         id_concurso = next_idconcurso(sc);
         System.out.println("Ingrese la cantidad de criterios: ");
@@ -154,10 +154,10 @@ public class Criterio {
             descripcion = sc.next();
             System.out.println("Ingrese el puntaje maximo a obtener en ese criterio: ");
             punt_max = sc.nextInt(); 
-            Criterio crit = new Criterio(id, nombre, descripcion, punt_max, id_concurso);   
+            Criterio crit = new Criterio(id, nombre, descripcion, punt_max, id_concurso);  
+            crit.saveFile("criterios.txt");
             lista_criterios_terminada.add(crit);        
             }
-        Criterio.saveFile(lista_criterios_terminada, "criterios.txt");
         return lista_criterios_terminada;
     }
 }

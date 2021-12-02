@@ -26,6 +26,12 @@ public class Menu {
     private Scanner sc= new Scanner(System.in);
     public ArrayList<Duen> dueños= null;
     public static void menuOpciones(){
+        
+        ArrayList<Inscripcion> inscripciones = Inscripcion.readFromFile("inscripciones.txt");
+        for(Inscripcion inscripcion: inscripciones){
+            System.out.println(inscripcion.toString());
+            
+        }
         String opcion;
         do{
             System.out.println("Menú de opciones: ");
@@ -96,4 +102,8 @@ public class Menu {
             }
         }while(Integer.parseInt(opcion)!=9);
     }
+    
+
+    Inscripcion ins = new Inscripcion (1, "555", 5.2, 3, 4);
+    
 }

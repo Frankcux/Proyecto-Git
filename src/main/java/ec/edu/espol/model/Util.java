@@ -6,8 +6,12 @@
 package ec.edu.espol.model;
 
 import static ec.edu.espol.model.Concurso.readFromFile;
+import static ec.edu.espol.model.Inscripcion.CreateFile;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -18,7 +22,7 @@ public class Util {
     
     // el constructor se lo ha declarado privado
     // ya que esta clase solo va a contener comportamientos estáticos
-    // por lo tanto, no se van a permitir crear instancia de la clase Util
+    // por lo tanto, no se van a permitir crear instancia de la clase Util    
     private Util(){}
     
     public static int nextID(String nomfile)
@@ -54,6 +58,10 @@ public class Util {
     
     //FUNCIONES CREADAS PARA EVITAR COLOCARLAS EN CADA CASO, next_idconcurso PUEDE IMPLEMENTARSE TAMBIEN EN LA OPCION DE PREMIOS PARA REDUCIR CODIGO
      
+    // ARREGLAR EL CODIGO COMO LO HICIMOS EN INSCRIPCIONESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS ************
+    // READFILE GENERAL USANDO SWITCH
+    // CREAR UNA CLASE PADRE PARA TODAS LAS CLASES Y HEREDAR EL COMPORTAMIENTO DE LOS SAVE FILE Y READ FILE (USAR INSTANCE OF)
+    
     public static int next_idmascota(Scanner sc){
     System.out.println("Ingrese el nombre de su mascota: ");
     String nombre_mascota = sc.next();
@@ -65,5 +73,8 @@ public class Util {
         }
     return 0;
     }
+    
+
+
     
 }
