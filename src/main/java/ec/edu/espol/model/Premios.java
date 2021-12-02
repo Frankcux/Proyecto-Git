@@ -128,7 +128,7 @@ public class Premios {
         int id, id_concurso, lugar, cantidad, contador=0 ;
         String descrip;
         id_concurso = next_idconcurso(sc);
-        System.out.println("Ingrese la cantidad de criterios: ");
+        System.out.println("Ingrese la cantidad de premios: ");
         cantidad = sc.nextInt();
         ArrayList<Premios> lista_premios_terminada = new ArrayList<>(); 
         while (contador < cantidad){
@@ -136,7 +136,7 @@ public class Premios {
             sc.useLocale(Locale.US);
             //Obtenemos el id de manera automatica ya que más abajo registramos
             ArrayList<Premios> lista_premios = Premios.readFromFile("premios.txt");
-            id = lista_premios.size();
+            id = lista_premios.size()+1;
             System.out.println("Ingrese el lugar de ese premio: ");
             lugar = sc.nextInt();
             System.out.println("Ingrese la descripción del premio: ");
