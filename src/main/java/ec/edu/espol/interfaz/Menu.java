@@ -55,7 +55,8 @@ public class Menu {
             if ( Integer.parseInt(opcion)== 1 ){           
                 Duen dueno = Duen.nextDueño(sc);
                 System.out.println("El dueño: "+ dueno +" ha sido guardado");
-                //dueños.add(dueno1);
+                //
+//dueños.add(dueno1);
                
                 
             }else if ( Integer.parseInt(opcion) == 2){
