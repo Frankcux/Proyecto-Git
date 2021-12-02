@@ -1,6 +1,8 @@
 
 package ec.edu.espol.model;
 
+import static ec.edu.espol.model.Util.next_idconcurso;
+import static ec.edu.espol.model.Util.next_idmascota;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
@@ -141,24 +143,22 @@ public class Inscripcion {
     
     
     public static Inscripcion nextInscripcion(Scanner sc){
-        // CHICOS DE ESTA FORMA PODEMOS AGREGAR LOS ID A CADA CLASE, ES NECESARIO LEER EL ARCHIVO DONDE SE GUARDEN PARA QUE EL CONTEO NO REINICIE CADA VEZ QUE EJECUTAMOS EL PROGRAMA
-        ArrayList<Inscripcion> lista_inscripciones = Inscripcion.readFromFile("inscripciones.txt"); 
-        int id, valor;
-        String fecha_inscripcion;
+ // CHICOS DE ESTA FORMA PODEMOS AGREGAR LOS ID A CADA CLASE, ES NECESARIO LEER EL ARCHIVO DONDE SE GUARDEN PARA QUE EL CONTEO NO REINICIE CADA VEZ QUE EJECUTAMOS EL PROGRAMA
+        int id, valor,id_mascota, id_concurso;
+        String fecha_inscripcion;        
+        ArrayList<Inscripcion> lista_inscripciones = Inscripcion.readFromFile("inscripciones.txt");
         id = lista_inscripciones.size();
+        id_mascota = next_idmascota(sc);
+        id_concurso = next_idconcurso(sc);
         sc.useDelimiter("\n");
         sc.useLocale(Locale.US);
         System.out.println("Ingrese la fecha de inscripcion: ");
         fecha_inscripcion = sc.next();
         System.out.println("Ingrese el costo de la inscripcion: ");
         valor = sc.nextInt();
-//        System.out.println("Ingrese el id de su mascota: ");
-//        idMascota = sc.nextInt();
-//        System.out.println("Ingrese el id del concurso a participar: ");
-//        idConcurso = sc.nextInt();
-        
-        Inscripcion ins = new Inscripcion(id, fecha_inscripcion, valor);
-        return ins;
+        Inscripcion inscripcion_completa = new Inscripcion(id, fecha_inscripcion, valor,id_mascota,id_concurso);
+        inscripcion_completa.saveFile("inscripciones.txt");
+        return inscripcion_completa;
     }
     
     

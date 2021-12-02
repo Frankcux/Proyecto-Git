@@ -25,29 +25,6 @@ public class Menu {
     
     //FUNCIONES CREADAS PARA EVITAR COLOCARLAS EN CADA CASO, next_idconcurso PUEDE IMPLEMENTARSE TAMBIEN EN LA OPCION DE PREMIOS PARA REDUCIR CODIGO 
     
-    public static int next_idconcurso(Scanner sc){
-    System.out.println("Ingrese el nombre del concurso: ");
-    String concurso = sc.next();
-    ArrayList<Concurso> concursos = readFromFile("concursos.txt");
-    for (Concurso i: concursos){
-        if (concurso.equals(i.getNombre())){
-            return i.getId();
-            }  
-        }
-    return 0;
-    }
-    
-    public static int next_idmascota(Scanner sc){
-    System.out.println("Ingrese el nombre de su mascota: ");
-    String nombre_mascota = sc.next();
-    ArrayList<Mascota> mascotas = Mascota.readFile("concursos.txt");
-    for (Mascota m: mascotas){
-        if (nombre_mascota.equals(m.getNombre())){
-            return m.getId();
-            }  
-        }
-    return 0;
-    }
     
 
     private static Criterio Criterio(int id, String nombre, String descripcion, int punt_max, int id0) {
@@ -129,36 +106,15 @@ public class Menu {
             
             
             }else if ( Integer.parseInt(opcion) == 5){
-                System.out.println("Ingrese la cantidad de criterios: ");
-                int cantidad, contador = 0;
-                cantidad = sc.nextInt();
-                ArrayList<Criterio> lista_criterios = new ArrayList<>();
-                ArrayList<Criterio> lista_criterios2 = new ArrayList<>();
-                
-                while(contador < cantidad){
-                    Criterio criterio = Criterio.nextCriterio(sc);
-                    lista_criterios.add(criterio);
-                    contador = contador + 1;
-                }
-                int id;
-                id = next_idconcurso(sc);               
-                for (Criterio crit : lista_criterios){
-                    Criterio datos_criterio = Criterio(crit.getId(), crit.getNombre(), crit.getDescripcion(), crit.getPunt_max(), id);
-                        lista_criterios2.add(datos_criterio);                  
-                        }  
-                Criterio.saveFile(lista_criterios2, "criterios.txt");
-
+                ArrayList<Criterio> criterios_completos = Criterio.nextCriterio(sc);
+                System.out.println("Estos son los criterios que acaba de registrar: \n");
+                System.out.println(criterios_completos);
                 
             }else if ( Integer.parseInt(opcion) == 6){
-                int id_mascota, id_concurso;
-                id_mascota = next_idmascota(sc);
-                id_concurso = next_idconcurso(sc);
-                Inscripcion ins = Inscripcion.nextInscripcion(sc);
-                Inscripcion inscripcion_completa = new Inscripcion(ins.getId(),ins.getFecha_inscripcion(), ins.getValor(), ins.getIdMascota(), ins.getIdConcurso());
-                inscripcion_completa.saveFile("inscripciones.txt");
-                System.out.println("Su incripcion ha sido guardada");
-                
-            
+                Inscripcion inscripcion_completa = Inscripcion.nextInscripcion(sc);
+                System.out.println("La incripcion: "+ inscripcion_completa +" ha sido guardada");
+
+                        
             }else if ( Integer.parseInt(opcion) == 7){
                 MiembroJurado miembroJ=null;
                 miembroJ= miembroJ.nextMiembroJurado(sc);
@@ -166,10 +122,8 @@ public class Menu {
 
            }else if ( Integer.parseInt(opcion) == 8){
                Evaluacion nueva_evaluacion = Evaluacion.nextEvaluacion(sc);
-               nueva_evaluacion.saveFile("evaluaciones.txt");
-            
-            
-            
+               System.out.println("La evaluacion: "+ nueva_evaluacion +" ha sido guardada");
+  
             }
         }while(Integer.parseInt(opcion)!=9);
     }

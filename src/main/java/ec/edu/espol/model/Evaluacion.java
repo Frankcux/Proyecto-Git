@@ -140,19 +140,19 @@ public class Evaluacion {
         double nota;
         sc.useDelimiter("\n");
         sc.useLocale(Locale.US);
-        System.out.println("Ingrese el id de la evaluacion: ");
-        id = sc.nextInt();
-        System.out.println("Ingrese la nota: ");
-        nota = sc.nextDouble();
-        System.out.println("Ingrese el id de la inscripcion a la que pertenece: ");
-        idInscripcion = sc.nextInt();
+        ArrayList<Evaluacion> lista_evaluaciones = Evaluacion.readFromFile("evaluaciones.txt");
+        id = lista_evaluaciones.size();
         System.out.println("Ingrese el id del miembro del jurado: ");
         idMiembroJurado = sc.nextInt();
+        System.out.println("Ingrese el id de la inscripcion a la que pertenece: ");
+        idInscripcion = sc.nextInt();
         System.out.println("Ingrese el id del criterio evaluado: ");
         idCriterio = sc.nextInt();
-        
-        Evaluacion eva = new Evaluacion(id, idMiembroJurado, idInscripcion, idCriterio, nota);
-        return eva;
+        System.out.println("Ingrese la nota: ");
+        nota = sc.nextDouble(); 
+        Evaluacion nueva_evaluacion = new Evaluacion(id, idMiembroJurado, idInscripcion, idCriterio, nota);
+        nueva_evaluacion.saveFile("evaluaciones.txt");
+        return nueva_evaluacion;
     }
 }
 

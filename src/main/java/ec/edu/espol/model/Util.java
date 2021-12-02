@@ -5,7 +5,9 @@
  */
 package ec.edu.espol.model;
 
+import static ec.edu.espol.model.Concurso.readFromFile;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -35,6 +37,32 @@ public class Util {
         {
         }
         return id+1;
+    }
+    
+    
+    public static int next_idconcurso(Scanner sc){
+    System.out.println("Ingrese el nombre del concurso: ");
+    String concurso = sc.next();
+    ArrayList<Concurso> concursos = readFromFile("concursos.txt");
+    for (Concurso i: concursos){
+        if (concurso.equals(i.getNombre())){
+            return i.getId();
+            }  
+        }
+    return 0;
+    }
+     
+     
+    public static int next_idmascota(Scanner sc){
+    System.out.println("Ingrese el nombre de su mascota: ");
+    String nombre_mascota = sc.next();
+    ArrayList<Mascota> mascotas = Mascota.readFile("concursos.txt");
+    for (Mascota m: mascotas){
+        if (nombre_mascota.equals(m.getNombre())){
+            return m.getId();
+            }  
+        }
+    return 0;
     }
     
 }

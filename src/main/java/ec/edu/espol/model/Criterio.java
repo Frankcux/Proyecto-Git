@@ -1,6 +1,7 @@
 
 package ec.edu.espol.model;
 
+import static ec.edu.espol.model.Util.next_idconcurso;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -135,22 +136,28 @@ public class Criterio {
     }
     
     
-    public static Criterio nextCriterio(Scanner sc){
-        
-        int id,punt_max,idConcurso ;
+    public static ArrayList<Criterio> nextCriterio(Scanner sc){
+        int id,punt_max,id_concurso, cantidad, id_curso, contador = 0; ;
         String nombre, descripcion;
-        sc.useDelimiter("\n");
-        sc.useLocale(Locale.US);
-        System.out.println("Ingrese el id del criterio: ");
-        id = sc.nextInt();
-        System.out.println("Ingrese el nombre del criterio: ");
-        nombre = sc.next();
-        System.out.println("Ingrese la descripción del criterio: ");
-        descripcion = sc.next();
-        System.out.println("Ingrese el puntaje maximo a obtener en ese criterio: ");
-        punt_max = sc.nextInt(); 
-        Criterio crit = new Criterio(id, nombre, descripcion, punt_max);
-        return crit;
+        id_concurso = next_idconcurso(sc);
+        System.out.println("Ingrese la cantidad de criterios: ");
+        cantidad = sc.nextInt();
+        ArrayList<Criterio> lista_criterios_terminada = new ArrayList<>();              
+        while(contador < cantidad){
+            sc.useDelimiter("\n");
+            sc.useLocale(Locale.US);                
+            ArrayList<Criterio> lista_criterios = Criterio.readFromFile("criterios.txt");
+            id = lista_criterios.size();
+            System.out.println("Ingrese el nombre del criterio: ");
+            nombre = sc.next();
+            System.out.println("Ingrese la descripción del criterio: ");
+            descripcion = sc.next();
+            System.out.println("Ingrese el puntaje maximo a obtener en ese criterio: ");
+            punt_max = sc.nextInt(); 
+            Criterio crit = new Criterio(id, nombre, descripcion, punt_max, id_concurso);   
+            lista_criterios_terminada.add(crit);        
+            }
+        Criterio.saveFile(lista_criterios_terminada, "criterios.txt");
+        return lista_criterios_terminada;
     }
-    
 }
