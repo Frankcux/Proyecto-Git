@@ -1,6 +1,7 @@
 
 package ec.edu.espol.model;
 
+import static ec.edu.espol.model.Util.next_idconcurso;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
@@ -123,22 +124,29 @@ public class Premios {
         return premios;
     
     }
-    public static Premios nextPremios(Scanner sc){
-        
-        int id, lugar,idConcurso ;
+    public static ArrayList<Premios> nextPremios(Scanner sc){  
+        int id, id_concurso, lugar, cantidad, contador=0 ;
         String descrip;
-        sc.useDelimiter("\n");
-        sc.useLocale(Locale.US);
-        System.out.println("Ingrese el id del premio: ");
-        id = sc.nextInt();
-        System.out.println("Ingrese el lugar de ese premio: ");
-        lugar = sc.nextInt();
-        System.out.println("Ingrese la descripción del premio: ");
-        descrip = sc.next();
-        
-        Premios premio = new Premios(id,lugar,descrip);
-        return premio;
-                                          
+        id_concurso = next_idconcurso(sc);
+        System.out.println("Ingrese la cantidad de criterios: ");
+        cantidad = sc.nextInt();
+        ArrayList<Premios> lista_premios_terminada = new ArrayList<>(); 
+        while (contador < cantidad){
+            sc.useDelimiter("\n");
+            sc.useLocale(Locale.US);
+            //Obtenemos el id de manera automatica ya que más abajo registramos
+            ArrayList<Premios> lista_premios = Premios.readFromFile("premios.txt");
+            id = lista_premios.size();
+            System.out.println("Ingrese el lugar de ese premio: ");
+            lugar = sc.nextInt();
+            System.out.println("Ingrese la descripción del premio: ");
+            descrip = sc.next();
+            Premios premio = new Premios(id, lugar, descrip, id_concurso);
+            //aqui registramos
+            premio.saveFile("premios.txt");
+            lista_premios_terminada.add(premio);
+        }
+        return lista_premios_terminada;                                       
     }
     
     

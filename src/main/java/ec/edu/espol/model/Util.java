@@ -51,7 +51,8 @@ public class Util {
         }
     return 0;
     }
-     
+    
+    //FUNCIONES CREADAS PARA EVITAR COLOCARLAS EN CADA CASO, next_idconcurso PUEDE IMPLEMENTARSE TAMBIEN EN LA OPCION DE PREMIOS PARA REDUCIR CODIGO
      
     public static int next_idmascota(Scanner sc){
     System.out.println("Ingrese el nombre de su mascota: ");

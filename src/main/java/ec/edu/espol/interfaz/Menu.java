@@ -23,13 +23,6 @@ import java.util.Scanner;
 
 public class Menu {
     
-    //FUNCIONES CREADAS PARA EVITAR COLOCARLAS EN CADA CASO, next_idconcurso PUEDE IMPLEMENTARSE TAMBIEN EN LA OPCION DE PREMIOS PARA REDUCIR CODIGO 
-    
-    
-
-    private static Criterio Criterio(int id, String nombre, String descripcion, int punt_max, int id0) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     private Scanner sc= new Scanner(System.in);
     public ArrayList<Duen> dueños= null;
     public static void menuOpciones(){
@@ -53,62 +46,36 @@ public class Menu {
             sc.useLocale(Locale.US); 
             opcion = sc.next();
         
-            if ( Integer.parseInt(opcion)== 1 ){
-            
-                Duen dueno1=null;
-                dueno1= dueno1.nextDueño(sc);
-                dueno1.saveFile("dueño");
+            if ( Integer.parseInt(opcion)== 1 ){           
+                Duen dueno = Duen.nextDueño(sc);
+                System.out.println("El dueño: "+ dueno +" ha sido guardado");
                 //dueños.add(dueno1);
                
+                
             }else if ( Integer.parseInt(opcion) == 2){
            
                 Mascota mascota1=null;
                 mascota1= mascota1.nextMascota(sc);
                 mascota1.saveFile("mascota.txt");
             
-                
-            
-                
+  
             }else if ( Integer.parseInt(opcion) == 3){ //Implementacion de la opción 3
            
                 Concurso concurso = nextConcurso(sc);
                 concurso.saveFile("concursos.txt");
  
                 
-            }else if ( Integer.parseInt(opcion) ==4){ //Implementación de la opción 4
-            
-               System.out.println("Ingrese la cantidad de premios: ");
-               int cantidad, contador;
-                contador= 0;
-                cantidad = sc.nextInt();
-                ArrayList<Premios> lista_premios = new ArrayList<>();
-                ArrayList<Premios> lista_premios2 = new ArrayList<>();
-            
-                while ( contador < cantidad){
-                    Premios premio = Premios.nextPremios(sc);
-                    lista_premios.add(premio);
-                    contador ++;
-                }
-                System.out.println("Ingrese el nombre del concurso al que pertenecen los premios: ");
-                String concurso = sc.next();
-                int id;
-                ArrayList<Concurso> concursos = readFromFile("concursos.txt");
-                for (Concurso i: concursos){
-                    if (concurso.equals(i.getNombre())){
-                        id = i.getId();
-                        for (Premios j: lista_premios){
-                        Premios premio1 = new Premios(j.getId(),j.getLugar(),j.getDescripcion(),id);
-                        lista_premios2.add(premio1);
-                        }
-                    } 
-                }
-                Premios.saveFile(lista_premios, "premios.txt");  
-            
-            
+            }else if ( Integer.parseInt(opcion) ==4){
+                ArrayList<Premios> premios_completos = Premios.nextPremios(sc);
+                System.out.println("Estos son los premios que acaba de registrar: \n");
+                System.out.println(premios_completos);
+
+                
             }else if ( Integer.parseInt(opcion) == 5){
                 ArrayList<Criterio> criterios_completos = Criterio.nextCriterio(sc);
                 System.out.println("Estos son los criterios que acaba de registrar: \n");
                 System.out.println(criterios_completos);
+             
                 
             }else if ( Integer.parseInt(opcion) == 6){
                 Inscripcion inscripcion_completa = Inscripcion.nextInscripcion(sc);
@@ -120,10 +87,12 @@ public class Menu {
                 miembroJ= miembroJ.nextMiembroJurado(sc);
                 miembroJ.saveFile("miembroJurado.txt");
 
+                
            }else if ( Integer.parseInt(opcion) == 8){
                Evaluacion nueva_evaluacion = Evaluacion.nextEvaluacion(sc);
                System.out.println("La evaluacion: "+ nueva_evaluacion +" ha sido guardada");
   
+               
             }
         }while(Integer.parseInt(opcion)!=9);
     }

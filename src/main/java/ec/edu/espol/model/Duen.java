@@ -20,8 +20,10 @@ import java.util.Scanner;
 public class Duen extends Persona{
     private String direccion;
     private ArrayList<Mascota> mascotas;
-    public Duen(int id, String nombre,String apellidos,String telefono,String email,String direccion){
-        super(id,nombre,apellidos,telefono,email);
+    
+    public Duen(int id, String nombre, String apellidos, String telefono, String email, String direccion){
+        super(nombre,apellidos,telefono,email);
+        this.id = id;
         this.direccion=direccion;
         this.mascotas=new ArrayList<>();
     }
@@ -68,24 +70,24 @@ public class Duen extends Persona{
         for (Mascota i: this.mascotas){
             sb.append(i.toString());
             if(this.mascotas.size()!=this.mascotas.size()-1)
-                sb.append(";");
-                
+                sb.append(";");               
             }
         sb.append("]");
         return sb.toString();
     }
     
-    //
+    //Hice cambios aquí, espero que no te moleste
     public static Duen nextDueño(Scanner sc){
-        
-        String direccion;
         sc.useDelimiter("\n");
-        Persona p= null;
-        p= p.nextPersona(sc);
+        //Id de cada dueño
+        ArrayList<Duen> lista_duenos = Duen.readFile("dueños.txt");
+        int id_dueno = lista_duenos.size();
+        
+        Persona persona = Persona.nextPersona(sc);
         System.out.println("Ingrese la dirreccion del Dueño: ");
-        direccion = sc.next();
-       
-        return new Duen(p.getId(),p.getNombres(),p.getApellidos(),p.getTelefono(),p.getEmail(),direccion);
+        String direccion = sc.next();
+        Duen persona_duen = new Duen(id_dueno, persona.nombres, persona.apellidos, persona.telefono, persona.email, direccion);    
+        return persona_duen;
         
     }
     public void saveFile(String file){

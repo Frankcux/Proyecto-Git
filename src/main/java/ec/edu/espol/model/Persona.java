@@ -5,6 +5,7 @@
  */
 package ec.edu.espol.model;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -13,7 +14,7 @@ import java.util.Scanner;
  * @author 59399
  */
 public class Persona {
-        protected int id;
+    protected int id;
     protected String nombres,apellidos,telefono,email;
 
     public Persona(int id, String nombres, String apellidos, String telefono, String email) {
@@ -23,14 +24,16 @@ public class Persona {
         this.telefono = telefono;
         this.email = email;
     }
-    public Persona(){
-    }
-    public Persona(int id, String nombres, String apellidos) {
-        this.id = id;
+
+    //Constructor para poder sacar los datos de una Persona GENERAL
+    public Persona(String nombres, String apellidos, String telefono, String email) {
         this.nombres = nombres;
         this.apellidos = apellidos;
+        this.telefono = telefono;
+        this.email = email;
     }
-
+    
+    
     public int getId() {
         return id;
     }
@@ -97,13 +100,9 @@ public class Persona {
         }
         return true;
     }
-         public static  Persona nextPersona(Scanner sc){
-        
-        int id;
+        public static  Persona nextPersona(Scanner sc){        
         String nombre,apellidos,telefono,email;
-        sc.useDelimiter("\n");
-        System.out.println("Ingrese el id: ");
-        id = sc.nextInt();
+        sc.useDelimiter("\n");       
         System.out.println("Ingrese el nombre : ");
         nombre = sc.next();
         System.out.println("Ingrese el apellido : ");
@@ -112,9 +111,8 @@ public class Persona {
         telefono = sc.next();
         System.out.println("Ingrese el email: ");
         email = sc.next();
-       
-        return new Persona(id,nombre,apellidos,telefono,email);
-        
+        Persona persona_nueva = new Persona(nombre,apellidos,telefono,email);
+        return persona_nueva;     
     }
     
 }
