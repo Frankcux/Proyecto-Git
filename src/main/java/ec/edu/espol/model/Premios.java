@@ -15,6 +15,7 @@ public class Premios {
     private String descripcion;
     private int idConcurso;
     private Concurso concurso;
+
     
     
     public Premios(int id, int lugar, String des, int idConc){
@@ -23,7 +24,7 @@ public class Premios {
         this.descripcion = des;
         this.idConcurso = idConc;
     }
-        public Premios(int id, int lugar, String des){
+    public Premios(int id, int lugar, String des){
         this.id = id;
         this.lugar= lugar;
         this.descripcion = des;
@@ -46,6 +47,7 @@ public class Premios {
     public Concurso getConcurso() {
         return concurso;
     }
+   
     //Setters
     
     public void setId(int id) {
@@ -66,11 +68,22 @@ public class Premios {
     public void setConcurso(Concurso concurso) {
         this.concurso = concurso;
     }
+    
 
     @Override
     
     public String toString() {
-        return "Premios{" + "id=" + id + ", lugar=" + lugar + ", descripcion=" + descripcion + ", idConcurso=" + idConcurso + ", concurso=" + concurso + '}';
+        StringBuilder sb= new StringBuilder();
+        sb.append(" * ");
+        sb.append(this.lugar);
+        sb.append("° lugar: ");
+        sb.append(this.descripcion);
+        sb.append("\n");
+        return sb.toString();
+        
+        /*
+        return "Premios[ " + "id=" + id + ", lugar=" + lugar + ", descripcion=" + descripcion + ", idConcurso=" + idConcurso + ",nombre de concurso=" + concurso + ']';
+        */
     }
     @Override
     
@@ -127,11 +140,11 @@ public class Premios {
     public static ArrayList<Premios> nextPremios(Scanner sc){  
         int id, id_concurso, lugar, cantidad, contador=0 ;
         String descrip;
-        // Pedir el concurso al ultimo
-        id_concurso = next_idconcurso(sc);
         System.out.println("Ingrese la cantidad de premios: ");
         cantidad = sc.nextInt();
-        ArrayList<Premios> lista_premios_terminada = new ArrayList<>(); 
+        ArrayList<Premios> lista_premios_inicial = new ArrayList<>();
+        ArrayList<Premios> lista_premios_terminada = new ArrayList<>();
+        
         while (contador < cantidad){
             sc.useDelimiter("\n");
             sc.useLocale(Locale.US);
@@ -142,10 +155,16 @@ public class Premios {
             lugar = sc.nextInt();
             System.out.println("Ingrese la descripción del premio: ");
             descrip = sc.next();
-            Premios premio = new Premios(id, lugar, descrip, id_concurso);
+            Premios premio = new Premios(id, lugar, descrip);
+            lista_premios_inicial.add(premio);
+        }
+        // Pedir el concurso al ultimo
+        id_concurso = next_idconcurso(sc);
+        for(Premios p: lista_premios_inicial){
+            Premios prem = new Premios(p.getId(),p.getLugar(),p.getDescripcion(),id_concurso);
             //aqui registramos
-            premio.saveFile("premios.txt");
-            lista_premios_terminada.add(premio);
+            prem.saveFile("premios.txt");
+            lista_premios_terminada.add(prem);
         }
         return lista_premios_terminada;                                       
     }

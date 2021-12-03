@@ -106,8 +106,32 @@ public class Concurso {
     @Override
     
     public String toString(){
+        StringBuilder sb= new StringBuilder();
+        sb.append("Concurso[ id= ");
+        sb.append(this.id);
+        sb.append(", nombre= ");
+        sb.append(this.nombre);
+        sb.append(", fecha= ");
+        sb.append(this.fecha);
+        sb.append(", fecha de inscripcion= ");
+        sb.append(this.fechaInscripcion);
+        sb.append(", fecha de cierre de inscripcion= ");
+        sb.append(this.fechaCierreInscripcion);
+        sb.append(", temática= ");
+        sb.append(this.tematica);
+        sb.append(", costo de inscripción= ");
+        sb.append(this.costo);
+        sb.append(", Premios= ");
+        for(Premios p: this.premios){
+            sb.append(p.toString());
+            if(this.premios.size() != this.premios.size()-1)
+                sb.append(";");
+        }
+        sb.append("]");
+        return sb.toString();
+        /*
         return "Concurso{ Id: "+ id + ",nombre: "+ nombre+", fecha: "+ fecha+", fecha de inscripcion: "+ fechaInscripcion+ ", fecha de cierre de inscripcion: "+ fechaCierreInscripcion+ ", temática: "+ tematica+", costo de inscripcion: "+ costo+" }";
-        
+        */
     }
     @Override
     
