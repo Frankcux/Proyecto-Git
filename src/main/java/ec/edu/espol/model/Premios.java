@@ -127,6 +127,7 @@ public class Premios {
     public static ArrayList<Premios> nextPremios(Scanner sc){  
         int id, id_concurso, lugar, cantidad, contador=0 ;
         String descrip;
+        // Pedir el concurso al ultimo
         id_concurso = next_idconcurso(sc);
         System.out.println("Ingrese la cantidad de premios: ");
         cantidad = sc.nextInt();

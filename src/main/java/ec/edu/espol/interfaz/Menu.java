@@ -29,8 +29,7 @@ public class Menu {
         
         ArrayList<Inscripcion> inscripciones = Inscripcion.readFromFile("inscripciones.txt");
         for(Inscripcion inscripcion: inscripciones){
-            System.out.println(inscripcion.toString());
-            
+            System.out.println(inscripcion.toString());           
         }
         String opcion;
         do{

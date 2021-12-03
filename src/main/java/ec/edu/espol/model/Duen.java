@@ -105,7 +105,7 @@ public class Duen extends Persona{
     //recibe lista de pacientes
     public static void  saveFile( ArrayList<Duen> dueño , String nombre){
         //en modo append
-        try(PrintWriter pw= new PrintWriter(new FileOutputStream(new File(nombre)))){
+        try(PrintWriter pw= new PrintWriter(new FileOutputStream(new File(nombre),true))){
             for (Duen v:  dueño ){
                 pw.println(v.getId() + "|"+ v.getNombres()+ "|" + v.getApellidos() + "|"+ v.getTelefono()+ "|"
                     + v.getEmail()+ "|"+ v.getDireccion());

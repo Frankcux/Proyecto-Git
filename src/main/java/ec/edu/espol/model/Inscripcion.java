@@ -125,9 +125,11 @@ public class Inscripcion {
         }       
     }
     
+    //*************************************************************************************//
     
     public static ArrayList<Inscripcion> readFromFile(String inscripcionesfield){
         ArrayList<Inscripcion> inscripciones = new ArrayList<>();
+        
         String filename = "src/"+inscripcionesfield;
         try (BufferedReader inputStream = new BufferedReader(new FileReader(filename)))
         {
@@ -138,7 +140,7 @@ public class Inscripcion {
                 String[] tokens = line.split("\\|");
                 // int id, valor, idMascota, idConcurso
                 // String fecha_inscripcion
-                Inscripcion ins = new Inscripcion(Integer.parseInt(tokens[0]),(tokens[1]),Double.parseDouble(tokens[2]),Integer.parseInt(tokens[3]),Integer.parseInt(tokens[4]));
+                Inscripcion ins = new Inscripcion(Integer.parseInt(tokens[0]),(tokens[1]), Double.parseDouble(tokens[2]),Integer.parseInt(tokens[3]),Integer.parseInt(tokens[4]));
                 inscripciones.add(ins);
             }          
         }catch(Exception e) {
@@ -147,7 +149,6 @@ public class Inscripcion {
         }
         return inscripciones;
     }
-    
     
     public static void CreateFile(String inscripcionNombre){
         String filename = "src/" +inscripcionNombre;
