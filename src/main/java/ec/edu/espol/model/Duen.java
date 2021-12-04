@@ -121,12 +121,13 @@ public class Duen extends Persona{
         try (Scanner sc =new Scanner(new File (nombre))){
             while(sc.hasNextLine()){
                 String linea= sc.nextLine();
-                String[] datos = linea.split(";"); 
+                String[] datos = linea.split("\\|"); 
                 Duen v= new Duen(Integer.parseInt(datos[0]),datos[1],datos[2],datos[3],datos[4],datos[5]);
                 dueño.add(v);
-            } 
+            }
+            System.out.println("Hecho");
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            System.out.println("NO hay archivo");
         }
         return dueño;
     }

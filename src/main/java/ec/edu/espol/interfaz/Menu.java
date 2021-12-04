@@ -23,14 +23,25 @@ import java.util.Scanner;
 
 public class Menu {
     
-    private Scanner sc= new Scanner(System.in);
+    
     public ArrayList<Duen> dueños= null;
     public static void menuOpciones(){
         
-        ArrayList<Inscripcion> inscripciones = Inscripcion.readFromFile("inscripciones.txt");
-        for(Inscripcion inscripcion: inscripciones){
-            System.out.println(inscripcion.toString());           
+        Scanner sc1= new Scanner(System.in);
+        
+        Duen dueno1 = Duen.nextDueño(sc1);
+        ArrayList<Duen> duenos = Duen.readFile("dueños.txt");
+        
+        System.out.println(duenos);
+        
+        for(Duen du: duenos){
+            System.out.println(du.toString());
         }
+        
+//        ArrayList<Inscripcion> inscripciones = Inscripcion.readFromFile("inscripciones.txt");
+//        for(Inscripcion inscripcion: inscripciones){
+//            System.out.println(inscripcion.toString());           
+//        }
         String opcion;
         do{
             System.out.println("Menú de opciones: ");
@@ -54,8 +65,7 @@ public class Menu {
             if ( Integer.parseInt(opcion)== 1 ){           
                 Duen dueno = Duen.nextDueño(sc);
                 System.out.println("El dueño: "+ dueno +" ha sido guardado");
-                //
-//dueños.add(dueno1);
+
                
                 
             }else if ( Integer.parseInt(opcion) == 2){
