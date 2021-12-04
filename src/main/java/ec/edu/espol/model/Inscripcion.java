@@ -1,8 +1,7 @@
 
 package ec.edu.espol.model;
 
-import static ec.edu.espol.model.Util.next_idconcurso;
-import static ec.edu.espol.model.Util.next_idmascota;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -116,7 +115,7 @@ public class Inscripcion {
     
     
     public static void saveFile(ArrayList<Inscripcion> listainscripciones, String inscripcionesfield){
-        try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(inscripcionesfield)))){
+        try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(inscripcionesfield),true))){
             for (Inscripcion ins : listainscripciones)
                 pw.println(ins.id + "|"+ ins.fecha_inscripcion+ "|" + ins.valor + "|"+ ins.idMascota + "|"+ ins.idConcurso);
         }
@@ -127,57 +126,37 @@ public class Inscripcion {
     
     //*************************************************************************************//
     
-    public static ArrayList<Inscripcion> readFromFile(String inscripcionesfield){
-        ArrayList<Inscripcion> inscripciones = new ArrayList<>();
-        
-        String filename = "src/"+inscripcionesfield;
-        try (BufferedReader inputStream = new BufferedReader(new FileReader(filename)))
-        {
-            String line = null;
-            while(((line = inputStream.readLine()) != null))
-            {
-                // linea = id|fecha_inscripcion|valor|idMascota|idConcurso
-                String[] tokens = line.split("\\|");
-                // int id, valor, idMascota, idConcurso
-                // String fecha_inscripcion
-                Inscripcion ins = new Inscripcion(Integer.parseInt(tokens[0]),(tokens[1]), Double.parseDouble(tokens[2]),Integer.parseInt(tokens[3]),Integer.parseInt(tokens[4]));
+    public static ArrayList<Inscripcion> readFile(String nombre){
+        ArrayList<Inscripcion> inscripciones= new ArrayList<>();
+        try (Scanner sc =new Scanner(new File (nombre))){
+            while(sc.hasNextLine()){
+                String linea= sc.nextLine();
+                String[] datos = linea.split("\\|"); 
+                Inscripcion ins = new Inscripcion(Integer.parseInt(datos[0]),(datos[1]), Double.parseDouble(datos[2]),Integer.parseInt(datos[3]),Integer.parseInt(datos[4]));                
                 inscripciones.add(ins);
-            }          
-        }catch(Exception e) {
-            CreateFile(inscripcionesfield);
-            System.out.println("ERROR EN LECTURA DE ARCHIVO");
+            }
+        }catch (Exception e){
+            System.out.println("NO hay archivo, se ha creado uno");
         }
         return inscripciones;
     }
     
-    public static void CreateFile(String inscripcionNombre){
-        String filename = "src/" +inscripcionNombre;
-        try(BufferedWriter outputStream = new BufferedWriter(new FileWriter(filename))){
-            
-        }
-        catch(Exception e){
-            System.out.println("ERROR EN LA CREACION DEL ARCHIVO");
-        }
-    }
-
-    
     public static Inscripcion nextInscripcion(Scanner sc){
  // CHICOS DE ESTA FORMA PODEMOS AGREGAR LOS ID A CADA CLASE, ES NECESARIO LEER EL ARCHIVO DONDE SE GUARDEN PARA QUE EL CONTEO NO REINICIE CADA VEZ QUE EJECUTAMOS EL PROGRAMA
-        int id, valor,id_mascota, id_concurso;
+        int id,id_mascota, id_concurso;
+        Double valor;
         String fecha_inscripcion;  
         
-        ArrayList<Inscripcion> lista_inscripciones = Inscripcion.readFromFile("inscripciones.txt");
-        
-        id = lista_inscripciones.size()+1;
-        
-        id_mascota = next_idmascota(sc);
-        id_concurso = next_idconcurso(sc);
+        ArrayList<Inscripcion> lista_inscripciones = Inscripcion.readFile("inscripciones.txt");     
+        id = lista_inscripciones.size()+1;       
+        id_mascota = Util.next_idmascota(sc);
+        id_concurso = Util.next_idconcurso(sc);
         sc.useDelimiter("\n");
         sc.useLocale(Locale.US);
         System.out.println("Ingrese la fecha de inscripcion: ");
         fecha_inscripcion = sc.next();
         System.out.println("Ingrese el costo de la inscripcion: ");
-        valor = sc.nextInt();
+        valor = sc.nextDouble();
         Inscripcion inscripcion_completa = new Inscripcion(id, fecha_inscripcion, valor,id_mascota, id_concurso);
         inscripcion_completa.saveFile("inscripciones.txt");
         return inscripcion_completa;

@@ -1,7 +1,6 @@
 
 package ec.edu.espol.model;
 
-import static ec.edu.espol.model.Util.next_idconcurso;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
@@ -159,7 +158,7 @@ public class Premios {
             lista_premios_inicial.add(premio);
         }
         // Pedir el concurso al ultimo
-        id_concurso = next_idconcurso(sc);
+        id_concurso = Util.next_idconcurso(sc);
         for(Premios p: lista_premios_inicial){
             Premios prem = new Premios(p.getId(),p.getLugar(),p.getDescripcion(),id_concurso);
             //aqui registramos

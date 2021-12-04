@@ -80,14 +80,13 @@ public class Duen extends Persona{
     public static Duen nextDueño(Scanner sc){
         sc.useDelimiter("\n");
         //Id de cada dueño
-        ArrayList<Duen> lista_duenos = Duen.readFile("dueños.txt");
+        ArrayList<Duen> lista_duenos = Duen.readFile("dueno.txt");
         int id_dueno = lista_duenos.size()+1;
-        
         Persona persona = Persona.nextPersona(sc);
         System.out.println("Ingrese la dirreccion del Dueño: ");
         String direccion = sc.next();
         Duen persona_duen = new Duen(id_dueno, persona.nombres, persona.apellidos, persona.telefono, persona.email, direccion);    
-        persona_duen.saveFile("dueño.txt");
+        persona_duen.saveFile("dueno.txt");
         return persona_duen;
         
     }
@@ -116,6 +115,7 @@ public class Duen extends Persona{
         }
     }
     //el comportamiento estático readFile
+    
     public static ArrayList<Duen> readFile(String nombre){
         ArrayList<Duen> dueño= new ArrayList<>();
         try (Scanner sc =new Scanner(new File (nombre))){
@@ -125,9 +125,8 @@ public class Duen extends Persona{
                 Duen v= new Duen(Integer.parseInt(datos[0]),datos[1],datos[2],datos[3],datos[4],datos[5]);
                 dueño.add(v);
             }
-            System.out.println("Hecho");
         }catch (Exception e){
-            System.out.println("NO hay archivo");
+            System.out.println("NO hay archivo, se ha creado uno");
         }
         return dueño;
     }

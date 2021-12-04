@@ -1,7 +1,6 @@
 
 package ec.edu.espol.model;
 
-import static ec.edu.espol.model.Util.next_idconcurso;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -97,7 +96,7 @@ public class Criterio {
     
     public void saveFile (String criteriofield){
        try (PrintWriter pw = new PrintWriter(new FileOutputStream(new File(criteriofield),true))){
-           pw.println(this.id + "|"+ this.nombre+ "|" + this.descripcion + "|"+ this.punt_max);
+           pw.println(this.id + "|"+ this.nombre+ "|" + this.descripcion + "|"+ this.punt_max+ "|"+ this.idConcurso);
        }catch(Exception e){
            System.out.println(e.getMessage());
        }  
@@ -105,7 +104,7 @@ public class Criterio {
     
     
     public static void saveFile(ArrayList<Criterio> listacriterios, String criteriofield){
-        try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(criteriofield)))){
+        try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(criteriofield),true))){
             for (Criterio crit : listacriterios)
                 pw.println(crit.id + "|"+ crit.nombre+ "|" + crit.descripcion + "|"+ crit.punt_max + "|"+ crit.idConcurso);
         }
@@ -127,8 +126,7 @@ public class Criterio {
                 // int id, int punt_max,int, int idConcurso ,String nombre ,int descripcion
                 Criterio crit = new Criterio(Integer.parseInt(tokens[0]),(tokens[1]),tokens[2],Integer.parseInt(tokens[3]),Integer.parseInt(tokens[4]));
                 criterios.add(crit);
-            }
-            
+            }           
         }catch(Exception e) {
             System.out.println(e.getMessage());
         }
@@ -139,15 +137,17 @@ public class Criterio {
     public static ArrayList<Criterio> nextCriterio(Scanner sc){
         int id,punt_max, id_concurso, cantidad, contador = 0; ;
         String nombre, descripcion;
-        id_concurso = next_idconcurso(sc);
+        id_concurso = Util.next_idconcurso(sc);
         System.out.println("Ingrese la cantidad de criterios: ");
         cantidad = sc.nextInt();
-        ArrayList<Criterio> lista_criterios_terminada = new ArrayList<>();              
+        ArrayList<Criterio> lista_criterios_1 = new ArrayList<>();              
         while(contador < cantidad){
             sc.useDelimiter("\n");
             sc.useLocale(Locale.US);                
-            ArrayList<Criterio> lista_criterios = Criterio.readFromFile("criterios.txt");
-            id = lista_criterios.size();
+            ArrayList<Criterio> lista_criterios = new ArrayList<>();
+            lista_criterios = Criterio.readFromFile("criterios.txt");
+            id = lista_criterios.size()+1;
+            System.out.println("El tamnaño de la lista es: " + id);
             System.out.println("Ingrese el nombre del criterio: ");
             nombre = sc.next();
             System.out.println("Ingrese la descripción del criterio: ");
@@ -155,9 +155,12 @@ public class Criterio {
             System.out.println("Ingrese el puntaje maximo a obtener en ese criterio: ");
             punt_max = sc.nextInt(); 
             Criterio crit = new Criterio(id, nombre, descripcion, punt_max, id_concurso);  
+            lista_criterios.add(crit);
+            lista_criterios_1.add(crit);  
             crit.saveFile("criterios.txt");
-            lista_criterios_terminada.add(crit);        
-            }
-        return lista_criterios_terminada;
+            contador = contador + 1;
+            }  
+        return lista_criterios_1;
+        }    
     }
-}
+

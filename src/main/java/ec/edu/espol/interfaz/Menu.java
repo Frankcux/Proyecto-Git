@@ -26,18 +26,7 @@ public class Menu {
     
     public ArrayList<Duen> dueños= null;
     public static void menuOpciones(){
-        
-        Scanner sc1= new Scanner(System.in);
-        
-        Duen dueno1 = Duen.nextDueño(sc1);
-        ArrayList<Duen> duenos = Duen.readFile("dueños.txt");
-        
-        System.out.println(duenos);
-        
-        for(Duen du: duenos){
-            System.out.println(du.toString());
-        }
-        
+       
 //        ArrayList<Inscripcion> inscripciones = Inscripcion.readFromFile("inscripciones.txt");
 //        for(Inscripcion inscripcion: inscripciones){
 //            System.out.println(inscripcion.toString());           
@@ -70,8 +59,8 @@ public class Menu {
                 
             }else if ( Integer.parseInt(opcion) == 2){
            
-                Mascota mascota1=null;
-                mascota1= mascota1.nextMascota(sc);
+                Mascota mascota1= Mascota.nextMascota(sc);
+                System.out.println("Estos son los criterios que acaba de registrar: \n");
                 mascota1.saveFile("mascota.txt");
             
   
@@ -99,8 +88,7 @@ public class Menu {
 
                         
             }else if ( Integer.parseInt(opcion) == 7){
-                MiembroJurado miembroJ=null;
-                miembroJ= miembroJ.nextMiembroJurado(sc);
+                MiembroJurado miembroJ= MiembroJurado.nextMiembroJurado(sc);
                 miembroJ.saveFile("miembroJurado.txt");
 
                 

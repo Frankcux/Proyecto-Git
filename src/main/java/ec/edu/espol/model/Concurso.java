@@ -206,6 +206,7 @@ public class Concurso {
         System.out.println("Ingrese el costo de la inscripcion: ");
         costo = sc.nextDouble();
         Concurso concurso = new Concurso(id,nombre,fecha,fechaIns,fechaCierreIns,tematica,costo);
+        
         return concurso;
         
     }
