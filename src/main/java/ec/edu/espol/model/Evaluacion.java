@@ -103,7 +103,7 @@ public class Evaluacion {
     
     
     public static void saveFile(ArrayList<Evaluacion> listaevaluaciones, String evaluacionefield){
-        try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(evaluacionefield)))){
+        try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(evaluacionefield),true))){
             for (Evaluacion eva : listaevaluaciones)
                 pw.println(eva.id + "|"+ eva.nota+ "|" + eva.idInscripcion + "|"+ eva.idMiembroJurado + "|"+ eva.idCriterio);
         }
@@ -113,35 +113,33 @@ public class Evaluacion {
     }
     
     
-    public static ArrayList<Evaluacion> readFromFile(String evaluacionefield){
+    public static ArrayList<Evaluacion> readFile(String evaluacionefield){
         ArrayList<Evaluacion> evaluaciones = new ArrayList<>();
-        try (Scanner sc = new Scanner(new File(evaluacionefield)))
-        {
+        try (Scanner sc = new Scanner(new File(evaluacionefield))){
             while(sc.hasNextLine())
             {
                 // linea = id|nota|idInscripcion|idMiembroJurado|idCriterio
                 String linea = sc.nextLine();
                 String[] tokens = linea.split("\\|");
                 // int id, nota, idInscripcion, idMiembroJurado, idCriterio
-                Evaluacion evalu = new Evaluacion(Integer.parseInt(tokens[0]),Integer.parseInt(tokens[1]),Integer.parseInt(tokens[2]),Integer.parseInt(tokens[3]),Integer.parseInt(tokens[4]));
+                Evaluacion evalu = new Evaluacion(Integer.parseInt(tokens[0]),Integer.parseInt(tokens[1]),Integer.parseInt(tokens[2]),Integer.parseInt(tokens[3]),Double.parseDouble(tokens[4]));
                 evaluaciones.add(evalu);
-            }
-            
+            }            
         }catch(Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("No hay archivo de evaluacion ");
         }
         return evaluaciones;
     }
     
     
-    public static Evaluacion nextEvaluacion(Scanner sc){
-        
+    public static Evaluacion nextEvaluacion(Scanner sc){     
         int id, idInscripcion, idMiembroJurado, idCriterio;
-        double nota;
+        double nota;       
+        ArrayList<Evaluacion> lista_evaluaciones = Evaluacion.readFile("evaluacion.txt");
+        id = lista_evaluaciones.size() + 1;  
         sc.useDelimiter("\n");
         sc.useLocale(Locale.US);
-        ArrayList<Evaluacion> lista_evaluaciones = Evaluacion.readFromFile("evaluaciones.txt");
-        id = lista_evaluaciones.size();
+        System.out.println("hay " + id);
         System.out.println("Ingrese el id del miembro del jurado: ");
         idMiembroJurado = sc.nextInt();
         System.out.println("Ingrese el id de la inscripcion a la que pertenece: ");
@@ -151,7 +149,7 @@ public class Evaluacion {
         System.out.println("Ingrese la nota: ");
         nota = sc.nextDouble(); 
         Evaluacion nueva_evaluacion = new Evaluacion(id, idMiembroJurado, idInscripcion, idCriterio, nota);
-        nueva_evaluacion.saveFile("evaluaciones.txt");
+        nueva_evaluacion.saveFile("evaluacion.txt");
         return nueva_evaluacion;
     }
 }

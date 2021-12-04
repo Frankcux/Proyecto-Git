@@ -156,6 +156,7 @@ public class Premios {
             descrip = sc.next();
             Premios premio = new Premios(id, lugar, descrip);
             lista_premios_inicial.add(premio);
+            contador = contador + 1;
         }
         // Pedir el concurso al ultimo
         id_concurso = Util.next_idconcurso(sc);
