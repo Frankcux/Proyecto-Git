@@ -1,7 +1,6 @@
 
 package ec.edu.espol.model;
 
-import static ec.edu.espol.model.Util.next_idconcurso;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -139,7 +138,7 @@ public class Criterio {
     public static ArrayList<Criterio> nextCriterio(Scanner sc){
         int id,punt_max, id_concurso, cantidad, contador = 0; ;
         String nombre, descripcion;
-        id_concurso = next_idconcurso(sc);
+        id_concurso = Util.next_idconcurso(sc);
         System.out.println("Ingrese la cantidad de criterios: ");
         cantidad = sc.nextInt();
         ArrayList<Criterio> lista_criterios_terminada = new ArrayList<>();              

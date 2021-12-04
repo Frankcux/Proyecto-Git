@@ -1,8 +1,7 @@
 
 package ec.edu.espol.model;
 
-import static ec.edu.espol.model.Util.next_idconcurso;
-import static ec.edu.espol.model.Util.next_idmascota;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -170,8 +169,8 @@ public class Inscripcion {
         
         id = lista_inscripciones.size()+1;
         
-        id_mascota = next_idmascota(sc);
-        id_concurso = next_idconcurso(sc);
+        id_mascota = Util.next_idmascota(sc);
+        id_concurso = Util.next_idconcurso(sc);
         sc.useDelimiter("\n");
         sc.useLocale(Locale.US);
         System.out.println("Ingrese la fecha de inscripcion: ");

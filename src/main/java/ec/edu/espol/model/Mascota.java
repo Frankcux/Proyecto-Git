@@ -204,35 +204,20 @@ public class Mascota {
         System.out.println("Ingrese el tipo de mascota: ");
         tipo= sc.next();
         
-       
-        //
-        System.out.println("Ingrese el email del dueño: ");
-        String emaildueño= sc.next();
-        //Dueno pruebaDueño=null;
-        Duen dueño = null;
-        ArrayList<Duen> dueñosTodos= Duen.readFile("dueño.txt");
-        for (Duen m: dueñosTodos){
-            if(m.getEmail()== emaildueño){
-                dueño= m;
-            }
-        } 
+       Duen dueño = Util.next_Duendueño(sc);
         ArrayList<Inscripcion> inscripciones= new ArrayList<>();
         //pruebaDueño = pruebaDueño.buscarDueñoEmail(emaildueño);
         
         //
-        /*System.out.println("Cuantas inscripciones tiene la mascota: ");
+        System.out.println("Cuantas inscripciones tiene la mascota: ");
         int numeroInst=sc.nextInt();
-        int idinst;
-        Inscripcion inscrip1= null;
-        String fecha_inscripcion;
-        double valor;
-        /*for (int i=0; i<= numeroInst;i++){
-            /*System.out.println("Ingrese el id de la inscripciones: ");
-            idinst = sc.nextInt();
-            inscripciones.add(new Inscripcion(idinst));
-            inscrip1= inscrip1.nextInscripcion(sc);
-            inscripciones.add(inscrip1);
-        }*/
+       
+        for (int i=0; i<= numeroInst;i++){
+            inscripciones.add(Util.next_InsInscripcion(sc));
+        }
+        
+        
+        
         return new Mascota( id,nombre,raza, tipo, fecha,dueño,inscripciones);
         
     }

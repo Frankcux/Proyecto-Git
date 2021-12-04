@@ -60,8 +60,8 @@ public class Menu {
                 
             }else if ( Integer.parseInt(opcion) == 2){
            
-                Mascota mascota1=null;
-                mascota1= mascota1.nextMascota(sc);
+                Mascota mascota1= Mascota.nextMascota(sc);
+                System.out.println("Estos son los criterios que acaba de registrar: \n");
                 mascota1.saveFile("mascota.txt");
             
   
@@ -89,8 +89,7 @@ public class Menu {
 
                         
             }else if ( Integer.parseInt(opcion) == 7){
-                MiembroJurado miembroJ=null;
-                miembroJ= miembroJ.nextMiembroJurado(sc);
+                MiembroJurado miembroJ= MiembroJurado.nextMiembroJurado(sc);
                 miembroJ.saveFile("miembroJurado.txt");
 
                 

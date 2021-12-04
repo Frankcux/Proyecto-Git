@@ -74,7 +74,28 @@ public class Util {
     return 0;
     }
     
-
+    public static Duen next_Duendueño(Scanner sc){
+        System.out.println("Ingrese el email del dueño: ");
+        String email = sc.next();
+        ArrayList<Duen> dueños = Duen.readFile("dueños.txt");
+        for (Duen d: dueños){
+            if (email.equals(d.getEmail())){
+                return d;
+            }  
+        }
+    return null;
+    }
+    public static Inscripcion next_InsInscripcion(Scanner sc){
+        System.out.println("Ingrese el id de la inscripcion: ");
+        int id= sc.nextInt();
+        ArrayList<Inscripcion> inscripciones = Inscripcion.readFromFile("inscripciones.txt");
+        for (Inscripcion d: inscripciones){
+            if (id==d.getId()){
+                return d;
+            }  
+        }
+    return null;
+    }
 
     
 }
