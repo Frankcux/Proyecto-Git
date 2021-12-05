@@ -151,14 +151,21 @@ public class Inscripcion {
         id = lista_inscripciones.size()+1;       
         id_mascota = Util.next_idmascota(sc);
         id_concurso = Util.next_idconcurso(sc);
-        sc.useDelimiter("\n");
-        sc.useLocale(Locale.US);
-        System.out.println("Ingrese la fecha de inscripcion: ");
-        fecha_inscripcion = sc.next();
-        System.out.println("Ingrese el costo de la inscripcion: ");
-        valor = sc.nextDouble();
-        Inscripcion inscripcion_completa = new Inscripcion(id, fecha_inscripcion, valor,id_mascota, id_concurso);
-        inscripcion_completa.saveFile("inscripciones.txt");
-        return inscripcion_completa;
+        if (id_concurso!= 0 || id_mascota != 0)
+        {
+            sc.useDelimiter("\n");
+            sc.useLocale(Locale.US);
+            System.out.println("Ingrese la fecha de inscripcion: ");
+            fecha_inscripcion = sc.next();
+            System.out.println("Ingrese el costo de la inscripcion: ");
+            valor = sc.nextDouble();
+            Inscripcion inscripcion_completa = new Inscripcion(id, fecha_inscripcion, valor,id_mascota, id_concurso);
+            inscripcion_completa.saveFile("inscripciones.txt");
+            System.out.println("La incripcion: "+ inscripcion_completa +" ha sido guardada");
+            return inscripcion_completa;
+            
+        }
+        System.out.println("Inscripcion inválida porque el concurso o macosta no existe");
+        return null;
     }
 }

@@ -26,7 +26,7 @@ public class Mascota {
     private ArrayList<Inscripcion> inscripciones;
    
 
-    public Mascota( int id,String nombre, String raza, String tipo, int idDueño, LocalDate fechaNacimiento, Duen dueño, ArrayList<Inscripcion> inscripciones) {
+    public Mascota( int id,String nombre, String raza, String tipo, int idDueño, LocalDate fechaNacimiento, Duen dueño) {
         this.nombre = nombre;
         this.raza = raza;
         this.tipo = tipo;
@@ -34,7 +34,6 @@ public class Mascota {
         this.idDueño = idDueño;
         this.fechaNacimiento = fechaNacimiento;
         this.dueño = dueño;
-        this.inscripciones = inscripciones;
     }
       
     public Mascota( int id,String nombre, String raza, String tipo, LocalDate fechaNacimiento, /*String emailDueño*/Duen dueño, ArrayList<Inscripcion> inscripciones) {
@@ -124,7 +123,7 @@ public class Mascota {
     @Override
     public String toString() {
         StringBuilder sb= new StringBuilder();
-        sb.append("Mascota{ id= ");
+        sb.append("Mascota[ id= ");
         sb.append(this.id);
         sb.append(", nombre= ");
         sb.append(this.nombre);
@@ -146,28 +145,7 @@ public class Mascota {
         sb.append("]");
         return sb.toString();
     }
-    //equals
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Mascota other = (Mascota) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        if (this.idDueño != other.idDueño) {
-            return false;
-        }
-        return true;
-    }
-    
+   
     
     public void saveFile(String file){
         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(file),true)))
@@ -193,8 +171,8 @@ public class Mascota {
         int id,idDueño;
         LocalDate fecha;
         sc.useLocale(Locale.US);
-        System.out.println("Ingrese el id de la mascota: ");
-        id = sc.nextInt();
+        ArrayList <Mascota> lista_mascotas = Mascota.readFile("mascotas.txt");
+        id = lista_mascotas.size()+1;
         System.out.println("Ingrese el nombre de la mascota: ");
         nombre = sc.next();        
         System.out.println("Ingrese la raza de la mascota: ");
@@ -202,13 +180,11 @@ public class Mascota {
         System.out.println("Ingrese la fecha de nacimiento: ");
         fecha = LocalDate.parse(sc.next());
         System.out.println("Ingrese el tipo de mascota: ");
-        tipo= sc.next();
+        tipo = sc.next();
         
-       Duen dueño = Util.next_Duendueño(sc);
+        Duen dueño = Util.next_Duendueño(sc);
         ArrayList<Inscripcion> inscripciones= new ArrayList<>();
-        //pruebaDueño = pruebaDueño.buscarDueñoEmail(emaildueño);
         
-        //
         System.out.println("Cuantas inscripciones tiene la mascota: ");
         int numeroInst=sc.nextInt();
        
@@ -223,7 +199,7 @@ public class Mascota {
     }
 
         //saveFile
-    //recibe lista de pacientes
+    
     public static void  saveFile( ArrayList<Mascota> mascotas , String nombre){
         //en modo append
         try(PrintWriter pw= new PrintWriter(new FileOutputStream(new File(nombre)))){
@@ -257,12 +233,12 @@ public class Mascota {
             while(sc.hasNextLine()){
                 ArrayList<Inscripcion> inscrip = null;
                 String linea= sc.nextLine();
-                String[] datos = linea.split("|"); 
+                String[] datos = linea.split("\\|"); 
                 Duen duen1;
                 Inscripcion inst= null;
-                ArrayList<Inscripcion> inscripcion22= inst.readFromFile("inscripcion.txt");
+                ArrayList<Inscripcion> inscripcion22= inst.readFile("inscripcion.txt");
                 if (datos.length>7){
-                    String[] da2 = linea.split("|"); 
+                    String[] da2 = linea.split("\\|"); 
                     for (Inscripcion m: inscripcion22){
                         for (int i =7; i<=datos.length;i++){
                             if(m.getId()== Integer.parseInt(datos[i-1])){

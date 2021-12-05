@@ -133,15 +133,32 @@ public class Evaluacion {
     
     
     public static Evaluacion nextEvaluacion(Scanner sc){     
-        int id, idInscripcion, idMiembroJurado, idCriterio;
-        double nota;       
-        ArrayList<Evaluacion> lista_evaluaciones = Evaluacion.readFile("evaluacion.txt");
+        int id, idInscripcion, idCriterio;
+        double nota; 
+        int idMiembroJurado= 0;
+        String emailMiembroJurado;
+        ArrayList<Evaluacion> lista_evaluaciones = Evaluacion.readFile("evaluaciones.txt");
+        for (Evaluacion e: lista_evaluaciones){
+            System.out.println(e);
+        }
         id = lista_evaluaciones.size() + 1;  
         sc.useDelimiter("\n");
         sc.useLocale(Locale.US);
         System.out.println("hay " + id);
-        System.out.println("Ingrese el id del miembro del jurado: ");
-        idMiembroJurado = sc.nextInt();
+        System.out.println("Ingrese el email del miembro del jurado: ");
+        emailMiembroJurado = sc.next();
+        ArrayList<MiembroJurado>  miembros =  MiembroJurado.readFile("miembroJurados.txt");
+        for (MiembroJurado m: miembros){
+            if(emailMiembroJurado.equals(m.getEmail()))
+            {
+                System.out.println(idMiembroJurado);
+                idMiembroJurado= m.getId();
+            }
+        }
+        System.out.println(idMiembroJurado);
+        if(idMiembroJurado==0){
+            return null;
+        }
         System.out.println("Ingrese el id de la inscripcion a la que pertenece: ");
         idInscripcion = sc.nextInt();
         System.out.println("Ingrese el id del criterio evaluado: ");
@@ -149,7 +166,7 @@ public class Evaluacion {
         System.out.println("Ingrese la nota: ");
         nota = sc.nextDouble(); 
         Evaluacion nueva_evaluacion = new Evaluacion(id, idMiembroJurado, idInscripcion, idCriterio, nota);
-        nueva_evaluacion.saveFile("evaluacion.txt");
+        nueva_evaluacion.saveFile("evaluaciones.txt");
         return nueva_evaluacion;
     }
 }

@@ -79,7 +79,7 @@ public class Persona {
         return "Persona{" + "id=" + id + ", nombres=" + nombres + ", apellidos=" + apellidos + ", telefono=" + telefono + ", email=" + email + '}';
     }
 
-
+    /*
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -99,7 +99,8 @@ public class Persona {
             return false;
         }
         return true;
-    }
+
+    }*/
         public static  Persona nextPersona(Scanner sc){        
         String nombre,apellidos,telefono,email;
         sc.useDelimiter("\n");       

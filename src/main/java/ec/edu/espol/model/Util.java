@@ -46,7 +46,7 @@ public class Util {
     public static int next_idconcurso(Scanner sc){
     System.out.println("Ingrese el nombre del concurso: ");
     String concurso = sc.next();
-    ArrayList<Concurso> concursos = readFromFile("concursos.txt");
+    ArrayList<Concurso> concursos = Concurso.readFromFile("concursos.txt");
     for (Concurso i: concursos){
         if (concurso.equals(i.getNombre())){
             return i.getId();
@@ -64,7 +64,7 @@ public class Util {
     public static int next_idmascota(Scanner sc){
     System.out.println("Ingrese el nombre de su mascota: ");
     String nombre_mascota = sc.next();
-    ArrayList<Mascota> mascotas = Mascota.readFile("concursos.txt");
+    ArrayList<Mascota> mascotas = Mascota.readFile("mascotas.txt");
     for (Mascota m: mascotas){
         if (nombre_mascota.equals(m.getNombre())){
             return m.getId();

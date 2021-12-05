@@ -99,12 +99,13 @@ public class MiembroJurado extends Persona {
         
         String perfil;
         sc.useDelimiter("\n");
-        Persona p= null;
-        p= p.nextPersona(sc);
+        Persona p=  Persona.nextPersona(sc);
         System.out.println("Ingrese el perfil de Miembro del Jurado: ");
         perfil= sc.next();
+        ArrayList<MiembroJurado> j= MiembroJurado.readFile("miembroJurados.txt");
+        
        
-        return new MiembroJurado(p.getId(),perfil,p.getNombres(),p.getApellidos(),p.getTelefono(),p.getEmail());
+        return new MiembroJurado(j.size()+1,perfil,p.getNombres(),p.getApellidos(),p.getTelefono(),p.getEmail());
         
     }
     /*
@@ -142,7 +143,7 @@ public class MiembroJurado extends Persona {
         try (Scanner sc =new Scanner(new File (nombre))){
             while(sc.hasNextLine()){
                 String linea= sc.nextLine();
-                String[] datos = linea.split(";"); 
+                String[] datos = linea.split("\\|"); 
                 MiembroJurado v= new MiembroJurado(Integer.parseInt(datos[0]),datos[1],datos[2],datos[3],datos[4],datos[5]);
                 miembroJurado.add(v);
             } 

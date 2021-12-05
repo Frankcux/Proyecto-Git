@@ -176,7 +176,7 @@ public class Concurso {
             }
             
         }catch(Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("error");
             
         }
         return concursos;

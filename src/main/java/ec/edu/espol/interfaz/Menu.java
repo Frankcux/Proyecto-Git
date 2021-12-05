@@ -26,9 +26,8 @@ public class Menu {
     
     public ArrayList<Duen> dueños= null;
     public static void menuOpciones(){
-       
         
-        String opcion;
+       String opcion;
         do{
             System.out.println("Menú de opciones: ");
         
@@ -81,12 +80,12 @@ public class Menu {
                 
             }else if ( Integer.parseInt(opcion) == 6){
                 Inscripcion inscripcion_completa = Inscripcion.nextInscripcion(sc);
-                System.out.println("La incripcion: "+ inscripcion_completa +" ha sido guardada");
+                
 
                         
             }else if ( Integer.parseInt(opcion) == 7){
                 MiembroJurado miembroJ= MiembroJurado.nextMiembroJurado(sc);
-                miembroJ.saveFile("miembroJurado.txt");
+                miembroJ.saveFile("miembroJurados.txt");
 
                 
            }else if ( Integer.parseInt(opcion) == 8){
@@ -97,8 +96,5 @@ public class Menu {
             }
         }while(Integer.parseInt(opcion)!=9);
     }
-    
-
-    Inscripcion ins = new Inscripcion (1, "555", 5.2, 3, 4);
     
 }
