@@ -168,9 +168,9 @@ public class Mascota {
         Mascota m = new Mascota( id,nombre,raza, tipo, fecha,dueño.getId());
         ArrayList<Duen> lista_duenos = Duen.readFile("dueños.txt");
         /*for (Duen d : lista_duenos){
-            if (d.getId()==dueño.getId()){
+            if (d.getEmail()==m.emailDueño){
                 d.getMascotas().add(m);
-                d.saveFile("dueños_final");
+                d.saveFile("dueños_final.txt");
             }           
         }*/
         m.saveFile("mascotas.txt");

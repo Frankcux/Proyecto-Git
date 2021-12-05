@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class Evaluacion {
     private int id;
-    private double nota;
+    private int nota;
     private int idInscripcion;
     private Inscripcion inscripcion;
     private int idMiembroJurado;
@@ -19,7 +19,7 @@ public class Evaluacion {
     private Criterio criterio;
     
 
-    public Evaluacion(int id, int idMiembroJurado, int idInscripcion, int idCriterio, double nota) {
+    public Evaluacion(int id, int idMiembroJurado, int idInscripcion, int idCriterio, int nota) {
         this.id = id;
         this.nota = nota;
         this.idInscripcion = idInscripcion;
@@ -52,7 +52,7 @@ public class Evaluacion {
         this.id = id;
     }
 
-    public void setNota(double nota) {
+    public void setNota(int nota) {
         this.nota = nota;
     }
 
@@ -67,26 +67,7 @@ public class Evaluacion {
     public void setIdCriterio(int idCriterio) {
         this.idCriterio = idCriterio;
     }
-    
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Evaluacion other = (Evaluacion) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        return true;
-    }
-
+   
     @Override
     public String toString() {
         return "Evaluacion{" + "id=" + id + ", nota=" + nota + ", idInscripcion=" + idInscripcion + ", idMiembroJurado=" + idMiembroJurado + ", idCriterio=" + idCriterio + '}';
@@ -128,7 +109,7 @@ public class Evaluacion {
                 // int id, nota, idInscripcion, idMiembroJurado, idCriterio
                 Evaluacion evalu = new Evaluacion(Integer.parseInt(tokens[0]),
                         Integer.parseInt(tokens[1]),Integer.parseInt(tokens[2]),
-                        Integer.parseInt(tokens[3]),Double.parseDouble(tokens[4]));
+                        Integer.parseInt(tokens[3]),Integer.parseInt(tokens[4]));
                 evaluaciones.add(evalu);
             }            
         }catch(Exception e) {
@@ -140,7 +121,7 @@ public class Evaluacion {
     
     public static Evaluacion nextEvaluacion(Scanner sc){     
         int id, idInscripcion, idCriterio;
-        double nota; 
+        int nota; 
         int idMiembroJurado= 0;
         String emailMiembroJurado;
         ArrayList<Evaluacion> lista_evaluaciones = Evaluacion.readFile("evaluaciones.txt");
@@ -176,8 +157,18 @@ public class Evaluacion {
         idInscripcion = sc.nextInt();
         System.out.println("Ingrese el id del criterio evaluado: ");
         idCriterio = sc.nextInt();
-        System.out.println("Ingrese la nota: ");
-        nota = sc.nextDouble(); 
+        ArrayList<Criterio> lista_criterios = Criterio.readFromFile("criterios.txt");
+        int ptmax=0;
+        for (Criterio cri : lista_criterios){
+            if (cri.getId() == idCriterio){
+                ptmax = cri.getPunt_max();
+            }
+        }
+        do{
+            System.out.println("Ingrese la nota: ");
+            nota = sc.nextInt(); 
+        }while(nota<ptmax);
+        
         Evaluacion nueva_evaluacion = new Evaluacion(id, idMiembroJurado, idInscripcion,
                 idCriterio, nota);
         nueva_evaluacion.saveFile("evaluaciones.txt");
