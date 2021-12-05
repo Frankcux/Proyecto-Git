@@ -88,7 +88,14 @@ public class Duen extends Persona{
         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(file),true)))
         {
             pw.println(this.getId() + "|"+ this.getNombres()+ "|" + this.getApellidos() + "|"+ this.getTelefono()+ "|" 
+<<<<<<< HEAD
                     + this.getEmail()+ "|"+ this.getDireccion() + "|" + this.mascotas);
+=======
+                    + this.getEmail()+ "|"+ this.getDireccion() + "|");
+            for (Mascota m: this.getMascotas()){
+                pw.println(m.getId() + ";");
+            }
+>>>>>>> fd0a0dec5fef66439d3e3a517e16424c62e880e7
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }
@@ -100,7 +107,10 @@ public class Duen extends Persona{
         try(PrintWriter pw= new PrintWriter(new FileOutputStream(new File(nombre),true))){
             for (Duen v:  dueño ){
                 pw.println(v.getId() + "|"+ v.getNombres()+ "|" + v.getApellidos() + "|"+ v.getTelefono()+ "|"
-                    + v.getEmail()+ "|"+ v.getDireccion());
+                    + v.getEmail()+ "|"+ v.getDireccion()+ "|");
+                for (Mascota m: v.getMascotas()){
+                    pw.println(m.getId() + ";");
+                }
             }
             
         }catch(Exception e){
@@ -122,6 +132,36 @@ public class Duen extends Persona{
             System.out.println("Se ha creado el archivo: " + nombre);
         }
         return dueño;
+    }
+    public static ArrayList<Mascota>  GenerarListMascotasDueño(String nombre,int id){
+        ArrayList<Mascota> mascota2=new ArrayList<>();
+        ArrayList<Mascota> mascotas= Mascota.readFile(nombre);
+        
+        for (Mascota m: mascotas){
+            
+                if (m.getIdDueño()==id){
+                    mascota2.add(m);
+                }
+        }
+        return mascota2;
+    }
+    
+    public static void ArchivoMascotasDueño(){
+        ArrayList<Duen> dueño= Duen.readFile("dueños.txt");
+        try(PrintWriter pw= new PrintWriter(new FileOutputStream(new File("dueños.txt")))){
+            for (Duen v: dueño){
+            //Mascota.saveFile(Duen.GenerarListMascotasDueño("mascotas.txt", d.getId()),"mascotasDueño");
+                String cadena="";
+                
+                for (Mascota m: Duen.GenerarListMascotasDueño("mascotas.txt", v.getId())){
+                    cadena = cadena.concat(m.getId() + ";");
+                }
+                v.setMascotas(Duen.GenerarListMascotasDueño("mascotas.txt", v.getId()));
+                pw.println(v.getId() + "|"+ v.getNombres()+ "|" + v.getApellidos() + "|"+ v.getTelefono()+ "|"
+                    + v.getEmail()+ "|"+ v.getDireccion()+ "|" +cadena);
+            } 
+        }catch(Exception e){ System.out.println(e.getMessage());
+            }
     }
     
 }

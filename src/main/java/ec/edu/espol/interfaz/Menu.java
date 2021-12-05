@@ -56,6 +56,8 @@ public class Menu {
             }else if ( Integer.parseInt(opcion) == 2){
            
                 Mascota mascota1= Mascota.nextMascota(sc);
+                Duen.ArchivoMascotasDueño();
+                
             
   
             }else if ( Integer.parseInt(opcion) == 3){ //Implementacion de la opción 3
@@ -78,8 +80,7 @@ public class Menu {
                 
             }else if ( Integer.parseInt(opcion) == 6){
                 Inscripcion inscripcion_completa = Inscripcion.nextInscripcion(sc);
-                
-
+                Mascota.ArchivoInscripcionMascota();
                         
             }else if ( Integer.parseInt(opcion) == 7){
                 MiembroJurado miembroJ= MiembroJurado.nextMiembroJurado(sc);
