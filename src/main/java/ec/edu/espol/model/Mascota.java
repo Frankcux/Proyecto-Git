@@ -136,11 +136,12 @@ public class Mascota {
                 String linea= sc.nextLine();
                 String[] datos = linea.split("\\|"); 
                 Mascota v= new Mascota(Integer.parseInt(datos[0]),datos[1],datos[2],datos[3],LocalDate.parse(datos[4]),Integer.parseInt(datos[5]));
-                mascotas.add(v);
+                mascotas.add(v);                    
             } 
         }catch (Exception e){
             System.out.println("Se ha creado el archivo: "+ nombre);
         }
+        
         return mascotas;
     }
     
@@ -166,6 +167,7 @@ public class Mascota {
         }while(dueño == null);             
         Mascota m = new Mascota( id,nombre,raza, tipo, fecha,dueño.getId());
         m.saveFile("mascotas.txt");
+        
         return m;    
     }
 

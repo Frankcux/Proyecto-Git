@@ -19,12 +19,16 @@ public class Duen extends Persona{
         this.mascotas=new ArrayList<>();
     }
     
-    /*public Duen(int id, String nombre, String apellidos, String telefono, String email, String direccion, ArrayList<Mascota> mascotas){
+    public Duen(int id, String nombre, String apellidos, String telefono, String email, String direccion, ArrayList<Mascota> mascotas){
         super(nombre,apellidos,telefono,email);
         this.id = id;
         this.direccion=direccion;
-        this.mascotas=new ArrayList<>();
-    }*/
+        this.mascotas=mascotas;
+    }
+
+    public int getId() {
+        return id;
+    }
 
     public String getDireccion() {
         return direccion;
@@ -84,7 +88,7 @@ public class Duen extends Persona{
         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(file),true)))
         {
             pw.println(this.getId() + "|"+ this.getNombres()+ "|" + this.getApellidos() + "|"+ this.getTelefono()+ "|" 
-                    + this.getEmail()+ "|"+ this.getDireccion());
+                    + this.getEmail()+ "|"+ this.getDireccion() + "|" + this.mascotas);
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }
