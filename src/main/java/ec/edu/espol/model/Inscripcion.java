@@ -1,4 +1,3 @@
-
 package ec.edu.espol.model;
 
 
@@ -19,7 +18,6 @@ public class Inscripcion {
     private LocalDate fecha_inscripcion;
     private double valor;
     private int idMascota;
-//    private Mascota mascota; ****************
     private int idConcurso;
     private Concurso concurso;
 
@@ -79,25 +77,6 @@ public class Inscripcion {
     public void setIdConcurso(int idConcurso) {
         this.idConcurso = idConcurso;
     }
-    
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Inscripcion other = (Inscripcion) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        return true;
-    }
 
    
     @Override
@@ -125,7 +104,6 @@ public class Inscripcion {
         }       
     }
     
-    //*************************************************************************************//
     
     public static ArrayList<Inscripcion> readFile(String nombre){
         ArrayList<Inscripcion> inscripciones= new ArrayList<>();
@@ -137,25 +115,24 @@ public class Inscripcion {
                 inscripciones.add(ins);
             }
         }catch (Exception e){
-            System.out.println("NO hay archivo, se ha creado uno");
+            System.out.println("Se ha creado el archivo: "+ nombre);
         }
         return inscripciones;
     }
     
     public static Inscripcion nextInscripcion(Scanner sc){
- // CHICOS DE ESTA FORMA PODEMOS AGREGAR LOS ID A CADA CLASE, ES NECESARIO LEER EL ARCHIVO DONDE SE GUARDEN PARA QUE EL CONTEO NO REINICIE CADA VEZ QUE EJECUTAMOS EL PROGRAMA
         int id,id_mascota, id_concurso;
         Double valor;
         LocalDate fecha_inscripcion;  
-        
         ArrayList<Inscripcion> lista_inscripciones = Inscripcion.readFile("inscripciones.txt");     
         id = lista_inscripciones.size()+1; 
+        
         do{
-        id_mascota = Util.next_idmascota(sc);
+            id_mascota = Util.next_idmascota(sc);
         }while(id_mascota==0);
         
         do{
-        id_concurso = Util.next_idconcurso(sc);       
+            id_concurso = Util.next_idconcurso(sc);       
         }while(id_concurso==0);
         
         do{
@@ -164,18 +141,14 @@ public class Inscripcion {
             }while((fecha_inscripcion.isBefore(Util.fecha_inicio_concurso(id_concurso))) || (fecha_inscripcion.isAfter(Util.fecha_cierre_concurso(id_concurso))));
        
         if (id_concurso!= 0 && id_mascota != 0)         
-        {
-            sc.useDelimiter("\n");
-            sc.useLocale(Locale.US);
-            
-                       
+        {         
             System.out.println("Ingrese el costo de la inscripcion: ");
             valor = sc.nextDouble();
             Inscripcion inscripcion_completa = new Inscripcion(id, fecha_inscripcion, valor,id_mascota, id_concurso);
             inscripcion_completa.saveFile("inscripciones.txt");
             System.out.println("La incripcion: "+ inscripcion_completa +" ha sido guardada");
-            return inscripcion_completa;
             
+            return inscripcion_completa;      
         }
         System.out.println("Inscripcion inválida porque el concurso o mascota no existe");
         return null;

@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ec.edu.espol.model;
 
-/**
- *
- * @author 59399
- */
 import ec.edu.espol.model.*;
 import ec.edu.espol.model.Persona;
 import java.io.File;
@@ -28,16 +19,13 @@ public class Duen extends Persona{
         this.mascotas=new ArrayList<>();
     }
     
-    public Duen(int id, String nombre, String apellidos, String telefono, String email, String direccion, ArrayList<Mascota> mascotas){
+    /*public Duen(int id, String nombre, String apellidos, String telefono, String email, String direccion, ArrayList<Mascota> mascotas){
         super(nombre,apellidos,telefono,email);
         this.id = id;
         this.direccion=direccion;
         this.mascotas=new ArrayList<>();
-    }
+    }*/
 
-
-    
-    
     public String getDireccion() {
         return direccion;
     }
@@ -80,11 +68,7 @@ public class Duen extends Persona{
         return sb.toString();
     }
     
-    //Hice cambios aquí, espero que no te moleste
-    public static Duen nextDueño(Scanner sc){
-        
-        sc.useDelimiter("\n");
-        //Id de cada dueño
+    public static Duen nextDueño(Scanner sc){   
         ArrayList<Duen> lista_duenos = Duen.readFile("dueños.txt");
         int id_dueno = lista_duenos.size()+1;
         Persona persona = Persona.nextPersona(sc);
@@ -93,6 +77,7 @@ public class Duen extends Persona{
         Duen persona_duen = new Duen(id_dueno, persona.nombres, persona.apellidos, persona.telefono, persona.email, direccion);    
         persona_duen.saveFile("dueños.txt");
         return persona_duen;
+        
         
     }
     public void saveFile(String file){
@@ -105,8 +90,7 @@ public class Duen extends Persona{
         }
     }
     
-    //saveFile
-    //recibe lista de pacientes
+    
     public static void  saveFile( ArrayList<Duen> dueño , String nombre){
         //en modo append
         try(PrintWriter pw= new PrintWriter(new FileOutputStream(new File(nombre),true))){
@@ -119,7 +103,7 @@ public class Duen extends Persona{
             System.out.println(e.getMessage());
         }
     }
-    //el comportamiento estático readFile
+
     
     public static ArrayList<Duen> readFile(String nombre){
         ArrayList<Duen> dueño= new ArrayList<>();
@@ -131,7 +115,7 @@ public class Duen extends Persona{
                 dueño.add(v);
             }
         }catch (Exception e){
-            System.out.println("NO hay archivo, se ha creado uno");
+            System.out.println("Se ha creado el archivo: " + nombre);
         }
         return dueño;
     }

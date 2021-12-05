@@ -1,4 +1,3 @@
-
 package ec.edu.espol.model;
 
 import java.io.File;
@@ -81,14 +80,6 @@ public class Premios {
         return sb.toString(); 
 
     }
-    @Override
-    
-    public boolean equals(Object o) {
-        if( o != null && o instanceof Premios){
-            Premios p2 = (Premios)o;
-            return (this.descripcion.equals(p2.descripcion)) ;
-        }return false;
-    }
     
     
     public void  saveFile(String nomfile){
@@ -112,6 +103,7 @@ public class Premios {
         }
     }
     
+    
     public static ArrayList<Premios> readFromFile(String nomfile){
         ArrayList<Premios> premios = new ArrayList<>();
         try (Scanner sc = new Scanner(new File(nomfile)))
@@ -127,11 +119,12 @@ public class Premios {
             }
             
         }catch(Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Se ha creado el archivo: "+ nomfile);
             
         }
         return premios;
     
+        
     }
     public static ArrayList<Premios> nextPremios(Scanner sc){  
         int id, id_concurso, lugar, cantidad, contador=0 ;
@@ -140,8 +133,7 @@ public class Premios {
         System.out.println("Ingrese la cantidad de premios: ");
         cantidad = sc.nextInt();
         ArrayList<Premios> lista_premios_inicial = new ArrayList<>();
-        ArrayList<Premios> lista_premios_terminada = new ArrayList<>();
-        
+        ArrayList<Premios> lista_premios_terminada = new ArrayList<>();       
         ArrayList<Premios> lista_premios = Premios.readFromFile("premios.txt");
         for (Premios p: lista_premios){
             if (id<p.getId()){
@@ -150,11 +142,7 @@ public class Premios {
         }
         id = id+1;
         
-        while (contador < cantidad){
-            sc.useDelimiter("\n");
-            sc.useLocale(Locale.US);
-            //Obtenemos el id de manera automatica ya que más abajo registramos
-            
+        while (contador < cantidad){          
             System.out.println("Ingrese el lugar de ese premio: ");
             lugar = sc.nextInt();
             System.out.println("Ingrese la descripción del premio: ");
@@ -164,25 +152,19 @@ public class Premios {
             contador = contador + 1;
             id=id+1;
         }
-        // Pedir el concurso al ultimo
+        
         do{
         id_concurso = Util.next_idconcurso(sc);
         if (id_concurso != 0)
         {
             for(Premios p: lista_premios_inicial){
-            Premios prem = new Premios(p.getId(),p.getLugar(),p.getDescripcion(),id_concurso);
-            
+            Premios prem = new Premios(p.getId(),p.getLugar(),p.getDescripcion(),id_concurso);            
             //aqui registramos
             prem.saveFile("premios.txt");
             lista_premios_terminada.add(prem);
-        }
+            }
         }
         }while(id_concurso==0);
         return lista_premios_terminada;                                       
-    }
-    
-    
-    
-    
-    
+    }   
 }

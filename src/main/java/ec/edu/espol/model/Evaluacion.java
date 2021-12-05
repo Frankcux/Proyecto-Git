@@ -1,4 +1,3 @@
-
 package ec.edu.espol.model;
 
 import java.io.File;
@@ -14,7 +13,6 @@ public class Evaluacion {
     private int idInscripcion;
     private Inscripcion inscripcion;
     private int idMiembroJurado;
-//    private MiembroJurado miembrojurado; ***************************************************************************************
     private int idCriterio;
     private Criterio criterio;
     
@@ -99,13 +97,10 @@ public class Evaluacion {
         ArrayList<Evaluacion> evaluaciones = new ArrayList<>();
         try (Scanner sc = new Scanner(new File(evaluacionefield))){
             while(sc.hasNextLine())
-            {
-                
-// linea = id|nota|idInscripcion|idMiembroJurado|idCriterio
-                String linea = sc.nextLine();
-                
+            {                
+                // linea = id|nota|idInscripcion|idMiembroJurado|idCriterio
+                String linea = sc.nextLine();                
                 String[] tokens = linea.split("\\|");
-                
                 // int id, nota, idInscripcion, idMiembroJurado, idCriterio
                 Evaluacion evalu = new Evaluacion(Integer.parseInt(tokens[0]),
                         Integer.parseInt(tokens[1]),Integer.parseInt(tokens[2]),
@@ -120,50 +115,38 @@ public class Evaluacion {
     
     
     public static Evaluacion nextEvaluacion(Scanner sc){     
-        int id, idInscripcion, idCriterio;
+        int id, idInscripcion, idCriterio=0;
         int nota; 
+        int ptmax=0;
         int idMiembroJurado= 0;
         String emailMiembroJurado;
-        //ArrayList<Evaluacion> lista_evaluaciones = Evaluacion.readFile("evaluaciones.txt");
         id= Util.nextID("evaluaciones.txt");
-        /*
-        for (Evaluacion e: lista_evaluaciones){
-            System.out.println(e.getId());
-           if (id <e.getId()){
-               
-               id=e.getId();
-           }
-           id=id+1;
-        */
-        //id = lista_evaluaciones.size() + 1;  
-        sc.useDelimiter("\n");
-        sc.useLocale(Locale.US);
-        System.out.println("hay " + id);
-        System.out.println("Ingrese el email del miembro del jurado: ");
-        emailMiembroJurado = sc.next();
-        ArrayList<MiembroJurado>  miembros =  MiembroJurado.readFile("miembroJurados.txt");
-        for (MiembroJurado m: miembros){
-            if(emailMiembroJurado.equals(m.getEmail()))
-            {
-                System.out.println(idMiembroJurado);
-                idMiembroJurado= m.getId();
+        
+        do{
+            System.out.println("Ingrese el email del miembro del jurado: ");
+            emailMiembroJurado = sc.next();
+            ArrayList<MiembroJurado>  miembros =  MiembroJurado.readFile("miembroJurados.txt");
+            for (MiembroJurado m: miembros){
+                if(emailMiembroJurado.equals(m.getEmail()))
+                {
+                    idMiembroJurado= m.getId();
+                }
             }
-        }
-        System.out.println(idMiembroJurado);
-        if(idMiembroJurado==0){
-            return null;
-        }
-        System.out.println("Ingrese el id de la inscripcion a la que pertenece: ");
-        idInscripcion = sc.nextInt();
-        System.out.println("Ingrese el id del criterio evaluado: ");
-        idCriterio = sc.nextInt();
-        ArrayList<Criterio> lista_criterios = Criterio.readFromFile("criterios.txt");
-        int ptmax=0;
-        for (Criterio cri : lista_criterios){
-            if (cri.getId() == idCriterio){
-                ptmax = cri.getPunt_max();
-            }
-        }
+        }while(idMiembroJurado==0);
+        
+        Inscripcion ins;
+        do{
+            ins = Util.next_InsInscripcion(sc);
+        }while(ins==null);       
+        idInscripcion = ins.getId();
+        
+        Criterio crit;
+        do{
+            crit = Util.id_criterio(sc);
+        }while(crit == null);
+        idCriterio=crit.getId();
+        ptmax=crit.getPunt_max();
+
         do{
             System.out.println("Ingrese la nota: ");
             nota = sc.nextInt(); 
@@ -172,6 +155,7 @@ public class Evaluacion {
         Evaluacion nueva_evaluacion = new Evaluacion(id, idMiembroJurado, idInscripcion,
                 idCriterio, nota);
         nueva_evaluacion.saveFile("evaluaciones.txt");
+        
         return nueva_evaluacion;
     }
 }

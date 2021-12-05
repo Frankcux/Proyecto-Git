@@ -89,8 +89,6 @@ public class Menu {
            }else if ( Integer.parseInt(opcion) == 8){
                Evaluacion nueva_evaluacion = Evaluacion.nextEvaluacion(sc);
                System.out.println("La evaluacion: "+ nueva_evaluacion +" ha sido guardada");
-  
-               
             }
         }while(Integer.parseInt(opcion)!=9);
     }

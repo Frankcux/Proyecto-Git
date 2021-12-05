@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ec.edu.espol.model;
 
 import static ec.edu.espol.model.Concurso.readFromFile;
@@ -14,10 +9,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
-/**
- *
- * @author eduardo
- */
 public class Util {
     
     // el constructor se lo ha declarado privado
@@ -77,11 +68,6 @@ public class Util {
         return null;       
     }
     
-    //FUNCIONES CREADAS PARA EVITAR COLOCARLAS EN CADA CASO, next_idconcurso PUEDE IMPLEMENTARSE TAMBIEN EN LA OPCION DE PREMIOS PARA REDUCIR CODIGO
-     
-    // ARREGLAR EL CODIGO COMO LO HICIMOS EN INSCRIPCIONESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS ************
-    // READFILE GENERAL USANDO SWITCH
-    // CREAR UNA CLASE PADRE PARA TODAS LAS CLASES Y HEREDAR EL COMPORTAMIENTO DE LOS SAVE FILE Y READ FILE (USAR INSTANCE OF)
     
     public static int next_idmascota(Scanner sc){
     System.out.println("Ingrese el nombre de su mascota: ");
@@ -94,6 +80,7 @@ public class Util {
         }
     return 0;
     }
+    
     
     public static Duen next_Duendueño(Scanner sc){
         
@@ -121,6 +108,17 @@ public class Util {
         }
     return null;
     }
-
     
+    
+    public static Criterio id_criterio(Scanner sc){
+        System.out.println("Ingrese el id del criterio: ");
+        int id= sc.nextInt();
+        ArrayList<Criterio> lista_criterios = Criterio.readFromFile("criterios.txt");
+        for (Criterio criterio: lista_criterios){
+            if (id==criterio.getId()){
+                return criterio;
+            }  
+        }
+    return null;
+    }
 }

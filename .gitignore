@@ -1,4 +1,2 @@
-#Ignore subdirectorios
-target
 #Ignora todos los archivos de texto
 *.txt

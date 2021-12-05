@@ -1,4 +1,3 @@
-
 package ec.edu.espol.model;
 
 import java.io.File;
@@ -128,7 +127,7 @@ public class Criterio {
                 criterios.add(crit);
             }           
         }catch(Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Se ha creado el archivo: " + criteriofield);
         }
         return criterios;
     }
@@ -150,11 +149,7 @@ public class Criterio {
             }
         }
         id = id+1;
-        while(contador < cantidad){
-            sc.useDelimiter("\n");
-            sc.useLocale(Locale.US);                
-            
-            
+        while(contador < cantidad){                
             System.out.println("El tamnaño de la lista es: " + id);
             System.out.println("Ingrese el nombre del criterio: ");
             nombre = sc.next();
@@ -171,8 +166,7 @@ public class Criterio {
             id_concurso = Util.next_idconcurso(sc);
             if (id_concurso != 0){
                 for ( Criterio c1:  lista_criterios_1){
-                    Criterio crit2 = new Criterio(c1.getId(),c1.getNombre(), c1.getDescripcion(), c1.getPunt_max(), id_concurso);
-                    
+                    Criterio crit2 = new Criterio(c1.getId(),c1.getNombre(), c1.getDescripcion(), c1.getPunt_max(), id_concurso);  
                     crit2.saveFile("criterios.txt");
                     lista_criterios_2.add(crit2);
                 }

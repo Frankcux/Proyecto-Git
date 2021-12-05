@@ -13,8 +13,6 @@ import java.util.Scanner;
 
 
 public class Concurso {
-    //DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy"); 
-    //LocalDate fecha = LocalDate.parse("02/10/2020", formato); 
     private int id;
     private String nombre;
     private LocalDate fecha;
@@ -129,18 +127,9 @@ public class Concurso {
         }
         sb.append("]");
         return sb.toString();
-        /*
-        return "Concurso{ Id: "+ id + ",nombre: "+ nombre+", fecha: "+ fecha+", fecha de inscripcion: "+ fechaInscripcion+ ", fecha de cierre de inscripcion: "+ fechaCierreInscripcion+ ", temática: "+ tematica+", costo de inscripcion: "+ costo+" }";
-        */
+        
     }
-    @Override
-    
-    public boolean equals(Object o) {
-        if( o != null && o instanceof Concurso){
-            Concurso c2 = (Concurso)o;
-            return (this.id == c2.id) ;
-        }return false;
-    }
+      
      public void  saveFile(String nomfile){
         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomfile),true)))
         {
@@ -176,21 +165,17 @@ public class Concurso {
             }
             
         }catch(Exception e) {
-            System.out.println("error");
+            System.out.println("Se ha creado el archivo: " + nomfile);
             
         }
         return concursos;
     
     }
-    public static Concurso nextConcurso(Scanner sc){
-        
+    public static Concurso nextConcurso(Scanner sc){       
         int id;
         String tematica, nombre;
         double costo;
         LocalDate fecha, fechaIns, fechaCierreIns;
-        sc.useDelimiter("\n");
-       
-        sc.useLocale(Locale.US);
         ArrayList<Concurso> c = Concurso.readFromFile("concursos.txt");
         id = c.size()+1;
         System.out.println("Ingrese el nombre de ese concurso: ");

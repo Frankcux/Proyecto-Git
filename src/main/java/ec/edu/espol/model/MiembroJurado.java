@@ -1,7 +1,5 @@
 package ec.edu.espol.model;
 
-
-
 import ec.edu.espol.model.*;
 import ec.edu.espol.model.Persona;
 import java.io.File;
@@ -11,10 +9,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
-/**
- *
- * @author 59399
- */
 public class MiembroJurado extends Persona {
     private int idMiembroJurado;
     private String perfil;
@@ -46,14 +40,9 @@ public class MiembroJurado extends Persona {
     public void setPerfil(String perfil) {
         this.perfil = perfil;
     }
-    /*
+    
+    
     @Override
-    public String toString() {
-        return "MiembroJurado{" + "id=" + this.getId()+ ", nombres=" + this.getNombres()+ 
-                ", apellidos=" + this.getApellidos() + ", telefono=" + this.getTelefono() + 
-                ", email=" + this.getEmail() + ", perfil=" + perfil + '}';
-    }*/
-        @Override
     public String toString() {
         StringBuilder sb= new StringBuilder();
         sb.append("MiembroJurado{ id= ");
@@ -78,40 +67,35 @@ public class MiembroJurado extends Persona {
         sb.append("]");
         return sb.toString();
     }
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
+    
+    public static ArrayList<MiembroJurado> readFile(String nombre){
+        ArrayList<MiembroJurado> miembroJurado= new ArrayList<>();
+        try (Scanner sc =new Scanner(new File (nombre))){
+            while(sc.hasNextLine()){
+                String linea= sc.nextLine();
+                String[] datos = linea.split("\\|"); 
+                MiembroJurado v= new MiembroJurado(Integer.parseInt(datos[0]),datos[1],datos[2],datos[3],datos[4],datos[5]);
+                miembroJurado.add(v);
+            } 
+        }catch (Exception e){
+            System.out.println("Se ha creado el archivo: "+ nombre);
         }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final MiembroJurado other = (MiembroJurado) obj;
-        if (this.getId() != other.getId()) {
-            return false;
-        }
-        return true;
+        return miembroJurado;
     }
+    
+    
     public static MiembroJurado nextMiembroJurado(Scanner sc){
-        
         String perfil;
         sc.useDelimiter("\n");
         Persona p=  Persona.nextPersona(sc);
-        System.out.println("Ingrese el perfil de Miembro del Jurado: ");
+        System.out.println("Ingrese una descripción: ");
         perfil= sc.next();
         ArrayList<MiembroJurado> j= MiembroJurado.readFile("miembroJurados.txt");
-        
-       
+
         return new MiembroJurado(j.size()+1,perfil,p.getNombres(),p.getApellidos(),p.getTelefono(),p.getEmail());
         
     }
-    /*
-    ( int id,String perfil, String nombres, 
-            String apellidos, String telefono, String email) 
-*/
+    
     
     public void saveFile(String file){
         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(file),true)))
@@ -123,35 +107,16 @@ public class MiembroJurado extends Persona {
         }
     }
     
-    //saveFile
-    //recibe lista de pacientes
+    
     public static void  saveFile( ArrayList<MiembroJurado> miembroJurado , String nombre){
         //en modo append
         try(PrintWriter pw= new PrintWriter(new FileOutputStream(new File(nombre)))){
             for (   MiembroJurado v:  miembroJurado ){
                 pw.println(v.getId()+"|"+ v.getPerfil() + "|"+ v.getNombres()+ "|" + v.getApellidos() + "|"+ v.getTelefono()+ "|"
                     + v.getEmail() );
-            }
-            
+            }           
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
-    }
-    //el comportamiento estático readFile
-    public static ArrayList<MiembroJurado> readFile(String nombre){
-        ArrayList<MiembroJurado> miembroJurado= new ArrayList<>();
-        try (Scanner sc =new Scanner(new File (nombre))){
-            while(sc.hasNextLine()){
-                String linea= sc.nextLine();
-                String[] datos = linea.split("\\|"); 
-                MiembroJurado v= new MiembroJurado(Integer.parseInt(datos[0]),datos[1],datos[2],datos[3],datos[4],datos[5]);
-                miembroJurado.add(v);
-            } 
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-        return miembroJurado;
-    }
-    
-    
+    }   
 }

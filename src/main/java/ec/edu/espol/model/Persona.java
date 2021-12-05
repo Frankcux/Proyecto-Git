@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ec.edu.espol.model;
 
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
-/**
- *
- * @author 59399
- */
 public class Persona {
     protected int id;
     protected String nombres,apellidos,telefono,email;
@@ -79,28 +70,7 @@ public class Persona {
         return "Persona{" + "id=" + id + ", nombres=" + nombres + ", apellidos=" + apellidos + ", telefono=" + telefono + ", email=" + email + '}';
     }
 
-    /*
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null) {
-            return false;
-        }
-        if (getClass() != o.getClass()) {
-            return false;
-        }
-        Persona other = (Persona) o;
-        if (this.id != other.id) {
-            return false;
-        }
-        if (!Objects.equals(this.email, other.email)) {
-            return false;
-        }
-        return true;
-
-    }*/
+    
         public static  Persona nextPersona(Scanner sc){        
         String nombre,apellidos,telefono,email;
         sc.useDelimiter("\n");       
