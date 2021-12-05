@@ -135,18 +135,26 @@ public class Criterio {
     
     
     public static ArrayList<Criterio> nextCriterio(Scanner sc){
-        int id,punt_max, id_concurso, cantidad, contador = 0; ;
+        int id=0,punt_max, id_concurso, cantidad, contador = 0; ;
         String nombre, descripcion;
-        id_concurso = Util.next_idconcurso(sc);
+        
         System.out.println("Ingrese la cantidad de criterios: ");
         cantidad = sc.nextInt();
-        ArrayList<Criterio> lista_criterios_1 = new ArrayList<>();              
+        ArrayList<Criterio> lista_criterios_1 = new ArrayList<>(); 
+        ArrayList<Criterio> lista_criterios_2 = new ArrayList<>();
+        
+        ArrayList<Criterio> lista_cri = Criterio.readFromFile("criterios.txt");
+        for (Criterio c: lista_cri){
+            if (id<c.getId()){
+                id=c.getId();
+            }
+        }
+        id = id+1;
         while(contador < cantidad){
             sc.useDelimiter("\n");
             sc.useLocale(Locale.US);                
-            ArrayList<Criterio> lista_criterios = new ArrayList<>();
-            lista_criterios = Criterio.readFromFile("criterios.txt");
-            id = lista_criterios.size()+1;
+            
+            
             System.out.println("El tamnaño de la lista es: " + id);
             System.out.println("Ingrese el nombre del criterio: ");
             nombre = sc.next();
@@ -154,12 +162,21 @@ public class Criterio {
             descripcion = sc.next();
             System.out.println("Ingrese el puntaje maximo a obtener en ese criterio: ");
             punt_max = sc.nextInt(); 
-            Criterio crit = new Criterio(id, nombre, descripcion, punt_max, id_concurso);  
-            lista_criterios.add(crit);
-            lista_criterios_1.add(crit);  
-            crit.saveFile("criterios.txt");
+            Criterio crit = new Criterio(id, nombre, descripcion, punt_max);  
+            lista_criterios_1.add(crit);
             contador = contador + 1;
-            }  
+            id=id+1;
+             } 
+            id_concurso = Util.next_idconcurso(sc);
+            if (id_concurso != 0){
+                for ( Criterio c1:  lista_criterios_1){
+                    Criterio crit2 = new Criterio(c1.getId(),c1.getNombre(), c1.getDescripcion(), c1.getPunt_max(), id_concurso);
+                    
+                    crit2.saveFile("criterios.txt");
+                    lista_criterios_2.add(crit2);
+                }
+            }
+            
         return lista_criterios_1;
         }    
     }
