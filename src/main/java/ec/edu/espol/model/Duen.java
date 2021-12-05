@@ -28,6 +28,16 @@ public class Duen extends Persona{
         this.mascotas=new ArrayList<>();
     }
     
+    public Duen(int id, String nombre, String apellidos, String telefono, String email, String direccion, ArrayList<Mascota> mascotas){
+        super(nombre,apellidos,telefono,email);
+        this.id = id;
+        this.direccion=direccion;
+        this.mascotas=new ArrayList<>();
+    }
+
+
+    
+    
     public String getDireccion() {
         return direccion;
     }
@@ -44,12 +54,6 @@ public class Duen extends Persona{
         this.mascotas = mascotas;
     }
     
-/*
-    @Override
-    public String toString() {
-        return "Duen{" +"id="+ this.getId()+", nombres="+this.getNombres()+", apellidos="+this.getApellidos()+
-                ", telefono"+this.getTelefono()+ ", direccion=" + this.getDireccion() + ", email="+this.getEmail()+" mascotas=" + this.mascotas + '}';
-    }*/
     
             @Override
     public String toString() {
@@ -78,15 +82,16 @@ public class Duen extends Persona{
     
     //Hice cambios aquí, espero que no te moleste
     public static Duen nextDueño(Scanner sc){
+        
         sc.useDelimiter("\n");
         //Id de cada dueño
-        ArrayList<Duen> lista_duenos = Duen.readFile("dueno.txt");
+        ArrayList<Duen> lista_duenos = Duen.readFile("dueños.txt");
         int id_dueno = lista_duenos.size()+1;
         Persona persona = Persona.nextPersona(sc);
         System.out.println("Ingrese la dirreccion del Dueño: ");
         String direccion = sc.next();
         Duen persona_duen = new Duen(id_dueno, persona.nombres, persona.apellidos, persona.telefono, persona.email, direccion);    
-        persona_duen.saveFile("dueno.txt");
+        persona_duen.saveFile("dueños.txt");
         return persona_duen;
         
     }

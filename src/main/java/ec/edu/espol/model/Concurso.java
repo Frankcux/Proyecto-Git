@@ -191,8 +191,8 @@ public class Concurso {
         sc.useDelimiter("\n");
        
         sc.useLocale(Locale.US);
-        System.out.println("Ingrese el id del concurso: ");
-        id = sc.nextInt();
+        ArrayList<Concurso> c = Concurso.readFromFile("concursos.txt");
+        id = c.size()+1;
         System.out.println("Ingrese el nombre de ese concurso: ");
         nombre = sc.next();
         System.out.println("Ingrese la fecha del concurso: ");

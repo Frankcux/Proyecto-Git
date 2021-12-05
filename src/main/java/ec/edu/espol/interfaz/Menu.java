@@ -56,8 +56,6 @@ public class Menu {
             }else if ( Integer.parseInt(opcion) == 2){
            
                 Mascota mascota1= Mascota.nextMascota(sc);
-                System.out.println("Estos son los criterios que acaba de registrar: \n");
-                mascota1.saveFile("mascota.txt");
             
   
             }else if ( Integer.parseInt(opcion) == 3){ //Implementacion de la opción 3
