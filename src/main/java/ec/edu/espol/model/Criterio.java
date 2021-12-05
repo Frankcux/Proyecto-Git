@@ -150,7 +150,6 @@ public class Criterio {
         }
         id = id+1;
         while(contador < cantidad){                
-            System.out.println("El tamnaño de la lista es: " + id);
             System.out.println("Ingrese el nombre del criterio: ");
             nombre = sc.next();
             System.out.println("Ingrese la descripción del criterio: ");
