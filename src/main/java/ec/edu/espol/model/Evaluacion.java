@@ -124,9 +124,9 @@ public class Evaluacion {
         int nota; 
         int idMiembroJurado= 0;
         String emailMiembroJurado;
-        ArrayList<Evaluacion> lista_evaluaciones = Evaluacion.readFile("evaluaciones.txt");
-        id=0;
-        
+        //ArrayList<Evaluacion> lista_evaluaciones = Evaluacion.readFile("evaluaciones.txt");
+        id= Util.nextID("evaluaciones.txt");
+        /*
         for (Evaluacion e: lista_evaluaciones){
             System.out.println(e.getId());
            if (id <e.getId()){
@@ -134,7 +134,7 @@ public class Evaluacion {
                id=e.getId();
            }
            id=id+1;
-        }
+        */
         //id = lista_evaluaciones.size() + 1;  
         sc.useDelimiter("\n");
         sc.useLocale(Locale.US);
@@ -167,7 +167,7 @@ public class Evaluacion {
         do{
             System.out.println("Ingrese la nota: ");
             nota = sc.nextInt(); 
-        }while(nota<ptmax);
+        }while(nota>ptmax);
         
         Evaluacion nueva_evaluacion = new Evaluacion(id, idMiembroJurado, idInscripcion,
                 idCriterio, nota);
