@@ -20,6 +20,7 @@ public class Inscripcion {
     private int idMascota;
     private int idConcurso;
     private Concurso concurso;
+    private ArrayList<Evaluacion> evaluacion;
 
     
     public Inscripcion(int id, LocalDate fecha_inscripcion, double valor, int idMascota,int idConcurso ) {
@@ -56,6 +57,16 @@ public class Inscripcion {
     public int getIdConcurso() {
         return idConcurso;
     }
+
+    public ArrayList<Evaluacion> getEvaluacion() {
+        return evaluacion;
+    }
+
+    public void setEvaluacion(ArrayList<Evaluacion> evaluacion) {
+        this.evaluacion = evaluacion;
+    }
+    
+    
     
     
     public void setId(int id) {
@@ -87,8 +98,11 @@ public class Inscripcion {
     
     public void saveFile (String inscripcionesfield){
        try (PrintWriter pw = new PrintWriter(new FileOutputStream(new File(inscripcionesfield),true))){
-           pw.println(this.id + "|"+ this.fecha_inscripcion+ "|" + this.valor + "|"+ this.idMascota + "|"+ this.idConcurso);
-       }catch(Exception e){
+           pw.println(this.id + "|"+ this.fecha_inscripcion+ "|" + this.valor + "|"+ this.idMascota + "|"+ this.idConcurso + "|"+ this.evaluacion);
+           for (Evaluacion m: this.getEvaluacion()){
+                pw.println(m.getId() + ";");
+           }
+        }catch(Exception e){
            System.out.println(e.getMessage());
        }  
     }
@@ -98,7 +112,9 @@ public class Inscripcion {
         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(inscripcionesfield),true))){
             for (Inscripcion ins : listainscripciones)
                 pw.println(ins.id + "|"+ ins.fecha_inscripcion+ "|" + ins.valor + "|"+ ins.idMascota + "|"+ ins.idConcurso);
-        }
+            
+            }
+        
         catch(Exception e){
             System.out.println(e.getMessage());
         }       

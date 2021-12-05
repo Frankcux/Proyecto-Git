@@ -88,14 +88,10 @@ public class Duen extends Persona{
         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(file),true)))
         {
             pw.println(this.getId() + "|"+ this.getNombres()+ "|" + this.getApellidos() + "|"+ this.getTelefono()+ "|" 
-<<<<<<< HEAD
                     + this.getEmail()+ "|"+ this.getDireccion() + "|" + this.mascotas);
-=======
-                    + this.getEmail()+ "|"+ this.getDireccion() + "|");
             for (Mascota m: this.getMascotas()){
                 pw.println(m.getId() + ";");
             }
->>>>>>> fd0a0dec5fef66439d3e3a517e16424c62e880e7
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }
