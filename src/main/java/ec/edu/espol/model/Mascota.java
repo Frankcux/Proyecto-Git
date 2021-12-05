@@ -122,7 +122,24 @@ public class Mascota {
         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(file),true)))
         {
             pw.println(this.getId() + "|"+ this.getNombre()+ "|" + this.getRaza() + "|"+ this.getTipo()+ "|"+ this.getFechaNacimiento()+ "|"+ this.getIdDueño());
+            for (Inscripcion i: this.getInscripciones()){
+                pw.println(i.getId() + ";");
+            }
         }catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public static void  saveFile( ArrayList<Mascota> mascotas , String nombre){
+        //en modo append
+        try(PrintWriter pw= new PrintWriter(new FileOutputStream(new File(nombre),true))){
+            for (   Mascota v:  mascotas ){
+                // ejemplo= 1|Tobias|mestiza|perro|2015-01-10|1|2;4;
+                pw.println(v.getId() + "|"+ v.getNombre()+ "|" + v.getRaza() + "|"+ v.getTipo()+ "|"+ v.getFechaNacimiento()+ "|"+ v.getIdDueño());
+                for (Inscripcion m: v.getInscripciones()){
+                    pw.println(m.getId() + ";");
+                }
+            }    
+        }catch(Exception e){
             System.out.println(e.getMessage());
         }
     }
@@ -168,16 +185,34 @@ public class Mascota {
         m.saveFile("mascotas.txt");
         return m;    
     }
+    public static ArrayList<Inscripcion>  GenerarListInscripMascota(String nombre,int id){
+        ArrayList<Inscripcion> ins2=new ArrayList<>();
+        ArrayList<Inscripcion> ins= Inscripcion.readFile(nombre);
+        
+        for (Inscripcion m: ins){
+            
+                if (m.getIdMascota()==id){
+                    ins2.add(m);
+                }
+        }
+        return ins2;
+    }
+    public static void ArchivoInscripcionMascota(){
+        ArrayList<Mascota> mascota= Mascota.readFile("mascotas.txt");
+        try(PrintWriter pw= new PrintWriter(new FileOutputStream(new File("mascotas.txt")))){
+            for (Mascota v: mascota){
+                String cadena="";
+                
+                for (Inscripcion m: Mascota.GenerarListInscripMascota("inscripciones.txt", v.getId())){
+                    cadena = cadena.concat(m.getId() + ";");
+                }
+                v.setInscripciones(Mascota.GenerarListInscripMascota("inscripciones.txt", v.getId()));
+                pw.println(v.getId()+ "|"+ v.getNombre()+ "|" + v.getRaza() + "|"+ v.getTipo()+ "|"+ v.getFechaNacimiento()+ "|"+ v.getIdDueño()+"|" +cadena);
+            } 
+        }catch(Exception e){ System.out.println(e.getMessage());
+            }
+    }
 
     
-    public static void  saveFile( ArrayList<Mascota> mascotas , String nombre){
-        //en modo append
-        try(PrintWriter pw= new PrintWriter(new FileOutputStream(new File(nombre),true))){
-            for (   Mascota v:  mascotas ){
-                pw.println(v.getId() + "|"+ v.getNombre()+ "|" + v.getRaza() + "|"+ v.getTipo()+ "|"+ v.getFechaNacimiento()+ "|"+ v.getIdDueño());
-            }    
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-    }
+    
 }
