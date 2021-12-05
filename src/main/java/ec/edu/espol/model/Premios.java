@@ -165,14 +165,19 @@ public class Premios {
             Premios premio = new Premios(id, lugar, descrip);
             lista_premios_inicial.add(premio);
             contador = contador + 1;
+            id=id+1;
         }
         // Pedir el concurso al ultimo
         id_concurso = Util.next_idconcurso(sc);
-        for(Premios p: lista_premios_inicial){
+        if (id_concurso != 0)
+        {
+            for(Premios p: lista_premios_inicial){
             Premios prem = new Premios(p.getId(),p.getLugar(),p.getDescripcion(),id_concurso);
+            
             //aqui registramos
             prem.saveFile("premios.txt");
             lista_premios_terminada.add(prem);
+        }
         }
         return lista_premios_terminada;                                       
     }

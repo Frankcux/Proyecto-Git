@@ -9,13 +9,14 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 
 public class Inscripcion {
     private int id;
-    private String fecha_inscripcion;
+    private LocalDate fecha_inscripcion;
     private double valor;
     private int idMascota;
 //    private Mascota mascota; ****************
@@ -23,7 +24,7 @@ public class Inscripcion {
     private Concurso concurso;
 
     
-    public Inscripcion(int id, String fecha_inscripcion, double valor, int idMascota,int idConcurso ) {
+    public Inscripcion(int id, LocalDate fecha_inscripcion, double valor, int idMascota,int idConcurso ) {
         this.id = id;
         this.fecha_inscripcion = fecha_inscripcion;
         this.valor = valor;
@@ -31,7 +32,7 @@ public class Inscripcion {
         this.idConcurso = idConcurso;
     }
 
-    public Inscripcion(int id, String fecha_inscripcion, double valor) {
+    public Inscripcion(int id, LocalDate fecha_inscripcion, double valor) {
         this.id = id;
         this.fecha_inscripcion = fecha_inscripcion;
         this.valor = valor;
@@ -42,7 +43,7 @@ public class Inscripcion {
         return this.id;
     }
 
-    public String getFecha_inscripcion() {
+    public LocalDate getFecha_inscripcion() {
         return this.fecha_inscripcion;
     }
 
@@ -63,7 +64,7 @@ public class Inscripcion {
         this.id = id;
     }
 
-    public void setFecha_inscripcion(String fecha_inscripcion) {
+    public void setFecha_inscripcion(LocalDate fecha_inscripcion) {
         this.fecha_inscripcion = fecha_inscripcion;
     }
 
@@ -132,7 +133,7 @@ public class Inscripcion {
             while(sc.hasNextLine()){
                 String linea= sc.nextLine();
                 String[] datos = linea.split("\\|"); 
-                Inscripcion ins = new Inscripcion(Integer.parseInt(datos[0]),(datos[1]), Double.parseDouble(datos[2]),Integer.parseInt(datos[3]),Integer.parseInt(datos[4]));                
+                Inscripcion ins = new Inscripcion(Integer.parseInt(datos[0]),LocalDate.parse(datos[1]), Double.parseDouble(datos[2]),Integer.parseInt(datos[3]),Integer.parseInt(datos[4]));                
                 inscripciones.add(ins);
             }
         }catch (Exception e){
@@ -145,7 +146,7 @@ public class Inscripcion {
  // CHICOS DE ESTA FORMA PODEMOS AGREGAR LOS ID A CADA CLASE, ES NECESARIO LEER EL ARCHIVO DONDE SE GUARDEN PARA QUE EL CONTEO NO REINICIE CADA VEZ QUE EJECUTAMOS EL PROGRAMA
         int id,id_mascota, id_concurso;
         Double valor;
-        String fecha_inscripcion;  
+        LocalDate fecha_inscripcion;  
         
         ArrayList<Inscripcion> lista_inscripciones = Inscripcion.readFile("inscripciones.txt");     
         id = lista_inscripciones.size()+1;       
@@ -156,7 +157,7 @@ public class Inscripcion {
             sc.useDelimiter("\n");
             sc.useLocale(Locale.US);
             System.out.println("Ingrese la fecha de inscripcion: ");
-            fecha_inscripcion = sc.next();
+            fecha_inscripcion = LocalDate.parse(sc.next());
             System.out.println("Ingrese el costo de la inscripcion: ");
             valor = sc.nextDouble();
             Inscripcion inscripcion_completa = new Inscripcion(id, fecha_inscripcion, valor,id_mascota, id_concurso);
@@ -165,7 +166,7 @@ public class Inscripcion {
             return inscripcion_completa;
             
         }
-        System.out.println("Inscripcion inválida porque el concurso o macosta no existe");
+        System.out.println("Inscripcion inválida porque el concurso o mascota no existe");
         return null;
     }
 }
