@@ -9,6 +9,7 @@ import static ec.edu.espol.model.Concurso.readFromFile;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -55,6 +56,27 @@ public class Util {
     return 0;
     }
     
+    
+    public static LocalDate fecha_inicio_concurso(int id){
+        ArrayList<Concurso> concursos = Concurso.readFromFile("concursos.txt");
+        for (Concurso i: concursos){
+            if(id==i.getId()){
+                return i.getFechaInscripcion();
+            }
+        }
+        return null;       
+    }
+    
+    public static LocalDate fecha_cierre_concurso(int id){
+        ArrayList<Concurso> concursos = Concurso.readFromFile("concursos.txt");
+        for (Concurso i: concursos){
+            if(id==i.getId()){
+                return i.getFechaCierreInscripcion();
+            }
+        }
+        return null;       
+    }
+    
     //FUNCIONES CREADAS PARA EVITAR COLOCARLAS EN CADA CASO, next_idconcurso PUEDE IMPLEMENTARSE TAMBIEN EN LA OPCION DE PREMIOS PARA REDUCIR CODIGO
      
     // ARREGLAR EL CODIGO COMO LO HICIMOS EN INSCRIPCIONESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS ************
@@ -74,16 +96,20 @@ public class Util {
     }
     
     public static Duen next_Duendueño(Scanner sc){
-        System.out.println("Ingrese el email del dueño: ");
+        
+        System.out.println("Ingrese un email de dueño existente: ");
         String email = sc.next();
         ArrayList<Duen> dueños = Duen.readFile("dueños.txt");
         for (Duen d: dueños){
             if (email.equals(d.getEmail())){
+               
                 return d;
             }  
         }
-    return null;
+        return null; 
     }
+    
+    
     public static Inscripcion next_InsInscripcion(Scanner sc){
         System.out.println("Ingrese el id de la inscripcion: ");
         int id= sc.nextInt();

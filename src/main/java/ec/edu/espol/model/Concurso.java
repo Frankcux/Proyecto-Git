@@ -197,10 +197,17 @@ public class Concurso {
         nombre = sc.next();
         System.out.println("Ingrese la fecha del concurso: ");
         fecha = LocalDate.parse(sc.next());
+        // Valida que las fechas tengan sentido
+        do{
         System.out.println("Ingrese la fecha de inscripcion: ");
         fechaIns = LocalDate.parse(sc.next());
+        }while(fechaIns.isAfter(fecha));
+        
+        // Valida que las fechas tengan sentido
+        do{
         System.out.println("Ingrese la fecha de cierre de inscripciones: ");
         fechaCierreIns = LocalDate.parse(sc.next());
+        }while(fechaCierreIns.isBefore(fechaIns)||fechaCierreIns.isAfter(fecha));
         System.out.println("Ingrese la temática del concurso: ");
         tematica = sc.next();
         System.out.println("Ingrese el costo de la inscripcion: ");

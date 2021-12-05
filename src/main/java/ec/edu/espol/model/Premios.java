@@ -78,11 +78,8 @@ public class Premios {
         sb.append("° lugar: ");
         sb.append(this.descripcion);
         sb.append("\n");
-        return sb.toString();
-        
-        /*
-        return "Premios[ " + "id=" + id + ", lugar=" + lugar + ", descripcion=" + descripcion + ", idConcurso=" + idConcurso + ",nombre de concurso=" + concurso + ']';
-        */
+        return sb.toString(); 
+
     }
     @Override
     
@@ -109,7 +106,7 @@ public class Premios {
         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomfile))))
         {
            for( Premios p: premios)
-               pw.println(p.id + "|"+ p.lugar+ "|" + p.descripcion + "|"+ p.idConcurso); 
+               pw.println(p.getId() + "|"+ p.getLugar() + "|" + p.getDescripcion() + "|"+ p.getIdConcurso()); 
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }
@@ -168,6 +165,7 @@ public class Premios {
             id=id+1;
         }
         // Pedir el concurso al ultimo
+        do{
         id_concurso = Util.next_idconcurso(sc);
         if (id_concurso != 0)
         {
@@ -179,6 +177,7 @@ public class Premios {
             lista_premios_terminada.add(prem);
         }
         }
+        }while(id_concurso==0);
         return lista_premios_terminada;                                       
     }
     

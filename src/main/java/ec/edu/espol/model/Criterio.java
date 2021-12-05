@@ -90,7 +90,7 @@ public class Criterio {
     
     @Override
     public String toString() {
-        return "Criterio{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", punt_max=" + punt_max + ", concurso=" + concurso + '}';
+        return "Criterio{" + "id=" + this.id + ", nombre=" + this.nombre + ", descripcion=" + this.descripcion + ", punt_max=" + this.punt_max + '}';
     }
     
     
@@ -166,7 +166,8 @@ public class Criterio {
             lista_criterios_1.add(crit);
             contador = contador + 1;
             id=id+1;
-             } 
+            }
+            do{
             id_concurso = Util.next_idconcurso(sc);
             if (id_concurso != 0){
                 for ( Criterio c1:  lista_criterios_1){
@@ -176,7 +177,7 @@ public class Criterio {
                     lista_criterios_2.add(crit2);
                 }
             }
-            
+            }while(id_concurso==0);           
         return lista_criterios_1;
         }    
     }

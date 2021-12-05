@@ -158,7 +158,11 @@ public class Mascota {
         System.out.println("Ingrese el tipo de mascota: ");
         tipo = sc.next();
         
-        Duen dueño = Util.next_Duendueño(sc);
+        Duen dueño;
+        do{
+            dueño = Util.next_Duendueño(sc);
+        }while(dueño == null);
+       
         /*ArrayList<Inscripcion> inscripciones= new ArrayList<>(); 
         System.out.println("Cuantas inscripciones tiene la mascota: ");
         int numeroInst=sc.nextInt();

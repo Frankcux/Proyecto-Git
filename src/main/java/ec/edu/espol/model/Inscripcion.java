@@ -149,15 +149,26 @@ public class Inscripcion {
         LocalDate fecha_inscripcion;  
         
         ArrayList<Inscripcion> lista_inscripciones = Inscripcion.readFile("inscripciones.txt");     
-        id = lista_inscripciones.size()+1;       
+        id = lista_inscripciones.size()+1; 
+        do{
         id_mascota = Util.next_idmascota(sc);
-        id_concurso = Util.next_idconcurso(sc);
-        if (id_concurso!= 0 || id_mascota != 0)
+        }while(id_mascota==0);
+        
+        do{
+        id_concurso = Util.next_idconcurso(sc);       
+        }while(id_concurso==0);
+        
+        do{
+            System.out.println("Ingrese la fecha de inscripcion: ");
+            fecha_inscripcion = LocalDate.parse(sc.next());
+            }while((fecha_inscripcion.isBefore(Util.fecha_inicio_concurso(id_concurso))) || (fecha_inscripcion.isAfter(Util.fecha_cierre_concurso(id_concurso))));
+       
+        if (id_concurso!= 0 && id_mascota != 0)         
         {
             sc.useDelimiter("\n");
             sc.useLocale(Locale.US);
-            System.out.println("Ingrese la fecha de inscripcion: ");
-            fecha_inscripcion = LocalDate.parse(sc.next());
+            
+                       
             System.out.println("Ingrese el costo de la inscripcion: ");
             valor = sc.nextDouble();
             Inscripcion inscripcion_completa = new Inscripcion(id, fecha_inscripcion, valor,id_mascota, id_concurso);
