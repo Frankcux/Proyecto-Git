@@ -14,6 +14,7 @@ Menú de opciones
 6.	Inscripción
 7.	MiembroJurado
 8.	Evaluacion
+
 La opción 1 de Dueño recibe los datos de un dueño por teclado y almacena la información del dueño en el archivo dueños.txt.
 
 La opción 2 de Mascota recibe los datos de una mascota por teclado y además el email del dueño al que pertenece (el email es para buscar el id del dueño para asociarlo a la mascota), la información de la mascota se almacena en el archivo mascotas.txt.
