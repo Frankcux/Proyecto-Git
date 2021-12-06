@@ -121,4 +121,14 @@ public class Util {
         }
     return null;
     }
+    public static double idConcurso(int id){
+        ArrayList<Concurso> concurso = Concurso.readFromFile("concursos.txt");
+        for (Concurso c: concurso){
+            if (id==c.getId()){
+                return c.getCosto();
+            }  
+        }
+        return 0;
+    }
 }
+

@@ -126,7 +126,7 @@ public class Mascota {
                 pw.println(i.getId() + ";");
             }
         }catch(Exception e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
     }
     public static void  saveFile( ArrayList<Mascota> mascotas , String nombre){
@@ -140,7 +140,7 @@ public class Mascota {
                 }
             }    
         }catch(Exception e){
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
     }
     Scanner sc= new Scanner(System.in);
@@ -156,7 +156,7 @@ public class Mascota {
                 mascotas.add(v);                    
             } 
         }catch (Exception e){
-            System.out.println("Se ha creado el archivo: "+ nombre);
+            //System.out.println("Se ha creado el archivo: "+ nombre);
         }
         
         return mascotas;

@@ -86,7 +86,7 @@ public class MiembroJurado extends Persona {
                 miembroJurado.add(v);
             } 
         }catch (Exception e){
-            System.out.println("Se ha creado el archivo: "+ nombre);
+            //System.out.println("Se ha creado el archivo: "+ nombre);
         }
         return miembroJurado;
     }
@@ -109,12 +109,12 @@ public class MiembroJurado extends Persona {
         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(file),true)))
         {
             pw.println(this.getId()+ "|"+ this.getPerfil() + "|"+ this.getNombres()+ "|" + this.getApellidos() + "|"+ this.getTelefono()+ "|"
-                    + this.getEmail()+"|"+ this.evaluaciones);
+                    + this.getEmail()+"|");
             for (Evaluacion m: this.getEvaluaciones()){
                 pw.println(m.getId() + ";");
            }
         } catch(Exception e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
     }
     public static void  saveFile( ArrayList<MiembroJurado> miembroJurado , String nombre){
@@ -128,16 +128,16 @@ public class MiembroJurado extends Persona {
                 }
             }           
         }catch(Exception e){
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
     }      
     public static ArrayList<Evaluacion>  GenerarListEvaluacionMiembroJurado(String nombre,int id){
         ArrayList<Evaluacion> e2 = new ArrayList<>();
         ArrayList<Evaluacion> e= Evaluacion.readFile(nombre);
         for (Evaluacion m: e){      
-                if (m.getIdMiembroJurado()==id){
-                    e2.add(m);
-                }
+            if (m.getIdMiembroJurado()==id){
+                e2.add(m);
+            }
         }
         return e2;
     }

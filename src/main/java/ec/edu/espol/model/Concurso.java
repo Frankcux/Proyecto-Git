@@ -21,7 +21,7 @@ public class Concurso {
     private String tematica;
     private double costo;
     private ArrayList<Inscripcion> inscripciones;
-    private ArrayList<Premios> premios;
+    private ArrayList<Premio> premios;
     private ArrayList<Criterio> criterio;
     
     
@@ -61,7 +61,7 @@ public class Concurso {
       public ArrayList<Inscripcion> getInscripciones() {
         return inscripciones;
     }
-      public ArrayList<Premios> getPremios() {
+      public ArrayList<Premio> getPremios() {
         return premios;
     }
       public ArrayList<Criterio> getCriterio() {
@@ -94,7 +94,7 @@ public class Concurso {
     public void setInscripciones(ArrayList<Inscripcion> inscripciones) {
         this.inscripciones = inscripciones;
     }
-    public void setPremios(ArrayList<Premios> premios) {
+    public void setPremios(ArrayList<Premio> premios) {
         this.premios = premios;
     }
     public void setCriterio(ArrayList<Criterio> criterio) {
@@ -120,7 +120,7 @@ public class Concurso {
         sb.append(", costo de inscripción= ");
         sb.append(this.costo);
         sb.append(", Premios= ");
-        for(Premios p: this.premios){
+        for(Premio p: this.premios){
             sb.append(p.toString());
             if(this.premios.size() != this.premios.size()-1)
                 sb.append(";");
@@ -135,7 +135,7 @@ public class Concurso {
         {
             pw.println(this.id + "|"+ this.nombre+ "|" + this.fecha + "|"+ this.fechaInscripcion+ "|"+ this.fechaCierreInscripcion+ "|"+ this.tematica+ "|"+ this.costo);
         } catch(Exception e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
             
         }
     }
@@ -145,7 +145,7 @@ public class Concurso {
            for( Concurso c: concursos)
                pw.println(c.id + "|"+ c.nombre+ "|" + c.fecha + "|"+ c.fechaInscripcion + "|"+ c.fechaCierreInscripcion+ "|"+ c.tematica+ "|"+ c.costo); 
         } catch(Exception e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
             
         }
     }
@@ -165,7 +165,7 @@ public class Concurso {
             }
             
         }catch(Exception e) {
-            System.out.println("Se ha creado el archivo: " + nomfile);
+            //System.out.println("Se ha creado el archivo: " + nomfile);
             
         }
         return concursos;
@@ -204,7 +204,68 @@ public class Concurso {
     }
     
     
+        public static ArrayList<Premio>  GenerarListPremiosConcurso(String nombre,int id){
+        ArrayList<Premio> premios2=new ArrayList<>();
+        ArrayList<Premio> premios= Premio.readFromFile(nombre);
+        
+        for (Premio m: premios){
+            
+                if (m.getIdConcurso()==id){
+                    premios2.add(m);
+                }
+        }
+        return premios2;
+    }
+    public static ArrayList<Criterio>  GenerarListCriterioConcurso(String nombre,int id){
+        ArrayList<Criterio> criterios2=new ArrayList<>();
+        ArrayList<Criterio> criterios= Criterio.readFromFile(nombre);
+        
+        for (Criterio m: criterios){
+            
+                if (m.getIdConcurso()==id){
+                    criterios2.add(m);
+                }
+        }
+        return criterios2;
+    }
     
-    
-           
+        public static ArrayList<Inscripcion>  GenerarListInscripcionesConcurso(String nombre,int id){
+        ArrayList<Inscripcion> inscripciones2=new ArrayList<>();
+        ArrayList<Inscripcion> inscripciones= Inscripcion.readFile(nombre);
+        
+        for (Inscripcion m: inscripciones){
+            
+                if (m.getIdConcurso()==id){
+                    inscripciones2.add(m);
+                }
+        }
+        return inscripciones2;
+    }
+        public static void ArchivoListasDueño(){
+        //ArrayList<Inscripcion> inscripciones1= Inscripcion.readFile("inscripciones.txt");
+        ArrayList<Concurso> concurso= Concurso.readFromFile("concursos.txt");
+        // ArrayList<Criterio> criterio1= Criterio.readFromFile("criterios.txt");
+        //ArrayList<Premio> premios= Premio.readFromFile("premios.txt");
+        try(PrintWriter pw= new PrintWriter(new FileOutputStream(new File("concursos.txt")))){
+            for (Concurso v: concurso){
+            //Mascota.saveFile(Duen.GenerarListMascotasDueño("mascotas.txt", d.getId()),"mascotasDueño");
+                String cadena1="";
+                String cadena2="";
+                String cadena3="";
+                for (Premio m: Concurso.GenerarListPremiosConcurso("premios.txt", v.getId())){
+                    cadena1 = cadena1.concat(m.getId() + ";");
+                }
+                for (Criterio m: Concurso.GenerarListCriterioConcurso("criterios.txt", v.getId())){
+                    cadena2 = cadena2.concat(m.getId() + ";");
+                }
+                for (Inscripcion m: Concurso.GenerarListInscripcionesConcurso("inscripciones.txt", v.getId())){
+                    cadena3 = cadena3.concat(m.getId() + ";");
+                }
+                
+                pw.println(v.getId() + "|"+ v.getNombre()+ "|" + v.getFecha() + "|"+ v.getFechaInscripcion() +
+                        "|"+ v.getFechaCierreInscripcion()+ "|"+ v.getTematica()+ "|"+ v.getCosto()+"|"+cadena1+"|"+cadena2+"|"+cadena3);
+            } 
+        }catch(Exception e){ System.out.println(e.getMessage());
+            }
+    }       
 }

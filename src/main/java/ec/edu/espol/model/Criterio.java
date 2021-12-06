@@ -114,12 +114,12 @@ public class Criterio {
     
     public void saveFile (String criteriofield){
        try (PrintWriter pw = new PrintWriter(new FileOutputStream(new File(criteriofield),true))){
-           pw.println(this.id + "|"+ this.nombre+ "|" + this.descripcion + "|"+ this.punt_max+ "|"+ this.idConcurso+ "|"+ this.evaluaciones);
+           pw.println(this.id + "|"+ this.nombre+ "|" + this.descripcion + "|"+ this.punt_max+ "|"+ this.idConcurso+ "|");
             for (Evaluacion m: this.getEvaluaciones()){
                 pw.println(m.getId() + ";");
             }
        }catch(Exception e){
-           System.out.println(e.getMessage());
+           //System.out.println(e.getMessage());
        }  
     }
 
@@ -134,7 +134,7 @@ public class Criterio {
             
         }
         catch(Exception e){
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }       
     }
     
@@ -180,7 +180,7 @@ public class Criterio {
                 criterios.add(crit);
             }           
         }catch(Exception e) {
-            System.out.println("Se ha creado el archivo: " + criteriofield);
+            //System.out.println("Se ha creado el archivo: " + criteriofield);
         }
         return criterios;
     }

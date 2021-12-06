@@ -11,9 +11,10 @@ import ec.edu.espol.model.Evaluacion;
 import ec.edu.espol.model.Inscripcion;
 import ec.edu.espol.model.Mascota;
 import ec.edu.espol.model.MiembroJurado;
-import static ec.edu.espol.model.Premios.saveFile;
+import static ec.edu.espol.model.Premio.saveFile;
 
-import ec.edu.espol.model.Premios;
+import ec.edu.espol.model.Premio;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
@@ -26,7 +27,7 @@ public class Menu {
     
     
     public static void menuOpciones(){
-        
+        File fichero = new File ("evaluaciones.txt");
        String opcion;
         do{
             System.out.println("Menú de opciones: ");
@@ -67,26 +68,30 @@ public class Menu {
  
                 
             }else if ( Integer.parseInt(opcion) ==4){
-                ArrayList<Premios> premios_completos = Premios.nextPremios(sc);
+                ArrayList<Premio> premios_completos = Premio.nextPremios(sc);
                 System.out.println("Estos son los premios que acaba de registrar: \n");
                 System.out.println(premios_completos);
+                Concurso.ArchivoListasDueño();
 
                 
             }else if ( Integer.parseInt(opcion) == 5){
                 ArrayList<Criterio> criterios_completos = Criterio.nextCriterio(sc);
                 System.out.println("Estos son los criterios que acaba de registrar: \n");
                 System.out.println(criterios_completos);
+                Concurso.ArchivoListasDueño();
              
                 
             }else if ( Integer.parseInt(opcion) == 6){
                 Inscripcion inscripcion_completa = Inscripcion.nextInscripcion(sc);
                 Mascota.ArchivoInscripcionMascota();
+                Concurso.ArchivoListasDueño();
                         
             }else if ( Integer.parseInt(opcion) == 7){
                 MiembroJurado miembroJ= MiembroJurado.nextMiembroJurado(sc);
                 miembroJ.saveFile("miembroJurados.txt");
                
             }else if ( Integer.parseInt(opcion) == 8){
+                
                Evaluacion nueva_evaluacion = Evaluacion.nextEvaluacion(sc);
                System.out.println("La evaluacion: "+ nueva_evaluacion +" ha sido guardada");
                Inscripcion.ArchivoEvaluacionInscripcion();

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 
-public class Premios {
+public class Premio {
     private int id;
     private int lugar;
     private String descripcion;
@@ -16,13 +16,13 @@ public class Premios {
 
     
     
-    public Premios(int id, int lugar, String des, int idConc){
+    public Premio(int id, int lugar, String des, int idConc){
         this.id = id;
         this.lugar= lugar;
         this.descripcion = des;
         this.idConcurso = idConc;
     }
-    public Premios(int id, int lugar, String des){
+    public Premio(int id, int lugar, String des){
         this.id = id;
         this.lugar= lugar;
         this.descripcion = des;
@@ -87,25 +87,25 @@ public class Premios {
         {
             pw.println(this.id + "|"+ this.lugar+ "|" + this.descripcion + "|"+ this.idConcurso);
         } catch(Exception e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
             
         }
     }
     
     
-    public static void saveFile(ArrayList<Premios> premios, String nomfile){
+    public static void saveFile(ArrayList<Premio> premios, String nomfile){
         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomfile))))
         {
-           for( Premios p: premios)
+           for( Premio p: premios)
                pw.println(p.getId() + "|"+ p.getLugar() + "|" + p.getDescripcion() + "|"+ p.getIdConcurso()); 
         } catch(Exception e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
     }
     
     
-    public static ArrayList<Premios> readFromFile(String nomfile){
-        ArrayList<Premios> premios = new ArrayList<>();
+    public static ArrayList<Premio> readFromFile(String nomfile){
+        ArrayList<Premio> premios = new ArrayList<>();
         try (Scanner sc = new Scanner(new File(nomfile)))
         {
             while(sc.hasNextLine())
@@ -114,28 +114,28 @@ public class Premios {
                 String linea = sc.nextLine();
                 String[] tokens = linea.split("\\|");
                 // int id,int lugar,String descripcion,int idconcurso
-                Premios p = new Premios(Integer.parseInt(tokens[0]),Integer.parseInt(tokens[1]),tokens[2],Integer.parseInt(tokens[3]));
+                Premio p = new Premio(Integer.parseInt(tokens[0]),Integer.parseInt(tokens[1]),tokens[2],Integer.parseInt(tokens[3]));
                 premios.add(p);
             }
             
         }catch(Exception e) {
-            System.out.println("Se ha creado el archivo: "+ nomfile);
+            //System.out.println("Se ha creado el archivo: "+ nomfile);
             
         }
         return premios;
     
         
     }
-    public static ArrayList<Premios> nextPremios(Scanner sc){  
+    public static ArrayList<Premio> nextPremios(Scanner sc){  
         int id, id_concurso, lugar, cantidad, contador=0 ;
         String descrip;
         id=0;
         System.out.println("Ingrese la cantidad de premios: ");
         cantidad = sc.nextInt();
-        ArrayList<Premios> lista_premios_inicial = new ArrayList<>();
-        ArrayList<Premios> lista_premios_terminada = new ArrayList<>();       
-        ArrayList<Premios> lista_premios = Premios.readFromFile("premios.txt");
-        for (Premios p: lista_premios){
+        ArrayList<Premio> lista_premios_inicial = new ArrayList<>();
+        ArrayList<Premio> lista_premios_terminada = new ArrayList<>();       
+        ArrayList<Premio> lista_premios = Premio.readFromFile("premios.txt");
+        for (Premio p: lista_premios){
             if (id<p.getId()){
                 id=p.getId();
             }
@@ -147,7 +147,7 @@ public class Premios {
             lugar = sc.nextInt();
             System.out.println("Ingrese la descripción del premio: ");
             descrip = sc.next();
-            Premios premio = new Premios(id, lugar, descrip);
+            Premio premio = new Premio(id, lugar, descrip);
             lista_premios_inicial.add(premio);
             contador = contador + 1;
             id=id+1;
@@ -157,8 +157,8 @@ public class Premios {
         id_concurso = Util.next_idconcurso(sc);
         if (id_concurso != 0)
         {
-            for(Premios p: lista_premios_inicial){
-            Premios prem = new Premios(p.getId(),p.getLugar(),p.getDescripcion(),id_concurso);            
+            for(Premio p: lista_premios_inicial){
+            Premio prem = new Premio(p.getId(),p.getLugar(),p.getDescripcion(),id_concurso);            
             //aqui registramos
             prem.saveFile("premios.txt");
             lista_premios_terminada.add(prem);

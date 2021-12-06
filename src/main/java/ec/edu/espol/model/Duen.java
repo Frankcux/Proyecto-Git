@@ -88,12 +88,12 @@ public class Duen extends Persona{
         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(file),true)))
         {
             pw.println(this.getId() + "|"+ this.getNombres()+ "|" + this.getApellidos() + "|"+ this.getTelefono()+ "|" 
-                    + this.getEmail()+ "|"+ this.getDireccion() + "|" + this.mascotas);
+                    + this.getEmail()+ "|"+ this.getDireccion() + "|");
             for (Mascota m: this.getMascotas()){
                 pw.println(m.getId() + ";");
             }
         } catch(Exception e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
     }
     
@@ -110,7 +110,7 @@ public class Duen extends Persona{
             }
             
         }catch(Exception e){
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
     }
 
@@ -125,7 +125,7 @@ public class Duen extends Persona{
                 dueño.add(v);
             }
         }catch (Exception e){
-            System.out.println("Se ha creado el archivo: " + nombre);
+            //System.out.println("Se ha creado el archivo: " + nombre);
         }
         return dueño;
     }

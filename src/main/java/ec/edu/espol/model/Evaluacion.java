@@ -76,7 +76,7 @@ public class Evaluacion {
        try (PrintWriter pw = new PrintWriter(new FileOutputStream(new File(evaluacionefield),true))){
            pw.println(this.id + "|"+ this.nota+ "|" + this.idInscripcion + "|"+ this.idMiembroJurado + "|"+ this.idCriterio);
        }catch(Exception e){
-           System.out.println(e.getMessage());
+           //System.out.println(e.getMessage());
        }  
     }
     
@@ -88,7 +88,7 @@ public class Evaluacion {
                         eva.getIdMiembroJurado() + "|"+ eva.getIdCriterio());
         }
         catch(Exception e){
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }       
     }
     
@@ -108,7 +108,7 @@ public class Evaluacion {
                 evaluaciones.add(evalu);
             }            
         }catch(Exception e) {
-            System.out.println("No hay archivo de evaluacion ");
+            //System.out.println("No hay archivo de evaluacion ");
         }
         return evaluaciones;
     }

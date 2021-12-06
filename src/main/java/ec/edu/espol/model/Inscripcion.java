@@ -98,12 +98,12 @@ public class Inscripcion {
     
     public void saveFile (String inscripcionesfield){
        try (PrintWriter pw = new PrintWriter(new FileOutputStream(new File(inscripcionesfield),true))){
-           pw.println(this.id + "|"+ this.fecha_inscripcion+ "|" + this.valor + "|"+ this.idMascota + "|"+ this.idConcurso + "|"+ this.evaluacion);
+           pw.println(this.id + "|"+ this.fecha_inscripcion+ "|" + this.valor + "|"+ this.idMascota + "|"+ this.idConcurso + "|");
            for (Evaluacion m: this.getEvaluacion()){
                 pw.println(m.getId() + ";");
            }
         }catch(Exception e){
-           System.out.println(e.getMessage());
+           //System.out.println(e.getMessage());
        }  
     }
     
@@ -111,14 +111,16 @@ public class Inscripcion {
     public static void saveFile(ArrayList<Inscripcion> listainscripciones, String inscripcionesfield){
         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(inscripcionesfield),true))){
             for (Inscripcion ins : listainscripciones){
-                pw.println(ins.id + "|"+ ins.fecha_inscripcion+ "|" + ins.valor + "|"+ ins.idMascota + "|"+ ins.idConcurso);
+                String cadena="";
                 for (Evaluacion m: ins.getEvaluacion()){
-                    pw.println(m.getId() + ";");
+                    cadena = cadena.concat(m.getId() + ";");
                 }
+                pw.println(ins.getId() + "|"+ ins.getFecha_inscripcion()+ "|" + ins.getValor() + "|"+ ins.getIdMascota() + "|"+ ins.getIdConcurso()+ "|"+ cadena);
+                
             }
         }
         catch(Exception e){
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }       
     }
     public static ArrayList<Evaluacion>  GenerarListEvaluacionInscripcion(String nombre,int id){
@@ -145,7 +147,7 @@ public class Inscripcion {
                 pw.println(v.getId() + "|"+ v.getFecha_inscripcion()+ "|" + v.getValor() + "|"+ v.getIdMascota()+ "|"
                     + v.getIdConcurso()+ "|" +cadena);
             } 
-        }catch(Exception e){ System.out.println(e.getMessage());
+        }catch(Exception e){ //System.out.println(e.getMessage());
             }
     }
     public static ArrayList<Inscripcion> readFile(String nombre){
@@ -158,14 +160,14 @@ public class Inscripcion {
                 inscripciones.add(ins);
             }
         }catch (Exception e){
-            System.out.println("Se ha creado el archivo: "+ nombre);
+            //System.out.println("Se ha creado el archivo: "+ nombre);
         }
         return inscripciones;
     }
     
     public static Inscripcion nextInscripcion(Scanner sc){
         int id,id_mascota, id_concurso;
-        Double valor;
+        double valor;
         LocalDate fecha_inscripcion;  
         ArrayList<Inscripcion> lista_inscripciones = Inscripcion.readFile("inscripciones.txt");     
         id = lista_inscripciones.size()+1; 
@@ -184,9 +186,13 @@ public class Inscripcion {
             }while((fecha_inscripcion.isBefore(Util.fecha_inicio_concurso(id_concurso))) || (fecha_inscripcion.isAfter(Util.fecha_cierre_concurso(id_concurso))));
        
         if (id_concurso!= 0 && id_mascota != 0)         
-        {         
-            System.out.println("Ingrese el costo de la inscripcion: ");
-            valor = sc.nextDouble();
+        {    
+            valor =0;
+            do{
+                System.out.println("Ingrese el valor total de la inscripcion: ");
+                valor = sc.nextDouble();
+            }while(valor!=Util.idConcurso(id_concurso));
+            
             Inscripcion inscripcion_completa = new Inscripcion(id, fecha_inscripcion, valor,id_mascota, id_concurso);
             inscripcion_completa.saveFile("inscripciones.txt");
             System.out.println("La incripcion: "+ inscripcion_completa +" ha sido guardada");
