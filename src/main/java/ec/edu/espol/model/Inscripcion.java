@@ -110,17 +110,44 @@ public class Inscripcion {
     
     public static void saveFile(ArrayList<Inscripcion> listainscripciones, String inscripcionesfield){
         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(inscripcionesfield),true))){
-            for (Inscripcion ins : listainscripciones)
+            for (Inscripcion ins : listainscripciones){
                 pw.println(ins.id + "|"+ ins.fecha_inscripcion+ "|" + ins.valor + "|"+ ins.idMascota + "|"+ ins.idConcurso);
-            
+                for (Evaluacion m: ins.getEvaluacion()){
+                    pw.println(m.getId() + ";");
+                }
             }
-        
+        }
         catch(Exception e){
             System.out.println(e.getMessage());
         }       
     }
-    
-    
+    public static ArrayList<Evaluacion>  GenerarListEvaluacionInscripcion(String nombre,int id){
+        ArrayList<Evaluacion> e2 = new ArrayList<>();
+        ArrayList<Evaluacion> e= Evaluacion.readFile(nombre);
+        for (Evaluacion m: e){      
+                if (m.getIdInscripcion()==id){
+                    e2.add(m);
+                }
+        }
+        return e2;
+    }
+    public static void ArchivoEvaluacionInscripcion(){
+        ArrayList<Inscripcion> inscripciones_lista = Inscripcion.readFile("inscripciones.txt");
+        try(PrintWriter pw= new PrintWriter(new FileOutputStream(new File("inscripciones.txt")))){
+            for (Inscripcion v: inscripciones_lista){
+            //Mascota.saveFile(Duen.GenerarListMascotasDueño("mascotas.txt", d.getId()),"mascotasDueño");
+                String cadena="";
+                
+                for (Evaluacion m: Inscripcion.GenerarListEvaluacionInscripcion("evaluaciones.txt", v.getId())){
+                    cadena = cadena.concat(m.getId() + ";");
+                }
+                v.setEvaluacion(Inscripcion.GenerarListEvaluacionInscripcion("evaluaciones.txt", v.getId()));
+                pw.println(v.getId() + "|"+ v.getFecha_inscripcion()+ "|" + v.getValor() + "|"+ v.getIdMascota()+ "|"
+                    + v.getIdConcurso()+ "|" +cadena);
+            } 
+        }catch(Exception e){ System.out.println(e.getMessage());
+            }
+    }
     public static ArrayList<Inscripcion> readFile(String nombre){
         ArrayList<Inscripcion> inscripciones= new ArrayList<>();
         try (Scanner sc =new Scanner(new File (nombre))){

@@ -85,11 +85,13 @@ public class Menu {
             }else if ( Integer.parseInt(opcion) == 7){
                 MiembroJurado miembroJ= MiembroJurado.nextMiembroJurado(sc);
                 miembroJ.saveFile("miembroJurados.txt");
-
-                
-           }else if ( Integer.parseInt(opcion) == 8){
+               
+            }else if ( Integer.parseInt(opcion) == 8){
                Evaluacion nueva_evaluacion = Evaluacion.nextEvaluacion(sc);
                System.out.println("La evaluacion: "+ nueva_evaluacion +" ha sido guardada");
+               Inscripcion.ArchivoEvaluacionInscripcion();
+               MiembroJurado.ArchivoEvaluacionMiembroJurado();
+               Criterio.ArchivoEvaluacionCriterio();
             }
         }while(Integer.parseInt(opcion)!=9);
     }

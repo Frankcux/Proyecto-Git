@@ -16,6 +16,7 @@ public class Criterio {
     private int punt_max;
     private int idConcurso;
     private Concurso concurso;
+    private ArrayList<Evaluacion> evaluaciones;
     
 
     
@@ -33,7 +34,10 @@ public class Criterio {
         this.descripcion = descripcion;
         this.punt_max = punt_max;
     }
-    
+
+    public ArrayList<Evaluacion> getEvaluaciones() {
+        return evaluaciones;
+    }
 
     public int getId() {
         return this.id;
@@ -51,6 +55,15 @@ public class Criterio {
         return this.punt_max;
     }
 
+    public int getIdConcurso() {
+        return idConcurso;
+    }
+    
+    
+
+    public void setEvaluaciones(ArrayList<Evaluacion> evaluaciones) {
+        this.evaluaciones = evaluaciones;
+    }
     
     public void setId(int id) {
         this.id = id;
@@ -67,6 +80,12 @@ public class Criterio {
     public void setPunt_max(int punt_max) {
         this.punt_max = punt_max;
     }
+
+    public void setIdConcurso(int idConcurso) {
+        this.idConcurso = idConcurso;
+    }
+    
+    
 
     
     @Override
@@ -95,23 +114,57 @@ public class Criterio {
     
     public void saveFile (String criteriofield){
        try (PrintWriter pw = new PrintWriter(new FileOutputStream(new File(criteriofield),true))){
-           pw.println(this.id + "|"+ this.nombre+ "|" + this.descripcion + "|"+ this.punt_max+ "|"+ this.idConcurso);
+           pw.println(this.id + "|"+ this.nombre+ "|" + this.descripcion + "|"+ this.punt_max+ "|"+ this.idConcurso+ "|"+ this.evaluaciones);
+            for (Evaluacion m: this.getEvaluaciones()){
+                pw.println(m.getId() + ";");
+            }
        }catch(Exception e){
            System.out.println(e.getMessage());
        }  
     }
-    
-    
+
     public static void saveFile(ArrayList<Criterio> listacriterios, String criteriofield){
         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(criteriofield),true))){
-            for (Criterio crit : listacriterios)
+            for (Criterio crit : listacriterios){
                 pw.println(crit.id + "|"+ crit.nombre+ "|" + crit.descripcion + "|"+ crit.punt_max + "|"+ crit.idConcurso);
+                for (Evaluacion m: crit.getEvaluaciones()){
+                    pw.println(m.getId() + ";");
+                }
+            }
+            
         }
         catch(Exception e){
             System.out.println(e.getMessage());
         }       
     }
     
+    public static ArrayList<Evaluacion>  GenerarListEvaluacionCriterio(String nombre,int id){
+        ArrayList<Evaluacion> e2 = new ArrayList<>();
+        ArrayList<Evaluacion> e= Evaluacion.readFile(nombre);
+        for (Evaluacion m: e){      
+                if (m.getIdCriterio()==id){
+                    e2.add(m);
+                }
+        }
+        return e2;
+    }
+    public static void ArchivoEvaluacionCriterio(){
+        ArrayList<Criterio> miembrosjurado_lista = Criterio.readFromFile("criterios.txt");
+        try(PrintWriter pw= new PrintWriter(new FileOutputStream(new File("criterios.txt")))){
+            for (Criterio v: miembrosjurado_lista){
+            //Mascota.saveFile(Duen.GenerarListMascotasDueño("mascotas.txt", d.getId()),"mascotasDueño");
+                String cadena="";
+                
+                for (Evaluacion m: Criterio.GenerarListEvaluacionCriterio("evaluaciones.txt", v.getId())){
+                    cadena = cadena.concat(m.getId() + ";");
+                }
+                v.setEvaluaciones(Criterio.GenerarListEvaluacionCriterio("evaluaciones.txt", v.getId()));
+                pw.println(v.getId() + "|"+ v.getNombre()+ "|" + v.getDescripcion() + "|"+ v.getPunt_max()+ "|"
+                    + v.getIdConcurso()+ "|" +cadena);
+            } 
+        }catch(Exception e){ System.out.println(e.getMessage());
+            }
+    }
     
     public static ArrayList<Criterio> readFromFile(String criteriofield){
         ArrayList<Criterio> criterios = new ArrayList<>();
@@ -131,8 +184,7 @@ public class Criterio {
         }
         return criterios;
     }
-    
-    
+       
     public static ArrayList<Criterio> nextCriterio(Scanner sc){
         int id=0,punt_max, id_concurso, cantidad, contador = 0; ;
         String nombre, descripcion;
